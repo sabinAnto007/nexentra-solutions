@@ -238,6 +238,96 @@ h2{font-size:clamp(1.9rem,4.1vw,2.9rem);line-height:1.11;letter-spacing:-.045em;
 .role-copy{text-align:center;max-width:58ch;margin:0 auto 26px;color:var(--dim);font-size:.97rem;min-height:52px;transition:opacity .3s}
 .role-copy.fade{opacity:0}
 
+/* ================= PRODUCTS ================= */
+.prod{position:relative;overflow:hidden;--acc:#1B6BF0;--acc2:#4A9BFF;
+  transition:--acc .8s var(--e)}
+.prod-glow{position:absolute;left:50%;top:16%;width:1100px;height:620px;transform:translateX(-50%);
+  pointer-events:none;z-index:0;filter:blur(120px);opacity:.3;
+  background:radial-gradient(ellipse at center,var(--acc),transparent 65%);
+  transition:background .9s var(--e),opacity .9s var(--e)}
+.prod > .wrap{position:relative;z-index:1}
+
+.ptabs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:34px}
+.ptab{display:flex;align-items:center;gap:13px;text-align:left;padding:16px 18px;border-radius:15px;
+  border:1px solid var(--line);background:rgba(122,160,255,.05);cursor:pointer;font-family:inherit;
+  color:var(--dim);transition:.45s var(--e)}
+.ptab:hover{border-color:var(--line2);color:#fff;transform:translateY(-2px)}
+.ptab.on{border-color:color-mix(in srgb,var(--acc) 55%,transparent);
+  background:linear-gradient(150deg,color-mix(in srgb,var(--acc) 22%,transparent),rgba(122,160,255,.03));
+  color:#fff;box-shadow:0 20px 50px -26px var(--acc);transform:translateY(-2px)}
+.pt-i{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;flex:none;
+  border:1px solid var(--line2);background:rgba(0,0,0,.25);color:var(--acc2);transition:.45s var(--e)}
+.ptab.on .pt-i{background:linear-gradient(140deg,var(--acc),var(--acc2));color:#fff;border-color:transparent}
+.pt-i svg{width:19px;height:19px}
+.pt-t{display:flex;flex-direction:column;line-height:1.25;min-width:0}
+.pt-t b{font-size:.94rem;font-weight:620;letter-spacing:-.025em}
+.pt-t s{text-decoration:none;font-size:.75rem;color:var(--faint);margin-top:2px}
+.ptab.on .pt-t s{color:var(--acc2)}
+
+.pcopy{max-width:64ch;margin:0 auto 30px;text-align:center;transition:opacity .3s}
+.pcopy.fade{opacity:0}
+.pcopy h3{font-size:1.5rem;font-weight:650;letter-spacing:-.04em;margin-bottom:10px}
+.pcopy p{color:var(--dim);font-size:.98rem;line-height:1.68}
+.ptags{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+.ptags span{font-size:.72rem;font-weight:560;padding:5px 12px;border-radius:999px;
+  border:1px solid color-mix(in srgb,var(--acc) 40%,transparent);
+  background:color-mix(in srgb,var(--acc) 14%,transparent);color:var(--acc2)}
+
+.pstage{position:relative;max-width:980px;margin-inline:auto}
+.pv{display:none}
+.pv.on{display:block;animation:pvIn .6s var(--e) both}
+@keyframes pvIn{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}
+.pv .app{transform:none;opacity:1;max-width:100%;
+  box-shadow:0 60px 150px -50px #000,0 0 0 1px rgba(122,160,255,.06),
+             0 -26px 80px -40px color-mix(in srgb,var(--acc) 70%,transparent)}
+.pv .ni.on{background:color-mix(in srgb,var(--acc) 24%,transparent);
+  box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--acc) 48%,transparent)}
+.pv .ni.on .sq{background:linear-gradient(140deg,var(--acc),var(--acc2))}
+.pv .chip{background:color-mix(in srgb,var(--acc) 18%,transparent);
+  border-color:color-mix(in srgb,var(--acc) 36%,transparent);color:var(--acc2)}
+.pv .kpi i{color:var(--acc2)}
+.pv .chart div{background:linear-gradient(180deg,var(--acc2),color-mix(in srgb,var(--acc) 16%,transparent))}
+.pv .row .av{background:linear-gradient(140deg,var(--acc),var(--acc2))}
+.pv.on .chart div{transform:scaleY(1)}
+
+/* --- screenplay page (Kirukals) --- */
+.page{border-radius:12px;border:1px solid var(--line);background:#F7F5EF;color:#15130E;
+  padding:22px 30px;font-family:'Courier New',var(--mono);font-size:.78rem;line-height:1.55;
+  min-height:236px;box-shadow:inset 0 0 40px rgba(0,0,0,.05)}
+.page .sl{font-weight:700;text-transform:uppercase;letter-spacing:.02em;margin-bottom:11px}
+.page .ac{margin-bottom:11px;max-width:58ch}
+.page .ch{text-align:center;font-weight:700;text-transform:uppercase;margin-top:6px}
+.page .pr{text-align:center;color:#5C574A;font-size:.73rem}
+.page .dg{max-width:34ch;margin:0 auto 11px;text-align:left}
+.caret{display:inline-block;width:1.5px;height:.95em;background:#15130E;margin-left:2px;
+  vertical-align:-2px;animation:blink 1.1s step-end infinite}
+@keyframes blink{50%{opacity:0}}
+.pmeta{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px;padding:10px 14px;border-radius:10px;
+  border:1px solid var(--line);background:rgba(122,160,255,.04);
+  font-size:.7rem;color:var(--faint);font-family:var(--mono)}
+.pmeta .ok{color:var(--acc2);margin-left:auto}
+
+/* --- ledger table (Gold Loan) --- */
+.ledger{border-radius:12px;border:1px solid var(--line);overflow:hidden}
+.lh,.lr{display:grid;grid-template-columns:1.1fr 1.1fr .9fr 1.1fr .9fr;gap:10px;padding:9px 13px;
+  font-size:.73rem;align-items:center}
+.lh{background:rgba(122,160,255,.06);color:var(--faint);font-weight:620;letter-spacing:.04em;
+  text-transform:uppercase;font-size:.64rem}
+.lr{border-top:1px solid var(--line);color:var(--dim);font-family:var(--mono);font-size:.71rem}
+.lr span:first-child{color:#fff}
+.lr .ok{color:var(--acc2)}
+.lr .warn{color:#FFB23F}
+.lr .bad{color:#FF5F6D}
+
+@media(max-width:900px){
+  .ptabs{grid-template-columns:1fr}
+  .pt-t s{display:none}
+  .lh,.lr{grid-template-columns:1fr 1fr 1fr;font-size:.66rem}
+  .lh span:nth-child(3),.lr span:nth-child(3),
+  .lh span:nth-child(4),.lr span:nth-child(4){display:none}
+  .page{padding:18px 20px;font-size:.72rem}
+}
+
 /* ================= STATS ================= */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 .stat{padding:31px 22px;border-radius:var(--r);border:1px solid var(--line);background:rgba(122,160,255,.045);text-align:center}
@@ -379,13 +469,13 @@ footer{border-top:1px solid var(--line);padding:62px 0 32px;margin-top:46px}
 
   <!-- ============ HERO ============ -->
   <div class="hero wrap">
-    <div class="tag"><b>NEW</b> Nexentra Logistics ERP — now in pilot</div>
-    <h1 id="h1">Enterprise software that <span class="gr">actually ships.</span></h1>
-    <p class="lede">Nexentra Solutions designs and builds the systems businesses run on — ERP platforms, web applications and cloud infrastructure. Engineered properly, delivered on time, and built to grow with you.</p>
+    <div class="tag"><b>3 PRODUCTS</b> Logistics ERP · Kirukals · Gold Loan ERP</div>
+    <h1 id="h1">We build software that <span class="gr">actually ships.</span></h1>
+    <p class="lede">Nexentra Solutions is a product company. We design, engineer and run our own platforms — from multi-branch enterprise ERPs to a screenplay editor that works with the network switched off. We build for clients the same way we build for ourselves.</p>
     <div class="acts">
-      <a class="btn p mag" href="#contact">Start a project
+      <a class="btn p mag" href="#product">See our products
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      <a class="btn g mag" href="#product">See our platform</a>
+      <a class="btn g mag" href="#contact">Start a project</a>
     </div>
     <div class="pillars">
       <span class="pillar">Innovate</span><span class="pillar">Integrate</span><span class="pillar">Elevate</span>
@@ -520,35 +610,148 @@ footer{border-top:1px solid var(--line);padding:62px 0 32px;margin-top:46px}
     </div>
   </section>
 
-  <!-- ============ FLAGSHIP PRODUCT ============ -->
-  <section id="product" class="wrap">
-    <div class="head mid rv">
-      <div class="eyebrow">Flagship product</div>
-      <h2>Nexentra Logistics ERP</h2>
-      <p>Our first platform — a complete operating system for transport businesses. Bookings to balance sheet, across every branch, in one place.</p>
-    </div>
-    <div class="roles rv">
-      <button class="role on" data-r="0">Owner</button>
-      <button class="role" data-r="1">Branch Manager</button>
-      <button class="role" data-r="2">Dispatcher</button>
-      <button class="role" data-r="3">Accountant</button>
-    </div>
-    <p class="role-copy rv" id="roleCopy">Every branch, one P&amp;L. Utilisation, receivables and compliance risk across the whole company — without waiting for a monthly report.</p>
-    <div class="rc rv" id="rc">
-      <div class="app hair">
-        <div class="bar">
-          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-          <div class="omni" id="rcUrl">app.nexentra.in/erp/role-center/owner</div>
-        </div>
-        <div class="app-body">
-          <aside class="side" id="rcSide"></aside>
-          <div class="panel">
-            <div class="ptop"><h4 id="rcTitle">Owner — All Branches</h4><span class="chip" id="rcChip">● Live</span></div>
-            <div class="kpis" id="rcKpis"></div>
-            <div class="chart" id="rcChart"></div>
-            <div class="rows" id="rcRows"></div>
+  <!-- ============ PRODUCTS ============ -->
+  <section id="product" class="prod" data-p="0">
+    <div class="prod-glow" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="head mid rv">
+        <div class="eyebrow">Our products</div>
+        <h2>We don't just build for clients.<br>We build our own.</h2>
+        <p>Three platforms shipped from the same engineering bench — enterprise operations, lending, and a creative tool used by writers. Different industries, same standard.</p>
+      </div>
+
+      <div class="ptabs rv" role="tablist">
+        <button class="ptab on" data-p="0" role="tab" aria-selected="true">
+          <span class="pt-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></span>
+          <span class="pt-t"><b>Logistics ERP</b><s>Transport operations</s></span>
+        </button>
+        <button class="ptab" data-p="1" role="tab" aria-selected="false">
+          <span class="pt-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3h11l5 5v13H4z"/><path d="M15 3v5h5"/><path d="M8 13h8M8 17h5"/></svg></span>
+          <span class="pt-t"><b>Kirukals</b><s>Screenplay editor</s></span>
+        </button>
+        <button class="ptab" data-p="2" role="tab" aria-selected="false">
+          <span class="pt-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.5h5M9.5 14.5h5"/></svg></span>
+          <span class="pt-t"><b>Gold Loan ERP</b><s>Lending &amp; pledges</s></span>
+        </button>
+      </div>
+
+      <div class="pcopy rv" id="pcopy">
+        <h3 id="pcTitle">Nexentra Logistics ERP</h3>
+        <p id="pcDesc">A complete operating system for transport businesses — bookings, dispatch, POD, GST invoicing and fleet compliance across every branch. Multi-tenant, role-based, and built so a dispatcher, an accountant and an owner each open the screen made for their job.</p>
+        <div class="ptags" id="pcTags"></div>
+      </div>
+
+      <div class="pstage rv" id="pstage">
+
+        <!-- ---------- 0: LOGISTICS ERP ---------- -->
+        <div class="pv on" data-p="0">
+          <div class="app hair">
+            <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+              <div class="omni">app.nexentra.in/erp/chennai/role-center</div></div>
+            <div class="app-body">
+              <aside class="side">
+                <h5>Operations</h5>
+                <div class="ni on"><span class="sq"></span>Role Center</div>
+                <div class="ni"><span class="sq"></span>Freight / Trips</div>
+                <div class="ni"><span class="sq"></span>Vehicles</div>
+                <div class="ni"><span class="sq"></span>Drivers</div>
+                <h5>Finance</h5>
+                <div class="ni"><span class="sq"></span>Invoices &amp; GST</div>
+                <div class="ni"><span class="sq"></span>Receivables</div>
+              </aside>
+              <div class="panel">
+                <div class="ptop"><h4>Role Center — Chennai Branch</h4><span class="chip">● All systems normal</span></div>
+                <div class="kpis">
+                  <div class="kpi"><span>Trips in transit</span><b>34</b><i>+12%</i></div>
+                  <div class="kpi"><span>Avg. invoice lag</span><b>1.2d</b><i>−68%</i></div>
+                  <div class="kpi"><span>Receivables</span><b>₹18.4L</b><i>−22%</i></div>
+                </div>
+                <div class="chart">
+                  <div style="--h:36%"></div><div style="--h:54%"></div><div style="--h:42%"></div>
+                  <div style="--h:68%"></div><div style="--h:58%"></div><div style="--h:82%"></div>
+                  <div style="--h:71%"></div><div style="--h:94%"></div><div style="--h:80%"></div>
+                  <div style="--h:100%"></div><div style="--h:88%"></div><div style="--h:96%"></div>
+                </div>
+                <div class="rows">
+                  <div class="row"><span class="av"></span>LR-2026-04417 · Chennai → Salem<span class="sp">in transit</span></div>
+                  <div class="row"><span class="av"></span>LR-2026-04418 · POD received<span class="sp">ready to bill</span></div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+
+        <!-- ---------- 1: KIRUKALS ---------- -->
+        <div class="pv" data-p="1">
+          <div class="app hair">
+            <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+              <div class="omni">kirukals.app — INT. COFFEE SHOP · draft 3</div></div>
+            <div class="app-body">
+              <aside class="side">
+                <h5>Scenes</h5>
+                <div class="ni on"><span class="sq"></span>1. INT. COFFEE SHOP</div>
+                <div class="ni"><span class="sq"></span>2. EXT. MARINA — NIGHT</div>
+                <div class="ni"><span class="sq"></span>3. INT. CAR — MOVING</div>
+                <div class="ni"><span class="sq"></span>4. INT. OFFICE — DAY</div>
+                <h5>Draft</h5>
+                <div class="ni"><span class="sq"></span>Characters</div>
+                <div class="ni"><span class="sq"></span>Export PDF</div>
+              </aside>
+              <div class="panel">
+                <div class="ptop"><h4>Untitled Screenplay</h4><span class="chip">● Autosaved · offline</span></div>
+                <div class="page">
+                  <div class="sl">INT. COFFEE SHOP — MORNING</div>
+                  <div class="ac">Rain on the window. ARJUN, 30s, stares at a laptop that has not moved in an hour. The cursor blinks. So does he.</div>
+                  <div class="ch">ARJUN</div>
+                  <div class="pr">(to no one)</div>
+                  <div class="dg">Formatting is not writing.</div>
+                  <div class="ac">He types. The page paginates itself. He does not notice, which is the point.</div>
+                  <div class="ch">MEERA</div>
+                  <div class="dg">Then stop fighting it and finish the scene.<span class="caret"></span></div>
+                </div>
+                <div class="pmeta">
+                  <span>Page 1 of 3</span><span>1,284 words</span><span>Courier 12pt</span><span class="ok">● Saved locally</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ---------- 2: GOLD LOAN ERP ---------- -->
+        <div class="pv" data-p="2">
+          <div class="app hair">
+            <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+              <div class="omni">app.nexentra.in/goldloan/branch-01/ledger</div></div>
+            <div class="app-body">
+              <aside class="side">
+                <h5>Lending</h5>
+                <div class="ni on"><span class="sq"></span>Loan Ledger</div>
+                <div class="ni"><span class="sq"></span>New Pledge</div>
+                <div class="ni"><span class="sq"></span>Releases</div>
+                <div class="ni"><span class="sq"></span>Auctions</div>
+                <h5>Vault</h5>
+                <div class="ni"><span class="sq"></span>Packet Register</div>
+                <div class="ni"><span class="sq"></span>Audit Trail</div>
+              </aside>
+              <div class="panel">
+                <div class="ptop"><h4>Loan Ledger — Branch 01</h4><span class="chip">● Rate ₹7,412 / g</span></div>
+                <div class="kpis">
+                  <div class="kpi"><span>Active loans</span><b>842</b><i>+6%</i></div>
+                  <div class="kpi"><span>Principal out</span><b>₹6.4Cr</b><i>+11%</i></div>
+                  <div class="kpi"><span>Overdue</span><b>₹18.2L</b><i>−9%</i></div>
+                </div>
+                <div class="ledger">
+                  <div class="lh"><span>Loan</span><span>Pledge</span><span>Net wt.</span><span>Amount</span><span>Status</span></div>
+                  <div class="lr"><span>GL-24118</span><span>Bangle ×2</span><span>38.20 g</span><span>₹2,10,000</span><span class="ok">Active</span></div>
+                  <div class="lr"><span>GL-24119</span><span>Chain</span><span>21.60 g</span><span>₹1,18,500</span><span class="ok">Active</span></div>
+                  <div class="lr"><span>GL-24120</span><span>Ring ×4</span><span>12.40 g</span><span>₹68,000</span><span class="warn">Due 4d</span></div>
+                  <div class="lr"><span>GL-24121</span><span>Necklace</span><span>54.80 g</span><span>₹3,02,000</span><span class="bad">Overdue</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -556,8 +759,8 @@ footer{border-top:1px solid var(--line);padding:62px 0 32px;margin-top:46px}
   <!-- ============ STATS ============ -->
   <section class="wrap" style="padding-top:0">
     <div class="stats">
-      <div class="stat rv"><div class="n" data-to="30" data-suffix="%">0</div><div class="l">Faster invoice-to-cash</div></div>
-      <div class="stat rv"><div class="n" data-to="90" data-suffix="%">0</div><div class="l">Operations digital in 3 months</div></div>
+      <div class="stat rv"><div class="n" data-to="3" data-suffix="">0</div><div class="l">Platforms built and shipped</div></div>
+      <div class="stat rv"><div class="n" data-to="30" data-suffix="%">0</div><div class="l">Faster invoice-to-cash for clients</div></div>
       <div class="stat rv"><div class="n" data-to="50" data-suffix="+">0</div><div class="l">Branches supported, no redesign</div></div>
       <div class="stat rv"><div class="n" data-to="99" data-suffix=".9%">0</div><div class="l">Platform uptime target</div></div>
     </div>
@@ -704,64 +907,51 @@ if(!rm && matchMedia('(pointer:fine)').matches){
   });
 }
 
-/* ===== Role Centers ===== */
-const ROLES=[
-  { url:'app.nexentra.in/erp/role-center/owner', title:'Owner — All Branches', chip:'● 3 branches live',
-    copy:'Every branch, one P&L. Utilisation, receivables and compliance risk across the whole company — without waiting for a monthly report.',
-    nav:[['Company',['Role Center','Branches','P&L Summary']],['Insight',['Utilisation','Receivables','Compliance']]],
-    kpis:[['Revenue MTD','₹1.24Cr','+18%'],['Fleet utilisation','87%','+6%'],['Total receivables','₹42.8L','−22%']],
-    bars:[42,58,50,66,74,62,88,79,95,86,100,92],
-    rows:[['Chennai Branch · 118 trips','₹52.4L'],['Coimbatore Branch · 74 trips','₹38.1L']] },
-  { url:'app.nexentra.in/erp/chennai/manager', title:'Branch Manager — Chennai', chip:'● 34 in transit',
-    copy:'One branch, fully in hand. Which vehicles are moving, which are idle, which trips are stuck waiting on a POD — and what it is costing you today.',
-    nav:[['Branch',['Role Center','Trips','Vehicles','Drivers']],['Review',['Pending POD','Idle Fleet']]],
-    kpis:[['Trips today','46','+9%'],['Idle vehicles','3','−4'],['Pending POD','7','−12']],
-    bars:[55,48,70,62,80,72,90,66,84,94,76,88],
-    rows:[['TN 09 AB 1234 · loading','on time'],['TN 28 BX 8890 · idle 2 days','action needed']] },
-  { url:'app.nexentra.in/erp/chennai/dispatcher', title:'Dispatcher — Chennai', chip:'● 12 to assign',
-    copy:'Open one screen and know every vehicle. Assign, dispatch and clear the board — with E-Way Bill validated before anything is allowed to move.',
-    nav:[['Dispatch',['Role Center','To Assign','In Transit','Completed']],['Fleet',['Available','On Trip']]],
-    kpis:[['Awaiting assignment','12','−5'],['Vehicles available','9','+2'],['E-Way pending','2','−7']],
-    bars:[30,44,38,60,52,72,64,86,70,92,80,96],
-    rows:[['LR-2026-04417 · Chennai → Salem','assign vehicle'],['LR-2026-04418 · Chennai → Trichy','ready to dispatch']] },
-  { url:'app.nexentra.in/erp/chennai/accounts', title:'Accountant — Chennai', chip:'● GSTR-1 ready',
-    copy:'Bills raised from completed trips, not retyped from a register. GST returns reconcile because the invoice and the trip are the same record.',
-    nav:[['Finance',['Role Center','Invoices','Receivables','GST Returns']],['Masters',['Parties','Rate Contracts']]],
-    kpis:[['Ready to invoice','23','+11'],['Overdue > 30d','₹8.6L','−31%'],['Avg. invoice lag','1.2d','−68%']],
-    bars:[62,50,74,58,82,68,90,76,94,84,98,88],
-    rows:[['Party: Sundaram Steels · 6 bills','₹4.82L due'],['GSTR-1 · March 2026','ready to file']] }
+/* ===== Product showcase ===== */
+const PRODUCTS=[
+  { acc:'#1B6BF0', acc2:'#4A9BFF',
+    title:'Nexentra Logistics ERP',
+    desc:'A complete operating system for transport businesses — bookings, dispatch, POD, GST invoicing and fleet compliance across every branch. Multi-tenant and role-based, so a dispatcher, an accountant and an owner each open the screen built for their job.',
+    tags:['Multi-branch','GST &amp; E-Way Bill','Role Centers','Driver mobile app','English &amp; தமிழ்'] },
+  { acc:'#A855F7', acc2:'#D8B4FE',
+    title:'Kirukals',
+    desc:'A screenplay editor that gets out of the way. Type continuously and it handles industry formatting, page geometry and export — installs as a desktop app and keeps working with the network switched off entirely.',
+    tags:['Offline-first PWA','Auto-formatting','Live pagination','PDF export','Installs as an app'] },
+  { acc:'#F5A524', acc2:'#FFCF70',
+    title:'Gold Loan ERP',
+    desc:'End-to-end pledge lending — valuation at the live gold rate, packet and vault tracking, interest accrual, renewals, releases and auctions. Every movement of every gram is on an audit trail.',
+    tags:['Live rate valuation','Vault register','Interest accrual','Auction workflow','Full audit trail'] }
 ];
-const rcSide=document.getElementById('rcSide'), rcKpis=document.getElementById('rcKpis'),
-      rcChart=document.getElementById('rcChart'), rcRows=document.getElementById('rcRows'),
-      rcTitle=document.getElementById('rcTitle'), rcUrl=document.getElementById('rcUrl'),
-      rcChip=document.getElementById('rcChip'), roleCopy=document.getElementById('roleCopy'),
-      rcEl=document.getElementById('rc');
 
-function paint(i){
-  const r=ROLES[i];
-  rcTitle.textContent=r.title; rcUrl.textContent=r.url; rcChip.textContent=r.chip;
-  rcSide.innerHTML=r.nav.map(([h,items],gi)=>
-    '<h5>'+h+'</h5>'+items.map((n,k)=>'<div class="ni'+(gi===0&&k===0?' on':'')+'"><span class="sq"></span>'+n+'</div>').join('')
-  ).join('');
-  rcKpis.innerHTML=r.kpis.map(([l,v,d])=>'<div class="kpi"><span>'+l+'</span><b>'+v+'</b><i>'+d+'</i></div>').join('');
-  rcChart.innerHTML=r.bars.map(h=>'<div style="--h:'+h+'%"></div>').join('');
-  rcRows.innerHTML=r.rows.map(([a,b])=>'<div class="row"><span class="av"></span>'+a+'<span class="sp">'+b+'</span></div>').join('');
-  roleCopy.textContent=r.copy;
-  rcEl.classList.remove('shown');
-  requestAnimationFrame(()=>requestAnimationFrame(()=>rcEl.classList.add('shown')));
+const prodSec=document.getElementById('product'),
+      pcopy=document.getElementById('pcopy'),
+      pcTitle=document.getElementById('pcTitle'),
+      pcDesc=document.getElementById('pcDesc'),
+      pcTags=document.getElementById('pcTags');
+
+function showProduct(i){
+  const p=PRODUCTS[i];
+  prodSec.style.setProperty('--acc',p.acc);
+  prodSec.style.setProperty('--acc2',p.acc2);
+  prodSec.dataset.p=i;
+  pcTitle.textContent=p.title;
+  pcDesc.textContent=p.desc;
+  pcTags.innerHTML=p.tags.map(t=>'<span>'+t+'</span>').join('');
+  document.querySelectorAll('.pv').forEach(v=>v.classList.toggle('on', +v.dataset.p===i));
+  document.querySelectorAll('.ptab').forEach(b=>{
+    const on = +b.dataset.p===i;
+    b.classList.toggle('on',on);
+    b.setAttribute('aria-selected',on);
+  });
 }
-paint(0);
-document.querySelectorAll('.role').forEach(btn=>{
+showProduct(0);
+document.querySelectorAll('.ptab').forEach(btn=>{
   btn.addEventListener('click',()=>{
-    document.querySelectorAll('.role').forEach(b=>b.classList.remove('on'));
-    btn.classList.add('on');
-    roleCopy.classList.add('fade');
-    setTimeout(()=>{ paint(+btn.dataset.r); roleCopy.classList.remove('fade'); },200);
+    if(btn.classList.contains('on'))return;
+    pcopy.classList.add('fade');
+    setTimeout(()=>{ showProduct(+btn.dataset.p); pcopy.classList.remove('fade'); },200);
   });
 });
-new IntersectionObserver((es,o)=>es.forEach(e=>{
-  if(e.isIntersecting){ rcEl.classList.add('shown'); o.unobserve(e.target); }
-}),{threshold:.3}).observe(rcEl);
 </script>
 </body>
 </html>
