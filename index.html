@@ -572,6 +572,96 @@ footer{border-top:1px solid var(--line);padding:62px 0 32px;margin-top:46px;back
   .app{transform:none;opacity:1}
   .chart div{transform:scaleY(1)}
 }
+/* ================= INTERACTION SYSTEM ================= */
+:root{
+  --spring:linear(0,.09 .7%,.35 1.6%,1.23 4.4%,1.44,1.53,1.52,1.44,1.32 9.4%,1.06 12.2%,.99,.96,.95,.96,.99,1.03 20%,1.05,1.05,1.02,1 28.7%,.99 34%,1);
+  --snap:cubic-bezier(.34,1.56,.64,1);
+}
+
+/* ---------- universal press feedback (mouse + touch) ---------- */
+.btn:active,.chp:active,.ptab:active,.chan:active,.soc a:active,
+.si-i:active,.fab:active,.pillar:active,.role:active{
+  transform:scale(.965) translate(var(--tx,0),var(--ty,0px))!important;
+  transition-duration:.08s!important}
+.card:active,.ecard:active,.stat:active{transform:scale(.99)!important;transition-duration:.1s!important}
+.links a:active,.fc a:active{opacity:.6;transition-duration:.08s}
+
+/* kill sticky hover + tap highlight on touch devices */
+*{-webkit-tap-highlight-color:transparent}
+@media(hover:none){
+  .card:hover,.ecard:hover,.stat:hover,.ptab:hover,.chan:hover,.tile:hover{transform:none;box-shadow:var(--sh-sm)}
+  .card:hover::before{opacity:0}
+}
+
+/* ---------- custom cursor (fine pointers only) ---------- */
+.cur,.cur-r{position:fixed;top:0;left:0;z-index:9999;pointer-events:none;border-radius:50%;
+  opacity:0;transition:opacity .3s,width .3s var(--snap),height .3s var(--snap),background .3s,border-color .3s}
+.cur{width:7px;height:7px;background:var(--blue);margin:-3.5px 0 0 -3.5px}
+.cur-r{width:34px;height:34px;border:1.5px solid rgba(21,96,224,.45);margin:-17px 0 0 -17px}
+body.cur-on .cur,body.cur-on .cur-r{opacity:1}
+body.cur-on.cur-hot .cur{width:0;height:0}
+body.cur-on.cur-hot .cur-r{width:54px;height:54px;background:rgba(21,96,224,.12);border-color:var(--blue)}
+body.cur-on.cur-txt .cur-r{width:3px;height:26px;border-radius:2px;background:var(--blue);border-color:transparent}
+@media(hover:hover) and (pointer:fine){
+  body.cur-on,body.cur-on a,body.cur-on button{cursor:none}
+  body.cur-on input,body.cur-on textarea,body.cur-on select{cursor:auto}
+}
+
+/* ---------- arrow slide on CTA ---------- */
+.btn svg:last-child:not(:first-child){transition:transform .35s var(--snap)}
+.btn:hover svg:last-child:not(:first-child){transform:translateX(4px)}
+
+/* ---------- toast ---------- */
+.toasts{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:120;
+  display:flex;flex-direction:column;gap:9px;align-items:center;pointer-events:none;width:max-content;max-width:90vw}
+.toast{display:flex;align-items:center;gap:10px;padding:12px 18px;border-radius:999px;
+  background:var(--ink);color:#fff;font-size:.85rem;font-weight:560;box-shadow:var(--sh-lg);
+  animation:toastIn .5s var(--snap) both}
+.toast.out{animation:toastOut .35s var(--e) forwards}
+.toast svg{width:16px;height:16px;color:#5BE3A0;flex:none}
+@keyframes toastIn{from{opacity:0;transform:translateY(20px) scale(.9)}to{opacity:1;transform:none}}
+@keyframes toastOut{to{opacity:0;transform:translateY(14px) scale(.94)}}
+
+/* ---------- swipe affordance on products ---------- */
+.pstage{touch-action:pan-y}
+.swipe-hint{display:none;text-align:center;font-size:.75rem;color:var(--faint);margin-top:14px;
+  align-items:center;justify-content:center;gap:7px}
+.swipe-hint svg{width:15px;height:15px;animation:swipeNudge 1.8s ease-in-out infinite}
+@keyframes swipeNudge{0%,100%{transform:translateX(-3px)}50%{transform:translateX(3px)}}
+@media(hover:none){.swipe-hint{display:flex}}
+
+/* ---------- copyable channels ---------- */
+.chan{position:relative}
+.chan .copy{position:absolute;right:14px;top:50%;transform:translateY(-50%) scale(.8);opacity:0;
+  width:30px;height:30px;border-radius:9px;display:grid;place-items:center;border:1px solid var(--line2);
+  background:var(--bg-2);color:var(--dim);transition:.3s var(--snap)}
+.chan:hover .copy,.chan:focus-within .copy{opacity:1;transform:translateY(-50%) scale(1)}
+.chan .copy:hover{color:var(--blue);border-color:var(--blue);background:#fff}
+.chan .copy svg{width:14px;height:14px}
+@media(hover:none){.chan .copy{opacity:1;transform:translateY(-50%) scale(1)}}
+
+/* ---------- logo mark hover ---------- */
+.logo .nx-a{transition:transform .45s var(--snap),fill .3s}
+.logo:hover .nx-a{transform:translateX(5px)}
+.logo .nx-n,.logo .nx-e{transition:fill .3s}
+
+/* ---------- keyboard focus on product tabs ---------- */
+.ptab:focus-visible{outline:3px solid rgba(21,96,224,.5);outline-offset:2px}
+
+/* ---------- field label lift ---------- */
+.fld label{transition:color .25s}
+.fld:focus-within label{color:var(--blue)}
+
+/* ---------- nav link icon dot ---------- */
+.links a.act::before{content:"";position:absolute;left:6px;top:50%;width:4px;height:4px;border-radius:50%;
+  background:var(--blue);transform:translateY(-50%) scale(0);animation:dotIn .4s var(--snap) forwards}
+@keyframes dotIn{to{transform:translateY(-50%) scale(1)}}
+
+@media(prefers-reduced-motion:reduce){
+  .cur,.cur-r{display:none}
+  body.cur-on,body.cur-on a,body.cur-on button{cursor:auto}
+}
+
 </style>
 </head>
 <body>
@@ -598,21 +688,15 @@ footer{border-top:1px solid var(--line);padding:62px 0 32px;margin-top:46px;back
       <stop offset="0" stop-color="#7FBAFF"/><stop offset="1" stop-color="#1560E0"/>
     </linearGradient>
 
-    <symbol id="nxMark" viewBox="0 0 78 64">
+    <!-- Mark 10: flat geometric N + barred E -->
+    <symbol id="nxMark" viewBox="0 0 88 64">
       <!-- N -->
-      <path d="M6 56V8h9.5l17 25.5V8H42v48h-9.5L15.5 30.5V56z" fill="url(#nxLight)"/>
+      <path class="nx-n" d="M2 60V4h12l20 31.5V4h12v56H34L14 28.5V60z" fill="#0A1435"/>
       <!-- E bars -->
-      <path d="M36 8h30l-5.5 9.5H36z" fill="url(#nxBlue)"/>
-      <path d="M40 27.2h22l-5.5 9.5H40z" fill="url(#nxBlue)"/>
-      <path d="M44 46.5h30l-5.5 9.5H44z" fill="url(#nxBlue)"/>
-      <!-- swoosh ribbon -->
-      <path d="M4 44c2 12 15 18 27 9C43 44 52 26 64 14"
-        fill="none" stroke="url(#nxSwoosh)" stroke-width="5.2" stroke-linecap="round"/>
-      <!-- pixel dust -->
-      <rect x="66" y="6" width="4.6" height="4.6" rx="1" fill="#4A9BFF"/>
-      <rect x="72" y="1" width="3.4" height="3.4" rx="1" fill="#7FBAFF"/>
-      <rect x="70.5" y="12" width="3" height="3" rx="1" fill="#1560E0"/>
-      <rect x="61" y="0" width="2.6" height="2.6" rx="1" fill="#7FBAFF"/>
+      <path class="nx-e" d="M52 4h34v11H52z" fill="#0A1435"/>
+      <path class="nx-e" d="M52 26.5h18v11H52z" fill="#0A1435"/>
+      <path class="nx-a" d="M75 26.5h11v11H75z" fill="#1560E0"/>
+      <path class="nx-e" d="M52 49h34v11H52z" fill="#0A1435"/>
     </symbol>
   </defs>
 </svg>
@@ -621,7 +705,7 @@ footer{border-top:1px solid var(--line);padding:62px 0 32px;margin-top:46px;back
   <div class="wrap">
     <nav>
       <a class="logo" href="#top" aria-label="Nexentra Solutions home">
-        <svg width="42" height="34" viewBox="0 0 78 64"><use href="#nxMark"/></svg>
+        <svg width="40" height="29" viewBox="0 0 88 64" aria-hidden="true"><use href="#nxMark"/></svg>
         <span class="logo-txt"><b>NEXENTRA</b><s>Solutions</s></span>
       </a>
       <div class="links" id="links">
@@ -1146,7 +1230,7 @@ footer{border-top:1px solid var(--line);padding:62px 0 32px;margin-top:46px;back
     <div class="fg">
       <div class="fb">
         <a class="logo" href="#top">
-          <svg width="42" height="34" viewBox="0 0 78 64"><use href="#nxMark"/></svg>
+          <svg width="40" height="29" viewBox="0 0 88 64" aria-hidden="true"><use href="#nxMark"/></svg>
           <span class="logo-txt"><b>NEXENTRA</b><s>Solutions</s></span>
         </a>
         <p>Innovate · Integrate · Elevate — enterprise software, engineered properly and delivered on time.</p>
@@ -1524,6 +1608,112 @@ document.querySelectorAll('.ptab').forEach(btn=>{
     setTimeout(()=>{ showProduct(+btn.dataset.p); pcopy.classList.remove('fade'); },200);
   });
 });
+/* ===== Interaction system: cursor, toasts, swipe, keyboard, copy ===== */
+
+/* ---------- toast ---------- */
+const toastBox=document.createElement('div');
+toastBox.className='toasts'; toastBox.setAttribute('aria-live','polite');
+document.body.appendChild(toastBox);
+function toast(msg){
+  const t=document.createElement('div');
+  t.className='toast';
+  t.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span></span>';
+  t.querySelector('span').textContent=msg;
+  toastBox.appendChild(t);
+  setTimeout(()=>{ t.classList.add('out'); setTimeout(()=>t.remove(),400); },2600);
+}
+
+/* ---------- custom cursor ---------- */
+if(!rm && matchMedia('(hover:hover) and (pointer:fine)').matches){
+  const dot=document.createElement('div'); dot.className='cur';
+  const ring=document.createElement('div'); ring.className='cur-r';
+  document.body.append(dot,ring);
+  document.body.classList.add('cur-on');
+  let rx=0,ry=0,tx=0,ty=0;
+  addEventListener('pointermove',e=>{
+    tx=e.clientX; ty=e.clientY;
+    dot.style.transform='translate('+tx+'px,'+ty+'px)';
+    const el=e.target;
+    const hot=el.closest('a,button,.card,.ecard,.ptab,.chp,.chan,.stat,[role="tab"]');
+    const txt=el.closest('input,textarea,p,h1,h2,h3,blockquote');
+    document.body.classList.toggle('cur-hot',!!hot);
+    document.body.classList.toggle('cur-txt',!hot && !!txt);
+  },{passive:true});
+  (function loop(){
+    rx+=(tx-rx)*.16; ry+=(ty-ry)*.16;
+    ring.style.transform='translate('+rx+'px,'+ry+'px)';
+    requestAnimationFrame(loop);
+  })();
+  addEventListener('pointerleave',()=>document.body.classList.remove('cur-on'));
+  addEventListener('pointerenter',()=>document.body.classList.add('cur-on'));
+}
+
+/* ---------- product tabs: keyboard + swipe ---------- */
+(function(){
+  const tabs=[...document.querySelectorAll('.ptab')];
+  const stage=document.getElementById('pstage');
+  if(!tabs.length||!stage)return;
+
+  const go=i=>{ i=(i+tabs.length)%tabs.length; tabs[i].click(); tabs[i].focus(); };
+  const current=()=>tabs.findIndex(t=>t.classList.contains('on'));
+
+  tabs.forEach(t=>t.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key==='ArrowDown'){ e.preventDefault(); go(current()+1); }
+    if(e.key==='ArrowLeft' ||e.key==='ArrowUp'  ){ e.preventDefault(); go(current()-1); }
+    if(e.key==='Home'){ e.preventDefault(); go(0); }
+    if(e.key==='End') { e.preventDefault(); go(tabs.length-1); }
+  }));
+
+  // swipe left/right to change product on touch
+  let x0=null,y0=null;
+  stage.addEventListener('touchstart',e=>{
+    x0=e.touches[0].clientX; y0=e.touches[0].clientY;
+  },{passive:true});
+  stage.addEventListener('touchend',e=>{
+    if(x0===null)return;
+    const dx=e.changedTouches[0].clientX-x0, dy=e.changedTouches[0].clientY-y0;
+    if(Math.abs(dx)>55 && Math.abs(dx)>Math.abs(dy)*1.6){
+      const i=current();
+      const next=dx<0 ? i+1 : i-1;
+      if(next>=0 && next<tabs.length){
+        tabs[next].click();
+        if(navigator.vibrate) navigator.vibrate(8);
+      }
+    }
+    x0=y0=null;
+  },{passive:true});
+
+  // swipe affordance
+  const hint=document.createElement('div');
+  hint.className='swipe-hint';
+  hint.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12H3M6 9l-3 3 3 3M16 12h5M18 9l3 3-3 3"/></svg><span>Swipe to switch product</span>';
+  stage.after(hint);
+})();
+
+/* ---------- copy to clipboard on contact channels ---------- */
+[['chanTel',()=>NEXENTRA.phone,'Phone number copied'],
+ ['chanMail',()=>NEXENTRA.email,'Email address copied']].forEach(([id,val,msg])=>{
+  const host=document.getElementById(id);
+  if(!host)return;
+  const b=document.createElement('button');
+  b.type='button'; b.className='copy'; b.setAttribute('aria-label',msg);
+  b.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 012-2h10"/></svg>';
+  b.addEventListener('click',async e=>{
+    e.preventDefault(); e.stopPropagation();
+    try{ await navigator.clipboard.writeText(val()); toast(msg); }
+    catch{ toast('Press and hold to copy'); }
+  });
+  host.appendChild(b);
+});
+
+/* ---------- confirm sends with a toast too ---------- */
+document.getElementById('leadForm')?.addEventListener('submit',()=>{
+  setTimeout(()=>toast('Opening WhatsApp…'),120);
+});
+document.getElementById('sendMail')?.addEventListener('click',()=>{
+  setTimeout(()=>toast('Opening your mail app…'),120);
+});
+
 </script>
 </body>
 </html>
