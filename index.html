@@ -3,10 +3,50 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Nexentra Solutions — Innovate · Integrate · Elevate</title>
-<meta name="description" content="Nexentra Solutions builds enterprise software that ships — ERP platforms, web applications and cloud systems for businesses that outgrew spreadsheets." />
+<title>Nexentra Solutions — Enterprise Software Product Company</title>
+<meta name="description" content="Nexentra Solutions is a software product company building enterprise ERP platforms, web applications and cloud systems. Three products shipped. Global delivery, engineered to standard." />
+<meta name="keywords" content="enterprise software development, ERP software company, custom software development, logistics ERP, cloud applications, offshore development partner" />
+<meta name="author" content="Nexentra Solutions" />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<link rel="canonical" href="https://nexentra.in/" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Nexentra Solutions" />
+<meta property="og:title" content="Nexentra Solutions — Enterprise Software Product Company" />
+<meta property="og:description" content="We design, engineer and run our own platforms — enterprise ERP, lending systems and creative tools. We build for clients the same way we build for ourselves." />
+<meta property="og:url" content="https://nexentra.in/" />
+<meta property="og:image" content="https://nexentra.in/og-image.png" />
+<meta property="og:locale" content="en" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Nexentra Solutions — Enterprise Software Product Company" />
+<meta name="twitter:description" content="Three products shipped. Enterprise ERP, lending systems and creative software, engineered to standard." />
+<meta name="twitter:image" content="https://nexentra.in/og-image.png" />
+
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="apple-touch-icon" href="favicon.svg" />
 <meta name="theme-color" content="#050A18" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Nexentra Solutions",
+  "url": "https://nexentra.in/",
+  "logo": "https://nexentra.in/favicon.svg",
+  "slogan": "Innovate · Integrate · Elevate",
+  "description": "Software product company building enterprise ERP platforms, web applications and cloud systems.",
+  "areaServed": "Worldwide",
+  "knowsLanguage": ["en", "ta"],
+  "makesOffer": [
+    { "@type": "Offer", "itemOffered": { "@type": "SoftwareApplication", "name": "Nexentra Logistics ERP", "applicationCategory": "BusinessApplication" } },
+    { "@type": "Offer", "itemOffered": { "@type": "SoftwareApplication", "name": "Gold Loan ERP", "applicationCategory": "FinanceApplication" } },
+    { "@type": "Offer", "itemOffered": { "@type": "SoftwareApplication", "name": "Kirukals", "applicationCategory": "DesignApplication" } }
+  ]
+}
+</script>
 <style>
 /* ================= BRAND TOKENS ================= */
 :root{
@@ -434,12 +474,54 @@ footer{border-top:1px solid var(--line);padding:62px 0 32px;margin-top:46px}
 .hours{border-radius:15px;border:1px solid var(--line);padding:15px 17px;background:rgba(122,160,255,.03);margin-top:4px}
 .hrow{display:flex;justify-content:space-between;gap:12px;font-size:.81rem;padding:5px 0}
 .hrow span{color:var(--faint)}
-.hrow b{font-weight:580;color:var(--fg)}
+.hrow b{font-weight:580;color:var(--fg);text-align:right}
+.hrow b em{font-style:normal;color:var(--faint);font-weight:400;font-size:.92em}
+.tel-wrap{display:flex;gap:8px}
+.tel-wrap select{padding:12px 10px;border-radius:11px;font-family:inherit;font-size:.87rem;color:var(--fg);
+  background:rgba(4,8,20,.6);border:1px solid var(--line2);cursor:pointer;flex:none;
+  transition:border-color .25s,box-shadow .25s}
+.tel-wrap select:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(27,107,240,.18)}
+.tel-wrap select option{background:#0A1435;color:var(--fg)}
+.tel-wrap input{flex:1;min-width:0}
 .kirnote{border-radius:15px;padding:18px;border:1px solid rgba(168,85,247,.34);
   background:linear-gradient(160deg,rgba(168,85,247,.16),rgba(168,85,247,.04))}
 .kirnote b{display:block;font-size:.9rem;font-weight:620;margin-bottom:5px}
 .kirnote p{font-size:.81rem;color:var(--dim);line-height:1.5;margin-bottom:14px}
 .kirnote .btn.p{background:linear-gradient(135deg,#9333EA,#C084FC);box-shadow:0 10px 28px -12px #A855F7}
+
+/* ================= ENGAGEMENT ================= */
+.eng{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-items:start;margin-bottom:22px}
+.ecard{border-radius:var(--r);padding:28px 26px;border:1px solid var(--line);
+  background:linear-gradient(165deg,rgba(122,160,255,.06),rgba(122,160,255,.015));
+  transition:transform .45s var(--e),border-color .4s,box-shadow .45s}
+.ecard:hover{transform:translateY(-5px);border-color:var(--line2);box-shadow:0 28px 66px -34px #000}
+.ecard.feat{border-color:rgba(27,107,240,.4);
+  background:linear-gradient(165deg,rgba(27,107,240,.15),rgba(74,155,255,.04));
+  box-shadow:0 30px 76px -40px var(--blue)}
+.ec-h{display:flex;align-items:center;gap:11px;margin-bottom:13px;flex-wrap:wrap}
+.ec-n{font-family:var(--mono);font-size:.72rem;font-weight:700;color:var(--blue-400);
+  border:1px solid var(--line2);border-radius:7px;padding:3px 8px;background:rgba(0,0,0,.28)}
+.ec-h h3{font-size:1.1rem;font-weight:630;letter-spacing:-.03em}
+.ec-tag{font-size:.63rem;letter-spacing:.11em;text-transform:uppercase;font-weight:660;
+  padding:3px 9px;border-radius:999px;background:var(--grad);color:#fff;margin-left:auto}
+.ecard > p{color:var(--dim);font-size:.9rem;line-height:1.62;margin-bottom:17px}
+.ecard ul{display:grid;gap:9px}
+.ecard li{font-size:.85rem;color:var(--dim);display:flex;gap:9px;align-items:flex-start;line-height:1.5}
+.ecard li::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--blue-400);
+  flex:none;margin-top:8px}
+
+.glob{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:22px;border-radius:var(--r);
+  border:1px solid var(--line);background:rgba(122,160,255,.03)}
+.gitem{display:flex;gap:12px;align-items:flex-start}
+.gitem svg{width:20px;height:20px;color:var(--blue-400);flex:none;margin-top:2px}
+.gitem span{display:flex;flex-direction:column;font-size:.79rem;color:var(--dim);line-height:1.5}
+.gitem b{font-size:.87rem;font-weight:600;color:var(--fg);margin-bottom:3px}
+
+@media(max-width:980px){
+  .eng{grid-template-columns:1fr}
+  .glob{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){ .glob{grid-template-columns:1fr} }
 
 /* ================= FLOATING ACTIONS ================= */
 .fab{position:fixed;right:22px;z-index:80;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;
@@ -560,6 +642,7 @@ footer{border-top:1px solid var(--line);padding:62px 0 32px;margin-top:46px}
         <a href="#services">Services</a>
         <a href="#product">Products</a>
         <a href="#approach">Approach</a>
+        <a href="#engage">Engage</a>
         <a href="#contact">Contact</a>
       </div>
       <div class="right">
@@ -602,7 +685,7 @@ footer{border-top:1px solid var(--line);padding:62px 0 32px;margin-top:46px}
   <div class="hero wrap">
     <div class="tag"><b>3 PRODUCTS</b> Logistics ERP · Kirukals · Gold Loan ERP</div>
     <h1 id="h1">We build software that <span class="gr">actually ships.</span></h1>
-    <p class="lede">Nexentra Solutions is a product company. We design, engineer and run our own platforms — from multi-branch enterprise ERPs to a screenplay editor that works with the network switched off. We build for clients the same way we build for ourselves.</p>
+    <p class="lede">Nexentra Solutions is a software product company. We design, engineer and operate our own platforms — from multi-branch enterprise ERPs to a creative tool that works with the network switched off. We build for clients to exactly the same standard.</p>
     <div class="acts">
       <a class="btn p mag" href="#product">See our products
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
@@ -892,7 +975,7 @@ footer{border-top:1px solid var(--line);padding:62px 0 32px;margin-top:46px}
     <div class="stats">
       <div class="stat rv"><div class="n" data-to="3" data-suffix="">0</div><div class="l">Platforms built and shipped</div></div>
       <div class="stat rv"><div class="n" data-to="30" data-suffix="%">0</div><div class="l">Faster invoice-to-cash for clients</div></div>
-      <div class="stat rv"><div class="n" data-to="50" data-suffix="+">0</div><div class="l">Branches supported, no redesign</div></div>
+      <div class="stat rv"><div class="n" data-to="50" data-suffix="+">0</div><div class="l">Locations supported, no redesign</div></div>
       <div class="stat rv"><div class="n" data-to="99" data-suffix=".9%">0</div><div class="l">Platform uptime target</div></div>
     </div>
   </section>
@@ -905,6 +988,51 @@ footer{border-top:1px solid var(--line);padding:62px 0 32px;margin-top:46px}
         <div class="av"></div>
         <div><strong>Pilot customer</strong><span>Fleet Owner · 40 vehicles · 2 branches</span></div>
       </div>
+    </div>
+  </section>
+
+  <!-- ============ ENGAGEMENT MODELS ============ -->
+  <section id="engage" class="wrap">
+    <div class="head mid rv">
+      <div class="eyebrow">How we engage</div>
+      <h2>Three ways to work with us.</h2>
+      <p>Whichever you pick, you get the same senior engineers, the same code standards and the same weekly demo. No junior bench, no ghost teams.</p>
+    </div>
+    <div class="eng">
+      <div class="ecard hair rv">
+        <div class="ec-h"><span class="ec-n">01</span><h3>Fixed Scope</h3></div>
+        <p>You know what you need. We scope it, quote it once, and deliver against a signed milestone plan.</p>
+        <ul>
+          <li>Defined deliverables &amp; timeline</li>
+          <li>Milestone-based invoicing</li>
+          <li>Best for a first project together</li>
+        </ul>
+      </div>
+      <div class="ecard hair rv feat">
+        <div class="ec-h"><span class="ec-n">02</span><h3>Dedicated Team</h3><span class="ec-tag">Most chosen</span></div>
+        <p>An embedded squad working as an extension of yours — your board, your standups, your release cadence.</p>
+        <ul>
+          <li>Monthly rate, scale up or down</li>
+          <li>Overlap hours with your timezone</li>
+          <li>Direct access, no account manager</li>
+        </ul>
+      </div>
+      <div class="ecard hair rv">
+        <div class="ec-h"><span class="ec-n">03</span><h3>Support &amp; SLA</h3></div>
+        <p>Live systems, watched. Monitoring, incident response, upgrades and enhancements on a retainer.</p>
+        <ul>
+          <li>Agreed response &amp; resolution times</li>
+          <li>Monitoring, backups, patching</li>
+          <li>Takeover of existing systems</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="glob rv">
+      <div class="gitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.8 2.5 15.2 0 18M12 3c-2.5 2.8-2.5 15.2 0 18"/></svg><span><b>Global delivery</b>Clients across time zones, with committed overlap hours</span></div>
+      <div class="gitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg><span><b>Your IP, your code</b>Full ownership and repository access from day one</span></div>
+      <div class="gitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.4 8.5-8 10-4.6-1.5-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg><span><b>Data residency</b>Deploy to your cloud, your region, or on-premise</span></div>
+      <div class="gitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-5 3.5 3.5L21 6"/></svg><span><b>Weekly demos</b>Working software every week, not status reports</span></div>
     </div>
   </section>
 
@@ -932,7 +1060,22 @@ footer{border-top:1px solid var(--line);padding:62px 0 32px;margin-top:46px}
             </div>
             <div class="fld">
               <label for="fPhone">Phone / WhatsApp <i>*</i></label>
-              <input id="fPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="98400 00000" required />
+              <div class="tel-wrap">
+                <select id="fCode" aria-label="Country calling code">
+                  <option value="+91">🇮🇳 +91</option>
+                  <option value="+1">🇺🇸 +1</option>
+                  <option value="+44">🇬🇧 +44</option>
+                  <option value="+971">🇦🇪 +971</option>
+                  <option value="+65">🇸🇬 +65</option>
+                  <option value="+61">🇦🇺 +61</option>
+                  <option value="+49">🇩🇪 +49</option>
+                  <option value="+60">🇲🇾 +60</option>
+                  <option value="+966">🇸🇦 +966</option>
+                  <option value="+27">🇿🇦 +27</option>
+                  <option value="+">🌐 Other</option>
+                </select>
+                <input id="fPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="98400 00000" required />
+              </div>
               <em class="err" data-for="fPhone"></em>
             </div>
           </div>
@@ -995,8 +1138,10 @@ footer{border-top:1px solid var(--line);padding:62px 0 32px;margin-top:46px}
         </a>
 
         <div class="hours">
-          <div class="hrow"><span>Mon — Sat</span><b>9:00 — 19:00 IST</b></div>
+          <div class="hrow"><span>Mon — Sat</span><b>09:00 — 19:00 IST <em>(UTC+5:30)</em></b></div>
+          <div class="hrow"><span>Your local time</span><b id="localTime">—</b></div>
           <div class="hrow"><span>Typical reply</span><b>Within 1 business day</b></div>
+          <div class="hrow"><span>Serving</span><b>Clients worldwide</b></div>
         </div>
 
         <div class="kirnote">
@@ -1020,12 +1165,12 @@ footer{border-top:1px solid var(--line);padding:62px 0 32px;margin-top:46px}
         </a>
         <p>Innovate · Integrate · Elevate — enterprise software, engineered properly and delivered on time.</p>
       </div>
-      <div class="fc"><h4>Services</h4><a href="#services">ERP Platforms</a><a href="#services">Web Applications</a><a href="#services">Cloud &amp; DevOps</a><a href="#services">Mobile Apps</a></div>
-      <div class="fc"><h4>Company</h4><a href="#approach">Our approach</a><a href="#product">Products</a><a href="#">Careers</a><a href="#contact">Contact</a></div>
-      <div class="fc"><h4>Legal</h4><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Security</a></div>
+      <div class="fc"><h4>Services</h4><a href="#services">ERP Platforms</a><a href="#services">Web Applications</a><a href="#services">Cloud &amp; DevOps</a><a href="#services">Mobile Apps</a><a href="#engage">Engagement models</a></div>
+      <div class="fc"><h4>Products</h4><a href="#product">Logistics ERP</a><a href="#product">Gold Loan ERP</a><a href="#product">Kirukals</a><a href="#approach">Our approach</a></div>
+      <div class="fc"><h4>Company</h4><a href="#contact">Contact</a><a href="#">Careers</a><a href="#">Privacy policy</a><a href="#">Terms of service</a><a href="#">Security</a></div>
     </div>
     <div class="fbot">
-      <span>© 2026 Nexentra Solutions. All rights reserved.</span>
+      <span>© 2026 Nexentra Solutions. All rights reserved. &nbsp;·&nbsp; Serving clients worldwide.</span>
       <div class="soc">
         <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 112.5 6 2.5 2.5 0 014.98 3.5zM3 8.98h4V21H3zM9 8.98h3.8v1.64h.06A4.17 4.17 0 0116.6 8.7c4 0 4.74 2.6 4.74 6V21h-4v-5.5c0-1.3 0-3-1.85-3s-2.13 1.44-2.13 2.92V21H9z"/></svg></a>
         <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.2 2H21l-6.5 7.4L22 22h-6l-4.7-6.2L5.9 22H3l7-8L2 2h6.2l4.2 5.6zM17 20.2h1.6L7.1 3.7H5.4z"/></svg></a>
@@ -1187,6 +1332,7 @@ document.querySelectorAll('.chp').forEach(c=>{
 const form=document.getElementById('leadForm'), sent=document.getElementById('sent'),
       sentMsg=document.getElementById('sentMsg');
 const F={name:document.getElementById('fName'),phone:document.getElementById('fPhone'),
+         code:document.getElementById('fCode'),
          email:document.getElementById('fEmail'),company:document.getElementById('fCompany'),
          msg:document.getElementById('fMsg')};
 
@@ -1200,7 +1346,7 @@ function validate(){
   let ok=true;
   ok = setErr(F.name, F.name.value.trim() ? '' : 'Please tell us your name') && ok;
   const digits=F.phone.value.replace(/\D/g,'');
-  ok = setErr(F.phone, digits.length>=10 ? '' : 'Enter a valid phone number (at least 10 digits)') && ok;
+  ok = setErr(F.phone, digits.length>=6 ? '' : 'Enter a valid phone number') && ok;
   const em=F.email.value.trim();
   ok = setErr(F.email, (!em || /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em)) ? '' : 'That email address looks incomplete') && ok;
   ok = setErr(F.msg, F.msg.value.trim().length>=10 ? '' : 'A line or two about your situation helps us prepare') && ok;
@@ -1221,7 +1367,7 @@ function compose(){
   L.push('');
   L.push('Name: '+F.name.value.trim());
   if(F.company.value.trim()) L.push('Company: '+F.company.value.trim());
-  L.push('Phone: '+F.phone.value.trim());
+  L.push('Phone: '+F.code.value+' '+F.phone.value.trim());
   if(F.email.value.trim()) L.push('Email: '+F.email.value.trim());
   L.push('Interested in: '+interest);
   L.push('');
@@ -1254,6 +1400,22 @@ document.getElementById('resetForm').addEventListener('click',()=>{
   F.name.focus();
 });
 
+/* --- visitor local time vs IST --- */
+(function(){
+  const el=document.getElementById('localTime');
+  if(!el)return;
+  const tz=Intl.DateTimeFormat().resolvedOptions().timeZone||'local';
+  const tick=()=>{
+    const now=new Date();
+    const t=now.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+    const off=-now.getTimezoneOffset(), sign=off>=0?'+':'-';
+    const hh=String(Math.floor(Math.abs(off)/60)), mm=String(Math.abs(off)%60).padStart(2,'0');
+    el.innerHTML = t+' <em>(UTC'+sign+hh+':'+mm+')</em>';
+    el.title = tz;
+  };
+  tick(); setInterval(tick,30000);
+})();
+
 /* --- back to top --- */
 const fabTop=document.getElementById('fabTop');
 addEventListener('scroll',()=>fabTop.classList.toggle('show',scrollY>700),{passive:true});
@@ -1267,7 +1429,7 @@ const spy=new IntersectionObserver(es=>{
     navLinks.forEach(a=>a.classList.toggle('act', a.getAttribute('href')==='#'+e.target.id));
   });
 },{rootMargin:'-45% 0px -50% 0px'});
-['services','product','approach','contact'].forEach(id=>{
+['services','product','approach','engage','contact'].forEach(id=>{
   const el=document.getElementById(id); if(el) spy.observe(el);
 });
 
