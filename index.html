@@ -871,6 +871,100 @@ h2{font-weight:720}
   .isl{width:186px}.isl-t{opacity:1}
 }
 
+/* ================= RICHER HERO CANVAS =================
+   The wash was too pale to register. Deeper mesh, a visible grid,
+   and a horizon glow so the hero has a floor instead of fading out. */
+.orb.a{background:radial-gradient(circle,#8FB4FF,transparent 66%);opacity:.85}
+.orb.b{background:radial-gradient(circle,#C3AEFF,transparent 66%);opacity:.7}
+.orb.c{background:radial-gradient(circle,#9BE8DC,transparent 68%);opacity:.55}
+
+.mesh{background-image:linear-gradient(rgba(21,96,224,.09) 1px,transparent 1px),
+                      linear-gradient(90deg,rgba(21,96,224,.09) 1px,transparent 1px);
+  background-size:72px 72px;
+  -webkit-mask-image:radial-gradient(ellipse 110% 62% at 50% 4%,#000 8%,rgba(0,0,0,.5) 42%,transparent 76%);
+  mask-image:radial-gradient(ellipse 110% 62% at 50% 4%,#000 8%,rgba(0,0,0,.5) 42%,transparent 76%)}
+
+.hero::before{background:radial-gradient(ellipse at center,rgba(21,96,224,.2),rgba(126,80,220,.1) 42%,transparent 68%)}
+
+/* horizon band under the hero so the section resolves instead of fading to nothing */
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:190px;pointer-events:none;z-index:-1;
+  background:linear-gradient(180deg,transparent,rgba(21,96,224,.07) 55%,rgba(255,255,255,0))}
+
+/* tighten the hero: the invisible words had been padding this out */
+h1{margin-bottom:20px;max-width:19ch}
+.lede{margin-top:2px}
+
+/* ================= FLOATING DETAIL CARDS =================
+   Fragments pulled out of the product UI, parallaxed at different depths.
+   The presentation trick every top SaaS shot uses. */
+.fcards{position:absolute;inset:0;pointer-events:none;z-index:4}
+.fc-card{position:absolute;border-radius:14px;padding:11px 13px;background:rgba(255,255,255,.92);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,.9);box-shadow:0 18px 40px -14px rgba(10,20,53,.3),0 2px 6px rgba(10,20,53,.08);
+  display:flex;align-items:center;gap:10px;white-space:nowrap;
+  opacity:0;animation:fcIn .9s var(--e) forwards}
+@keyframes fcIn{to{opacity:1}}
+.fc-card i{width:26px;height:26px;border-radius:8px;flex:none;display:grid;place-items:center;font-style:normal;
+  font-size:12px;color:#fff}
+.fc-card div{display:flex;flex-direction:column;line-height:1.3}
+.fc-card b{font-size:10.5px;font-weight:700;color:#0A1435;letter-spacing:-.01em}
+.fc-card s{text-decoration:none;font-size:9px;color:#67748C}
+
+/* status semantics — green shipped, amber due, red overdue */
+.st-ok  i{background:linear-gradient(140deg,#0E9F5B,#2FD48A)}
+.st-warn i{background:linear-gradient(140deg,#C77700,#FFB23F)}
+.st-bad i{background:linear-gradient(140deg,#C0263A,#FF5F6D)}
+.st-info i{background:linear-gradient(140deg,#1560E0,#4A9BFF)}
+.fc-card u{text-decoration:none;font-size:8.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  padding:2px 7px;border-radius:99px;margin-left:2px}
+.st-ok u{background:#E4F8EE;color:#0B7A46}
+.st-warn u{background:#FFF3DE;color:#9A5D00}
+.st-bad u{background:#FDE8EA;color:#A81E2E}
+
+.f1{top:6%;left:-3%;animation-delay:1.1s}
+.f2{top:30%;right:-4%;animation-delay:1.35s}
+.f3{bottom:24%;left:-5%;animation-delay:1.6s}
+.f4{bottom:2%;right:6%;animation-delay:1.85s}
+.f1{--drift:-16px}.f2{--drift:14px}.f3{--drift:-11px}.f4{--drift:18px}
+.fc-card{translate:0 var(--py,0px)}
+
+/* ================= LIVE ROUTE MAP =================
+   The element every top logistics dashboard leads with. */
+.map{position:relative;height:150px;border-radius:12px;overflow:hidden;border:1px solid var(--line);
+  background:linear-gradient(160deg,#EDF3FE,#F7FAFF);margin-bottom:11px}
+.map .grid{position:absolute;inset:0;
+  background-image:linear-gradient(rgba(21,96,224,.09) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(21,96,224,.09) 1px,transparent 1px);
+  background-size:22px 22px}
+.map svg{position:absolute;inset:0;width:100%;height:100%}
+.map .road{fill:none;stroke:#CBD9F2;stroke-width:7;stroke-linecap:round;stroke-linejoin:round}
+.map .trace{fill:none;stroke:url(#mapGrad);stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round;
+  stroke-dasharray:320;stroke-dashoffset:320;animation:trace 6s var(--e) infinite}
+@keyframes trace{0%{stroke-dashoffset:320}60%,100%{stroke-dashoffset:96}}
+.map .truck{offset-path:path("M18 118 C70 118 84 62 130 58 C182 53 196 96 250 90 C296 85 306 40 344 34");
+  offset-distance:0%;animation:drive 6s var(--e) infinite}
+@keyframes drive{0%{offset-distance:0%}60%,100%{offset-distance:70%}}
+.map .pin{animation:pinPop .6s var(--e) both}
+@keyframes pinPop{from{transform:scale(0);opacity:0}}
+.map .halo{transform-origin:center;animation:halo 2.4s ease-out infinite}
+@keyframes halo{0%{r:5;opacity:.55}100%{r:17;opacity:0}}
+.map .lbl{position:absolute;font-size:8.5px;font-weight:700;color:#0A1435;background:#fff;
+  padding:3px 8px;border-radius:99px;box-shadow:0 4px 10px rgba(10,20,53,.14);border:1px solid var(--line)}
+.map .l-a{left:8px;bottom:12px}
+.map .l-b{right:8px;top:10px}
+.map .eta{position:absolute;left:50%;top:8px;translate:-50% 0;font-size:8.5px;font-weight:700;
+  color:#fff;background:rgba(10,20,53,.85);padding:3px 9px;border-radius:99px;backdrop-filter:blur(6px)}
+
+@media(max-width:1080px){
+  .fcards{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .fc-card{opacity:1;animation:none}
+  .map .trace{stroke-dashoffset:96;animation:none}
+  .map .truck{offset-distance:70%;animation:none}
+  .map .halo{animation:none}
+}
+
 </style>
 </head>
 <body>
@@ -975,6 +1069,12 @@ h2{font-weight:720}
     </div>
 
     <div class="stage" id="stage">
+      <div class="fcards" aria-hidden="true">
+        <div class="fc-card st-ok f1"><i>&#10003;</i><div><b>POD received</b><s>LR-2026-04418</s></div><u>Delivered</u></div>
+        <div class="fc-card st-info f2"><i>&#9650;</i><div><b>Invoice raised</b><s>&#8377;1,84,200 &middot; GST filed</s></div></div>
+        <div class="fc-card st-warn f3"><i>&#9888;</i><div><b>Permit renewal</b><s>TN 09 CD 4471</s></div><u>21 days</u></div>
+        <div class="fc-card st-bad f4"><i>&#9679;</i><div><b>Insurance expiring</b><s>TN 69 EF 2210</s></div><u>6 days</u></div>
+      </div>
       <div class="app hair">
         <div class="bar">
           <span class="dot"></span><span class="dot"></span><span class="dot"></span>
@@ -1159,12 +1259,25 @@ h2{font-weight:720}
                   <div class="kpi"><span>Avg. invoice lag</span><b>1.2d</b><i>−68%</i></div>
                   <div class="kpi"><span>Receivables</span><b>₹18.4L</b><i>−22%</i></div>
                 </div>
-                <div class="chart">
-                  <div style="--h:36%"></div><div style="--h:54%"></div><div style="--h:42%"></div>
-                  <div style="--h:68%"></div><div style="--h:58%"></div><div style="--h:82%"></div>
-                  <div style="--h:71%"></div><div style="--h:94%"></div><div style="--h:80%"></div>
-                  <div style="--h:100%"></div><div style="--h:88%"></div><div style="--h:96%"></div>
+                <div class="map">
+                  <div class="grid"></div>
+                  <svg viewBox="0 0 360 150" preserveAspectRatio="none">
+                    <defs><linearGradient id="mapGrad" x1="0" y1="1" x2="1" y2="0">
+                      <stop offset="0" stop-color="#1560E0"/><stop offset="1" stop-color="#39C6F5"/>
+                    </linearGradient></defs>
+                    <path class="road" d="M18 118 C70 118 84 62 130 58 C182 53 196 96 250 90 C296 85 306 40 344 34"/>
+                    <path class="trace" d="M18 118 C70 118 84 62 130 58 C182 53 196 96 250 90 C296 85 306 40 344 34"/>
+                    <circle class="halo" cx="344" cy="34" r="5" fill="#1560E0"/>
+                    <circle class="pin" cx="18" cy="118" r="5.5" fill="#0E9F5B"/>
+                    <circle class="pin" cx="344" cy="34" r="5.5" fill="#1560E0"/>
+                    <g class="truck"><rect x="-9" y="-7" width="18" height="14" rx="4" fill="#0A1435"/>
+                      <rect x="-6" y="-4" width="7" height="8" rx="1.5" fill="#4A9BFF"/></g>
+                  </svg>
+                  <span class="lbl l-a">Chennai</span>
+                  <span class="lbl l-b">Salem</span>
+                  <span class="eta">In transit &middot; ETA 2h 40m</span>
                 </div>
+                                
                 <div class="rows">
                   <div class="row"><span class="av"></span>LR-2026-04417 · Chennai → Salem<span class="sp">in transit</span></div>
                   <div class="row"><span class="av"></span>LR-2026-04418 · POD received<span class="sp">ready to bill</span></div>
@@ -1495,7 +1608,12 @@ const h1 = document.getElementById('h1');
         const s=document.createElement('span'); s.className='w'; s.textContent=t; f.appendChild(s);
       });
       n.replaceWith(f);
-    } else if(n.nodeType===1) split(n);
+    } else if(n.nodeType===1){
+      // never split a gradient phrase: background-clip:text only paints a
+      // node's own text, so child spans would inherit transparent and vanish
+      if(n.classList.contains('gr')){ n.classList.add('w'); return; }
+      split(n);
+    }
   });
 })(h1);
 h1.querySelectorAll('.w').forEach((w,i)=>w.style.animationDelay = rm?'0ms':(80+i*60)+'ms');
