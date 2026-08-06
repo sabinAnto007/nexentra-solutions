@@ -921,10 +921,10 @@ h1{margin-bottom:20px;max-width:19ch}
 .st-warn u{background:#FFF3DE;color:#9A5D00}
 .st-bad u{background:#FDE8EA;color:#A81E2E}
 
-.f1{top:6%;left:-3%;animation-delay:1.1s}
-.f2{top:30%;right:-4%;animation-delay:1.35s}
-.f3{bottom:24%;left:-5%;animation-delay:1.6s}
-.f4{bottom:2%;right:6%;animation-delay:1.85s}
+.f1{top:3%;left:0;animation-delay:1.1s}
+.f2{top:23%;right:0;animation-delay:1.35s}
+.f3{bottom:20%;left:1%;animation-delay:1.6s}
+.f4{bottom:1%;right:2%;animation-delay:1.85s}
 .f1{--drift:-16px}.f2{--drift:14px}.f3{--drift:-11px}.f4{--drift:18px}
 .fc-card{translate:0 var(--py,0px)}
 
@@ -1027,7 +1027,7 @@ h1{margin-bottom:20px;max-width:19ch}
    edge-to-edge screen, a hint of side thickness, no keyboard furniture. */
 
 .rig{position:relative;perspective:1600px;perspective-origin:50% 30%;
-  margin:0 auto 56px;max-width:880px}
+  margin:0 auto 56px;max-width:748px}
 /* contact shadow */
 .rig::after{content:"";position:absolute;left:9%;right:9%;bottom:-30px;height:74px;z-index:-1;
   background:radial-gradient(ellipse at 50% 40%,rgba(6,12,32,.55),transparent 70%);
@@ -1035,7 +1035,7 @@ h1{margin-bottom:20px;max-width:19ch}
 .prod .rig::after{background:radial-gradient(ellipse at 50% 40%,rgba(0,0,0,.88),transparent 70%)}
 
 .laptop{position:relative;transform-style:preserve-3d;
-  transform:rotateX(var(--rx,14deg)) rotateY(var(--ry,-19deg)) rotateZ(var(--rz,2deg));
+  transform:rotateX(var(--rx,10deg)) rotateY(var(--ry,-13deg)) rotateZ(var(--rz,1deg));
   transition:transform 1.15s var(--e);
   animation:rigFloat 10s ease-in-out infinite alternate}
 @keyframes rigFloat{to{translate:0 -18px}}
@@ -1133,38 +1133,6 @@ h1{margin-bottom:20px;max-width:19ch}
   .phone{--pry:-4deg;--prx:2deg;--prz:0deg}
   .lid > .app::after,.scr::after{animation:none;opacity:.18}
 }
-/* ================= ECHELON: the second tablet ================= */
-.echo{position:absolute;top:-58px;right:-72px;width:82%;z-index:-2;pointer-events:none;
-  transform:rotateX(var(--rx,14deg)) rotateY(var(--ry,-19deg)) rotateZ(var(--rz,2deg)) scale(.92);
-  transform-style:preserve-3d;transition:transform 1.15s var(--e),opacity .8s,filter .8s;
-  opacity:.66;filter:blur(2px) saturate(.88);
-  animation:echoFloat 10s ease-in-out infinite alternate 1.4s}
-@keyframes echoFloat{to{translate:0 -11px}}
-.rig:hover .echo{--rx:3deg;--ry:-5deg;--rz:0deg;opacity:.42;filter:blur(3.4px) saturate(.78)}
-.prod .echo{display:none}          /* products pair the tablet with the phone instead */
-
-.echo-lid{position:relative;padding:9px;border-radius:23px;
-  background:linear-gradient(150deg,#4A5160 0%,#2A2F3A 22%,#191D25 58%,#0E1116 100%);
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.13),inset 0 1px 0 rgba(255,255,255,.24),
-             -20px 26px 46px -20px rgba(6,12,32,.55)}
-.echo-lid::after{content:"";position:absolute;inset:0;border-radius:23px;z-index:-1;
-  transform:translate(6px,6px);
-  background:linear-gradient(150deg,#9AA2B4,#5C6473 40%,#2A2F3A)}
-
-.echo-scr{position:relative;border-radius:15px;overflow:hidden;height:250px;background:#fff;
-  display:grid;grid-template-columns:66px 1fr}
-.echo-scr::before{content:"";grid-row:1/-1;background:var(--bg-2);border-right:1px solid var(--line)}
-.echo-body{padding:12px;display:flex;flex-direction:column;gap:8px}
-.echo-body i{display:block;border-radius:4px;background:var(--bg-3)}
-.echo-body .h{height:11px;width:52%;background:linear-gradient(90deg,#1560E0,transparent 82%);opacity:.55}
-.echo-row{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
-.echo-row i{height:40px}
-.echo-body .big{flex:1;background:linear-gradient(160deg,#DCE9FF,var(--bg-2))}
-.echo-body .r{height:13px}
-.echo-body .r:nth-of-type(odd){width:88%}
-
-.rig{--sep:0px}
-.echo{margin-top:calc(var(--sep) * -1)}
 
 @media(min-width:1000px){
   .pv.on{display:flex;align-items:center;gap:44px}
@@ -1172,9 +1140,7 @@ h1{margin-bottom:20px;max-width:19ch}
   .pv .phone{position:static;flex:0 0 auto;margin-bottom:22px}
   .pv .phone-glow{right:6px;bottom:-26px}
 }
-@media(max-width:1200px){ .echo{right:-44px;top:-44px;width:76%} }
 @media(max-width:999px){
-  .echo{display:none}
   .rig{margin-bottom:44px}
   .phone{position:static;margin:44px auto 0;transform:none;animation:none}
   .phone-glow{display:none}
@@ -1188,8 +1154,8 @@ h1{margin-bottom:20px;max-width:19ch}
   .scr{inset:7.5px;border-radius:34.5px}
 }
 @media(prefers-reduced-motion:reduce){
-  .laptop,.echo,.phone{animation:none}
-  .laptop,.echo{--rx:4deg;--ry:-7deg;--rz:0deg}
+  .laptop,.phone{animation:none}
+  .laptop{--rx:4deg;--ry:-7deg;--rz:0deg}
   .lid > .app::after,.scr::after{animation:none;opacity:.18}
 }
 </style>
@@ -1302,7 +1268,7 @@ h1{margin-bottom:20px;max-width:19ch}
         <div class="fc-card st-warn f3"><i>&#9888;</i><div><b>Permit renewal</b><s>TN 09 CD 4471</s></div><u>21 days</u></div>
         <div class="fc-card st-bad f4"><i>&#9679;</i><div><b>Insurance expiring</b><s>TN 69 EF 2210</s></div><u>6 days</u></div>
       </div>
-      <div class="rig"><div class="echo" aria-hidden="true"><div class="echo-lid"><div class="echo-scr"><div class="echo-body"><i class="h"></i><div class="echo-row"><i></i><i></i><i></i></div><i class="big"></i><i class="r"></i><i class="r"></i></div></div></div></div><div class="laptop"><div class="lid"><div class="app hair">
+      <div class="rig"><div class="laptop"><div class="lid"><div class="app hair">
         <div class="bar">
           <span class="dot"></span><span class="dot"></span><span class="dot"></span>
           <div class="omni">app.nexentra.in/erp/chennai/role-center</div>
@@ -1465,7 +1431,7 @@ h1{margin-bottom:20px;max-width:19ch}
 
         <!-- ---------- 0: LOGISTICS ERP ---------- -->
         <div class="pv on" data-p="0">
-          <div class="rig"><div class="echo" aria-hidden="true"><div class="echo-lid"><div class="echo-scr"><div class="echo-body"><i class="h"></i><div class="echo-row"><i></i><i></i><i></i></div><i class="big"></i><i class="r"></i><i class="r"></i></div></div></div></div><div class="laptop"><div class="lid"><div class="app hair">
+          <div class="rig"><div class="laptop"><div class="lid"><div class="app hair">
             <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
               <div class="omni">app.nexentra.in/erp/chennai/role-center</div></div>
             <div class="app-body">
@@ -1517,7 +1483,7 @@ h1{margin-bottom:20px;max-width:19ch}
 
         <!-- ---------- 1: KIRUKALS ---------- -->
         <div class="pv" data-p="1">
-          <div class="rig"><div class="echo" aria-hidden="true"><div class="echo-lid"><div class="echo-scr"><div class="echo-body"><i class="h"></i><div class="echo-row"><i></i><i></i><i></i></div><i class="big"></i><i class="r"></i><i class="r"></i></div></div></div></div><div class="laptop"><div class="lid"><div class="app hair">
+          <div class="rig"><div class="laptop"><div class="lid"><div class="app hair">
             <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
               <div class="omni">kirukals.app — INT. COFFEE SHOP · draft 3</div></div>
             <div class="app-body">
@@ -1554,7 +1520,7 @@ h1{margin-bottom:20px;max-width:19ch}
 
         <!-- ---------- 2: GOLD LOAN ERP ---------- -->
         <div class="pv" data-p="2">
-          <div class="rig"><div class="echo" aria-hidden="true"><div class="echo-lid"><div class="echo-scr"><div class="echo-body"><i class="h"></i><div class="echo-row"><i></i><i></i><i></i></div><i class="big"></i><i class="r"></i><i class="r"></i></div></div></div></div><div class="laptop"><div class="lid"><div class="app hair">
+          <div class="rig"><div class="laptop"><div class="lid"><div class="app hair">
             <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
               <div class="omni">app.nexentra.in/goldloan/branch-01/ledger</div></div>
             <div class="app-body">
@@ -2287,25 +2253,6 @@ if(!rm){
 }
 
 
-/* ===== echelon parallax: the back device drifts as the rig crosses the viewport ===== */
-if(!rm){
-  const rigs=[...document.querySelectorAll('.rig')];
-  let queued=false;
-  const drift=()=>{
-    rigs.forEach(rig=>{
-      const r=rig.getBoundingClientRect();
-      if(r.bottom<-200||r.top>innerHeight+200) return;
-      // -1 above centre .. +1 below centre
-      const t=((r.top+r.height/2)-innerHeight/2)/(innerHeight/2);
-      rig.style.setProperty('--sep',(t*26).toFixed(1)+'px');
-      const echo=rig.querySelector('.echo');
-      if(echo) echo.style.translate='0 '+(t*-14).toFixed(1)+'px';
-    });
-    queued=false;
-  };
-  addEventListener('scroll',()=>{ if(!queued){ requestAnimationFrame(drift); queued=true; } },{passive:true});
-  drift();
-}
 
 </script>
 </body>
