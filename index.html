@@ -965,6 +965,111 @@ h1{margin-bottom:20px;max-width:19ch}
   .map .halo{animation:none}
 }
 
+/* ================= LAPTOP FRAME ================= */
+.laptop{position:relative;max-width:940px;margin:0 auto 30px;padding:13px 13px 14px;
+  background:linear-gradient(165deg,#39415A,#1A2032 42%,#0E1322);
+  border-radius:18px 18px 6px 6px;
+  box-shadow:0 2px 0 rgba(255,255,255,.16) inset,0 40px 80px -34px rgba(10,20,53,.55);
+  transform:translateY(var(--py,0px))}
+/* camera */
+.laptop::before{content:"";position:absolute;left:50%;top:5.5px;translate:-50% 0;width:5px;height:5px;
+  border-radius:50%;background:#0B0F1C;box-shadow:0 0 0 1px rgba(255,255,255,.12)}
+/* base / deck */
+.laptop::after{content:"";position:absolute;left:-4.6%;right:-4.6%;top:100%;height:14px;
+  background:linear-gradient(180deg,#D7DCE6 0%,#AEB6C6 38%,#79839A 78%,#5C6478 100%);
+  border-radius:0 0 14px 14px;
+  box-shadow:0 16px 30px -12px rgba(10,20,53,.45),0 1px 0 rgba(255,255,255,.6) inset}
+/* thumb notch on the deck */
+.lap-notch{position:absolute;left:50%;top:100%;translate:-50% 0;z-index:2;width:96px;height:7px;
+  border-radius:0 0 8px 8px;background:linear-gradient(180deg,#8B94A8,#AEB6C6)}
+
+.laptop .app{max-width:100%;margin:0;border-radius:8px;border-color:#0B0F1C;
+  box-shadow:0 0 0 1px rgba(0,0,0,.55)}
+.laptop .app-body{min-height:392px}
+
+/* the stage laptop keeps its lift-in */
+.stage .laptop{transform:rotateX(13deg) scale(.95);transform-origin:50% 0;opacity:0;
+  transition:transform 1.3s var(--e),opacity 1s var(--e)}
+.stage.up .laptop{transform:rotateX(0) scale(1);opacity:1}
+.stage .app{transform:none!important;opacity:1!important;box-shadow:0 0 0 1px rgba(0,0,0,.55)}
+.pv .app{box-shadow:0 0 0 1px rgba(0,0,0,.55)}
+
+/* the product laptops sit on the dark band, so give them a lift glow */
+.prod .laptop{box-shadow:0 2px 0 rgba(255,255,255,.18) inset,
+  0 46px 90px -34px rgba(0,0,0,.8),
+  0 -18px 60px -34px color-mix(in srgb,var(--acc) 75%,transparent)}
+
+/* ---- phone moves clear of the screen content ---- */
+.phone{right:-52px;bottom:-96px;z-index:6}
+.phone-glow{right:-24px;bottom:-104px}
+
+/* ================= SCREEN-RECORDING FEEL ================= */
+/* a pointer that tours the UI and clicks, so the mockup reads as a capture */
+.ghost{position:absolute;z-index:7;width:17px;height:17px;pointer-events:none;
+  filter:drop-shadow(0 2px 3px rgba(10,20,53,.45));
+  animation:ghostTour 11s var(--e) infinite}
+.ghost svg{width:100%;height:100%}
+@keyframes ghostTour{
+  0%   {left:16%;top:76%;opacity:0}
+  6%   {opacity:1}
+  18%  {left:12%;top:26%}
+  30%  {left:12%;top:38%}
+  46%  {left:52%;top:32%}
+  62%  {left:70%;top:62%}
+  80%  {left:34%;top:82%}
+  94%  {left:16%;top:76%;opacity:1}
+  100% {opacity:0}
+}
+.ghost::after{content:"";position:absolute;left:-6px;top:-6px;width:28px;height:28px;border-radius:50%;
+  border:2px solid rgba(21,96,224,.75);transform:scale(0);opacity:0;
+  animation:ghostClick 11s var(--e) infinite}
+@keyframes ghostClick{
+  0%,17%   {transform:scale(0);opacity:0}
+  20%      {transform:scale(.4);opacity:.9}
+  26%      {transform:scale(1.25);opacity:0}
+  45%      {transform:scale(0);opacity:0}
+  48%      {transform:scale(.4);opacity:.9}
+  54%      {transform:scale(1.25);opacity:0}
+  100%     {transform:scale(0);opacity:0}
+}
+
+/* the row the pointer lands on lights up */
+.row.hot{border-color:rgba(21,96,224,.5);background:#F1F6FF;
+  box-shadow:0 6px 16px -8px rgba(21,96,224,.5);transform:translateX(4px)}
+.lr.hot{background:#FFF7E8}
+.ni.cycling{background:var(--blue-100);color:var(--blue-700);font-weight:560;
+  box-shadow:inset 0 0 0 1px rgba(21,96,224,.2)}
+.ni.cycling .sq{background:var(--grad)}
+.prod .ni.cycling{background:color-mix(in srgb,var(--acc) 12%,#fff);
+  color:color-mix(in srgb,var(--acc) 85%,#000);
+  box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--acc) 26%,transparent)}
+.prod .ni.cycling .sq{background:linear-gradient(140deg,var(--acc),var(--acc2))}
+
+@media(max-width:1080px){
+  .phone{right:-20px;bottom:-84px;width:196px;height:398px}
+  .ghost{display:none}
+}
+@media(max-width:900px){
+  .laptop{padding:9px 9px 10px;border-radius:14px 14px 5px 5px;margin-bottom:24px}
+  .laptop::after{height:10px;left:-3.5%;right:-3.5%}
+  .lap-notch{width:66px;height:5px}
+  .phone{position:static;margin:34px auto 0}
+  .phone-glow{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .ghost{display:none}
+}
+
+
+/* ---- device pairing: laptop and phone sit side by side, never overlapping ---- */
+@media(min-width:1000px){
+  .pv.on{display:flex;align-items:center;gap:26px}
+  .pv .laptop{flex:1 1 auto;min-width:0;max-width:706px;margin:0 0 22px}
+  .pv .phone{position:static;flex:0 0 auto;margin-bottom:14px}
+  .pv .phone-glow{right:0;bottom:-40px;width:260px;height:150px}
+  .pv .app-body{min-height:376px}
+}
+
 </style>
 </head>
 <body>
@@ -1075,7 +1180,7 @@ h1{margin-bottom:20px;max-width:19ch}
         <div class="fc-card st-warn f3"><i>&#9888;</i><div><b>Permit renewal</b><s>TN 09 CD 4471</s></div><u>21 days</u></div>
         <div class="fc-card st-bad f4"><i>&#9679;</i><div><b>Insurance expiring</b><s>TN 69 EF 2210</s></div><u>6 days</u></div>
       </div>
-      <div class="app hair">
+      <div class="laptop"><div class="app hair">
         <div class="bar">
           <span class="dot"></span><span class="dot"></span><span class="dot"></span>
           <div class="omni">app.nexentra.in/erp/chennai/role-center</div>
@@ -1114,7 +1219,7 @@ h1{margin-bottom:20px;max-width:19ch}
             </div>
           </div>
         </div>
-      </div>
+      </div><div class="ghost" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#0A1435" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"><path d="M5 2l14 9.5-6.2 1.2 3.4 6.6-2.9 1.5-3.4-6.6L5 18z"/></svg></div><span class="lap-notch"></span></div>
     </div>
   </div>
 
@@ -1238,7 +1343,7 @@ h1{margin-bottom:20px;max-width:19ch}
 
         <!-- ---------- 0: LOGISTICS ERP ---------- -->
         <div class="pv on" data-p="0">
-          <div class="app hair">
+          <div class="laptop"><div class="app hair">
             <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
               <div class="omni">app.nexentra.in/erp/chennai/role-center</div></div>
             <div class="app-body">
@@ -1284,13 +1389,13 @@ h1{margin-bottom:20px;max-width:19ch}
                 </div>
               </div>
             </div>
-          </div>
+          </div><div class="ghost" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#0A1435" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"><path d="M5 2l14 9.5-6.2 1.2 3.4 6.6-2.9 1.5-3.4-6.6L5 18z"/></svg></div><span class="lap-notch"></span></div>
         <div class="phone-glow" aria-hidden="true"></div><div class="phone"><div class="scr"><div class="isl"><span class="isl-d"></span><span class="isl-t">Trip in progress · 42 min</span></div><div class="snote"><i>▲</i><div><b>New trip assigned</b><s>LR-2026-04419 · Chennai → Trichy</s></div></div><div class="sbar"><span>9:41</span><i><svg width="12" height="9" viewBox="0 0 12 9" fill="currentColor"><rect x="0" y="6" width="2" height="3" rx=".5"/><rect x="3.3" y="4" width="2" height="5" rx=".5"/><rect x="6.6" y="2" width="2" height="7" rx=".5"/><rect x="9.9" y="0" width="2" height="9" rx=".5"/></svg><b></b></i></div><div class="shead"><s>Driver App</s><h6>LR-2026-04417</h6></div><div class="sheet"><div class="route"><span>Chennai</span><span class="rline"><i></i><span class="rdot"></span></span><span>Salem</span></div><div class="spills"><div class="spill"><s>ETA</s><b>2:40</b></div><div class="spill"><s>DIST</s><b>148<span style="font-size:8px">km</span></b></div><div class="spill"><s>LOAD</s><b>12<span style="font-size:8px">t</span></b></div></div><div class="srow"><em></em>E-Way Bill<span>Valid</span></div><div class="srow"><em></em>Fuel logged<span>₹4,200</span></div><div class="sbtn">Capture POD</div></div></div></div>
         </div>
 
         <!-- ---------- 1: KIRUKALS ---------- -->
         <div class="pv" data-p="1">
-          <div class="app hair">
+          <div class="laptop"><div class="app hair">
             <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
               <div class="omni">kirukals.app — INT. COFFEE SHOP · draft 3</div></div>
             <div class="app-body">
@@ -1321,13 +1426,13 @@ h1{margin-bottom:20px;max-width:19ch}
                 </div>
               </div>
             </div>
-          </div>
+          </div><div class="ghost" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#0A1435" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"><path d="M5 2l14 9.5-6.2 1.2 3.4 6.6-2.9 1.5-3.4-6.6L5 18z"/></svg></div><span class="lap-notch"></span></div>
         <div class="phone-glow" aria-hidden="true"></div><div class="phone"><div class="scr"><div class="isl"><span class="isl-d"></span><span class="isl-t">Autosaved · offline</span></div><div class="snote"><i>✎</i><div><b>Draft saved locally</b><s>Scene 3 · 1,284 words</s></div></div><div class="sbar"><span>9:41</span><i><svg width="12" height="9" viewBox="0 0 12 9" fill="currentColor"><rect x="0" y="6" width="2" height="3" rx=".5"/><rect x="3.3" y="4" width="2" height="5" rx=".5"/><rect x="6.6" y="2" width="2" height="7" rx=".5"/><rect x="9.9" y="0" width="2" height="9" rx=".5"/></svg><b></b></i></div><div class="shead"><s>Kirukals</s><h6>Untitled Screenplay</h6></div><div class="sheet"><div class="spills"><div class="spill"><s>PAGES</s><b>3</b></div><div class="spill"><s>WORDS</s><b>1284</b></div><div class="spill"><s>SCENES</s><b>4</b></div></div><div class="spage"><div class="l1">INT. COFFEE SHOP — MORNING</div><div class="l2">Rain on the window. ARJUN stares at a laptop that has not moved in an hour.</div><div class="l3">ARJUN</div><div class="l4">Formatting is not writing.<span class="caret"></span></div></div><div class="stoolbar"><i></i><i></i><i></i><i></i></div><div class="sbtn">Export PDF</div></div></div></div>
         </div>
 
         <!-- ---------- 2: GOLD LOAN ERP ---------- -->
         <div class="pv" data-p="2">
-          <div class="app hair">
+          <div class="laptop"><div class="app hair">
             <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
               <div class="omni">app.nexentra.in/goldloan/branch-01/ledger</div></div>
             <div class="app-body">
@@ -1357,7 +1462,7 @@ h1{margin-bottom:20px;max-width:19ch}
                 </div>
               </div>
             </div>
-          </div>
+          </div><div class="ghost" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#0A1435" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"><path d="M5 2l14 9.5-6.2 1.2 3.4 6.6-2.9 1.5-3.4-6.6L5 18z"/></svg></div><span class="lap-notch"></span></div>
         <div class="phone-glow" aria-hidden="true"></div><div class="phone"><div class="scr"><div class="isl"><span class="isl-d"></span><span class="isl-t">Rate live · ₹7,412/g</span></div><div class="snote"><i>●</i><div><b>Rate updated</b><s>22K · ₹7,412 per gram</s></div></div><div class="sbar"><span>9:41</span><i><svg width="12" height="9" viewBox="0 0 12 9" fill="currentColor"><rect x="0" y="6" width="2" height="3" rx=".5"/><rect x="3.3" y="4" width="2" height="5" rx=".5"/><rect x="6.6" y="2" width="2" height="7" rx=".5"/><rect x="9.9" y="0" width="2" height="9" rx=".5"/></svg><b></b></i></div><div class="shead"><s>Gold Loan</s><h6>New Pledge</h6></div><div class="sheet"><div class="rate"><s>Live rate · 22K</s><b>₹7,412</b><u>per gram · +1.2% today</u></div><div class="route"><span>Weigh</span><span class="rline"><i></i><span class="rdot"></span></span><span>Sanction</span></div><div class="spills"><div class="spill"><s>NET WT</s><b>38.2<span style="font-size:8px">g</span></b></div><div class="spill"><s>PURITY</s><b>22K</b></div><div class="spill"><s>LTV</s><b>75%</b></div></div><div class="srow"><em></em>Eligible amount<span>₹2,12,300</span></div><div class="sbtn">Sanction Loan</div></div></div></div>
         </div>
 
@@ -2013,6 +2118,51 @@ document.getElementById('leadForm')?.addEventListener('submit',()=>{
 document.getElementById('sendMail')?.addEventListener('click',()=>{
   setTimeout(()=>toast('Opening your mail app…'),120);
 });
+
+
+/* ===== screen-recording feel: cycle the UI inside whichever mockup is visible ===== */
+if(!rm){
+  const shells = () => [
+    document.querySelector('.stage .app'),
+    document.querySelector('.pv.on .app')
+  ].filter(Boolean);
+
+  let step = 0;
+  setInterval(() => {
+    step++;
+    shells().forEach(app => {
+      // only animate what the viewer can actually see
+      const r = app.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > innerHeight) return;
+
+      // walk the sidebar selection
+      const nav = [...app.querySelectorAll('.ni')];
+      if (nav.length) {
+        nav.forEach(n => n.classList.remove('cycling'));
+        const real = nav.find(n => n.classList.contains('on'));
+        const pick = nav[step % nav.length];
+        if (pick !== real) {
+          real && real.classList.remove('on');
+          pick.classList.add('cycling');
+        } else {
+          real && real.classList.add('on');
+        }
+      }
+
+      // light up a row, as if hovered
+      const rows = [...app.querySelectorAll('.row, .lr')];
+      rows.forEach(x => x.classList.remove('hot'));
+      if (rows.length) rows[step % rows.length].classList.add('hot');
+    });
+  }, 2400);
+
+  // restore the true selection whenever the product changes
+  document.querySelectorAll('.ptab').forEach(t => t.addEventListener('click', () => {
+    setTimeout(() => document.querySelectorAll('.ni.cycling').forEach(n => {
+      n.classList.remove('cycling');
+    }), 60);
+  }));
+}
 
 </script>
 </body>
