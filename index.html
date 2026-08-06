@@ -47,6 +47,15 @@
   ]
 }
 </script>
+<script>
+(function(){
+  try{
+    var saved=localStorage.getItem('nx-theme');
+    var sysDark=matchMedia('(prefers-color-scheme: dark)').matches;
+    document.documentElement.setAttribute('data-theme', saved || (sysDark?'dark':'light'));
+  }catch(e){}
+})();
+</script>
 <style>
 /* ================= LIGHT CORPORATE TOKENS ================= */
 :root{
@@ -1301,6 +1310,97 @@ h1{margin-bottom:20px;max-width:19ch}
   .st.live b::after{animation:none}
 }
 
+
+/* ================= THEME SWITCH ================= */
+:root{color-scheme:light}
+.tmode{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;cursor:pointer;
+  border:1px solid var(--line2);background:var(--surface,#fff);color:var(--ink);
+  box-shadow:var(--sh-sm);transition:.35s var(--e);position:relative;flex:none}
+.tmode:hover{border-color:var(--blue);color:var(--blue);transform:translateY(-2px)}
+.tmode svg{width:18px;height:18px;position:absolute;transition:.45s var(--e)}
+.t-moon{opacity:0;transform:rotate(-60deg) scale(.5)}
+.t-sun{opacity:1;transform:none}
+:root[data-theme="dark"] .t-sun{opacity:0;transform:rotate(60deg) scale(.5)}
+:root[data-theme="dark"] .t-moon{opacity:1;transform:none}
+body,header::before,.card,.ecard,.stat,.ctc-form,.chan,.quote,.band,.strip,section.tint,
+.ptab,.btn,.chp,.si-menu,.fab-top,.soc a,.hours,.fc-card,.tag,.pillar,.stp .n,.fld input,.fld textarea{
+  transition:background-color .45s var(--e),border-color .45s var(--e),color .45s var(--e)}
+
+/* ---------------- dark ---------------- */
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#070B16; --bg-2:#0C1224; --bg-3:#141D36;
+  --ink:#EDF2FB; --fg:#EDF2FB; --dim:#9AAAC7; --faint:#6A7A99;
+  --line:rgba(150,180,255,.13); --line2:rgba(150,180,255,.24);
+  --surface:#0E1526; --surface-2:#121B30;
+  --blue-100:#122349; --blue-700:#8FB8FF;
+  --grad-txt:linear-gradient(100deg,#FFFFFF,#7FB0FF 45%,#4A9BFF);
+  --sh-sm:0 1px 2px rgba(0,0,0,.5),0 2px 8px rgba(0,0,0,.35);
+  --sh-md:0 4px 12px rgba(0,0,0,.45),0 12px 32px rgba(0,0,0,.4);
+  --sh-lg:0 12px 28px rgba(0,0,0,.5),0 30px 70px rgba(0,0,0,.55);
+}
+:root[data-theme="dark"] body{background:var(--bg)}
+:root[data-theme="dark"] header::before{background:rgba(7,11,22,.82)}
+:root[data-theme="dark"] .mesh{background-image:
+  linear-gradient(rgba(150,180,255,.07) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(150,180,255,.07) 1px,transparent 1px)}
+:root[data-theme="dark"] .orb.a{background:radial-gradient(circle,#1E3FA8,transparent 66%);opacity:.55}
+:root[data-theme="dark"] .orb.b{background:radial-gradient(circle,#4A2C9E,transparent 66%);opacity:.45}
+:root[data-theme="dark"] .orb.c{background:radial-gradient(circle,#0C5F58,transparent 68%);opacity:.35}
+
+/* surfaces that were hardcoded white */
+:root[data-theme="dark"] .card,
+:root[data-theme="dark"] .ecard,
+:root[data-theme="dark"] .stat,
+:root[data-theme="dark"] .ctc-form,
+:root[data-theme="dark"] .chan,
+:root[data-theme="dark"] .ptab,
+:root[data-theme="dark"] .si-menu,
+:root[data-theme="dark"] .fab-top,
+:root[data-theme="dark"] .soc a,
+:root[data-theme="dark"] .tag,
+:root[data-theme="dark"] .pillar,
+:root[data-theme="dark"] .chp,
+:root[data-theme="dark"] .stp .n,
+:root[data-theme="dark"] .tmode,
+:root[data-theme="dark"] .btn.g{background:var(--surface);color:var(--ink)}
+:root[data-theme="dark"] .btn.g:hover{background:var(--surface-2);color:#9FC4FF}
+:root[data-theme="dark"] .stat{background:linear-gradient(180deg,var(--surface),var(--bg-2))}
+:root[data-theme="dark"] .ecard.feat{background:linear-gradient(165deg,#12244C,var(--surface))}
+:root[data-theme="dark"] .strip{background:linear-gradient(180deg,#0A1020,var(--bg))}
+:root[data-theme="dark"] section.tint{background:linear-gradient(180deg,#0A1020,#080D1B)}
+:root[data-theme="dark"] .quote{background:linear-gradient(165deg,#101F42,var(--surface));border-color:var(--line2)}
+:root[data-theme="dark"] .band{background:linear-gradient(155deg,#12244C,#0D1730 55%,#1A1440)}
+:root[data-theme="dark"] .hours,
+:root[data-theme="dark"] .ec-n{background:var(--bg-2)}
+:root[data-theme="dark"] .fld input,
+:root[data-theme="dark"] .fld textarea,
+:root[data-theme="dark"] .tel-wrap select{background:var(--bg-2);color:var(--ink);border-color:var(--line2)}
+:root[data-theme="dark"] .fld input:focus,
+:root[data-theme="dark"] .fld textarea:focus{background:var(--surface)}
+:root[data-theme="dark"] .fld input::placeholder,
+:root[data-theme="dark"] .fld textarea::placeholder{color:#54638099}
+:root[data-theme="dark"] .tel-wrap select option{background:#0E1526}
+:root[data-theme="dark"] .fmeter{background:var(--bg-3)}
+:root[data-theme="dark"] .ic{background:var(--blue-100);border-color:rgba(21,96,224,.34);color:#9FC4FF}
+:root[data-theme="dark"] .chan-i{background:var(--bg-2);color:#9FC4FF}
+:root[data-theme="dark"] .toast{background:#EDF2FB;color:#0A1435}
+:root[data-theme="dark"] .toast svg{color:#0E9F5B}
+:root[data-theme="dark"] .mq span{color:#3E4A63}
+:root[data-theme="dark"] .fc-card{background:rgba(16,24,44,.92);border-color:rgba(150,180,255,.2)}
+:root[data-theme="dark"] .fc-card b{color:#EDF2FB}
+:root[data-theme="dark"] .fc-card s{color:#93A3C0}
+:root[data-theme="dark"] .st-ok u{background:#0C2E1E;color:#4FD99A}
+:root[data-theme="dark"] .st-warn u{background:#33240A;color:#FFC46B}
+:root[data-theme="dark"] .st-bad u{background:#3A1218;color:#FF8A93}
+/* the products band already runs dark: lift it so it still reads as its own surface */
+:root[data-theme="dark"] .prod{background:linear-gradient(175deg,#0C1630 0%,#101E44 55%,#0C1630 100%);
+  border-color:#182A55}
+:root[data-theme="dark"] footer{background:linear-gradient(180deg,#0A1122,#070B16);border-top-color:#182A55}
+/* the device screens stay light on purpose — a lit screen against a dark page */
+
+@media(prefers-reduced-motion:reduce){ .tmode svg{transition:none} }
+
 </style>
 </head>
 <body>
@@ -1355,6 +1455,14 @@ h1{margin-bottom:20px;max-width:19ch}
         <a href="#contact">Contact</a>
       </div>
       <div class="right">
+        <button class="tmode" id="tmode" type="button" aria-label="Switch colour theme" title="Switch theme">
+          <svg class="t-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round">
+            <circle cx="12" cy="12" r="4.2"/><path d="M12 2.4v2.4M12 19.2v2.4M2.4 12h2.4M19.2 12h2.4M5.2 5.2l1.7 1.7M17.1 17.1l1.7 1.7M18.8 5.2l-1.7 1.7M6.9 17.1l-1.7 1.7"/>
+          </svg>
+          <svg class="t-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.5 14.6A8.6 8.6 0 019.4 3.5a8.6 8.6 0 1011.1 11.1z"/>
+          </svg>
+        </button>
         <div class="signin" id="signin">
           <button class="btn g sm si-btn" id="siBtn" aria-expanded="false" aria-haspopup="true">
             Sign in
@@ -2509,6 +2617,25 @@ if(!rm){
   };
   Object.values(F).forEach(el=>el&&el.addEventListener('input',update));
   update();
+})();
+
+
+/* ===== theme switch: system by default, remembered once chosen ===== */
+(function(){
+  const btn=document.getElementById('tmode');
+  if(!btn) return;
+  const root=document.documentElement;
+  btn.addEventListener('click',()=>{
+    const next = root.getAttribute('data-theme')==='dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme',next);
+    try{ localStorage.setItem('nx-theme',next); }catch(e){}
+    if(typeof toast==='function') toast(next==='dark' ? 'Dark theme' : 'Light theme');
+  });
+  // follow the system until the visitor makes a choice of their own
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change',e=>{
+    try{ if(localStorage.getItem('nx-theme')) return; }catch(err){}
+    root.setAttribute('data-theme', e.matches?'dark':'light');
+  });
 })();
 
 </script>
