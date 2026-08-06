@@ -1211,6 +1211,36 @@ h1{margin-bottom:20px;max-width:19ch}
   .hrow:nth-child(2) b::before{animation:none}
 }
 
+
+/* ================= ECHELON PAIR =================
+   The back tablet reuses the same lid/app rules as the front one, so the two
+   can never fall out of proportion. inset:0 makes it the same size; the only
+   differences are offset, a touch of scale, and depth of field. */
+.echo{position:absolute;inset:0;z-index:-1;pointer-events:none;
+  transform:rotateX(var(--rx,10deg)) rotateY(var(--ry,-13deg)) rotateZ(var(--rz,1deg))
+            translate3d(16%,-17%,-60px) scale(.955);
+  transform-style:preserve-3d;
+  opacity:.9;filter:blur(1.1px) saturate(.94) brightness(.98);
+  transition:transform 1.15s var(--e),opacity .8s,filter .8s;
+  animation:echoFloat 10s ease-in-out infinite alternate 1.3s}
+@keyframes echoFloat{to{translate:0 -12px}}
+.echo .lid{box-shadow:inset 0 0 0 1px rgba(255,255,255,.14),inset 0 1px 0 rgba(255,255,255,.26),
+  -30px 34px 62px -24px rgba(6,12,32,.55)}
+.echo .app{box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
+/* match the front screen exactly so the pair reads as two of the same device */
+.echo .app-body{min-height:416px}
+.echo .ledger{margin-top:auto}
+.echo .panel{display:flex;flex-direction:column}
+/* rack focus: the pair opens up and the back one softens as the pointer arrives */
+.stage .rig:hover .echo{transform:rotateX(3deg) rotateY(-5deg) rotateZ(0deg)
+  translate3d(20%,-20%,-60px) scale(.945);opacity:.62;filter:blur(2.6px) saturate(.85) brightness(.97)}
+.stage .laptop{position:relative;z-index:2}
+
+@media(max-width:1180px){ .echo{transform:rotateX(var(--rx,10deg)) rotateY(var(--ry,-13deg))
+  translate3d(12%,-13%,-60px) scale(.95)} }
+@media(max-width:999px){ .echo{display:none} }
+@media(prefers-reduced-motion:reduce){ .echo{animation:none} }
+
 </style>
 </head>
 <body>
@@ -1320,7 +1350,43 @@ h1{margin-bottom:20px;max-width:19ch}
         <div class="fc-card st-info f2"><i>&#9998;</i><div><b>Draft autosaved</b><s>Kirukals &middot; 1,284 words</s></div><u>Offline</u></div>
         <div class="fc-card st-warn f3"><i>&#9888;</i><div><b>Pledge due</b><s>Gold Loan ERP &middot; GL-24120</s></div><u>4 days</u></div>
       </div>
-      <div class="rig"><div class="laptop"><div class="lid"><div class="app hair">
+      <div class="rig">
+        <div class="echo" aria-hidden="true">
+          <div class="lid"><div class="app">
+            <div class="bar">
+              <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+              <div class="omni">app.nexentra.in/goldloan/branch-01/ledger</div>
+            </div>
+            <div class="app-body">
+              <aside class="side">
+                <h5>Lending</h5>
+                <div class="ni on"><span class="sq"></span>Loan Ledger</div>
+                <div class="ni"><span class="sq"></span>New Pledge</div>
+                <div class="ni"><span class="sq"></span>Releases</div>
+                <div class="ni"><span class="sq"></span>Auctions</div>
+                <h5>Vault</h5>
+                <div class="ni"><span class="sq"></span>Packet Register</div>
+                <div class="ni"><span class="sq"></span>Audit Trail</div>
+              </aside>
+              <div class="panel">
+                <div class="ptop"><h4>Loan Ledger &mdash; Branch 01</h4><span class="chip">&#9679; Rate &#8377;7,412 / g</span></div>
+                <div class="kpis">
+                  <div class="kpi"><span>Active loans</span><b>842</b><i>+6%</i></div>
+                  <div class="kpi"><span>Principal out</span><b>&#8377;6.4Cr</b><i>+11%</i></div>
+                  <div class="kpi"><span>Overdue</span><b>&#8377;18.2L</b><i>&minus;9%</i></div>
+                </div>
+                <div class="ledger">
+                  <div class="lh"><span>Loan</span><span>Pledge</span><span>Net wt.</span><span>Amount</span><span>Status</span></div>
+                  <div class="lr"><span>GL-24118</span><span>Bangle &times;2</span><span>38.20 g</span><span>&#8377;2,10,000</span><span class="ok">Active</span></div>
+                  <div class="lr"><span>GL-24119</span><span>Chain</span><span>21.60 g</span><span>&#8377;1,18,500</span><span class="ok">Active</span></div>
+                  <div class="lr"><span>GL-24120</span><span>Ring &times;4</span><span>12.40 g</span><span>&#8377;68,000</span><span class="warn">Due 4d</span></div>
+                  <div class="lr"><span>GL-24121</span><span>Necklace</span><span>54.80 g</span><span>&#8377;3,02,000</span><span class="bad">Overdue</span></div>
+                </div>
+              </div>
+            </div>
+          </div></div>
+        </div>
+        <div class="laptop"><div class="lid"><div class="app hair">
         <div class="bar">
           <span class="dot"></span><span class="dot"></span><span class="dot"></span>
           <div class="omni" id="heroUrl">app.nexentra.in/erp/chennai/role-center</div>
