@@ -1022,153 +1022,202 @@ h1{margin-bottom:20px;max-width:19ch}
 }
 
 
-/* ================= 3D DEVICE RIG =================
-   Real perspective, hinged deck, keyboard and trackpad — built from the
-   reference shots. Devices float at an angle and straighten on hover so
-   the interface stays readable. */
+/* ================= DEVICE RIG v2 =================
+   Rebuilt against the reference: dark unibody, edge-to-edge screen on a
+   thin bezel, real key caps, visible chassis thickness, deep shadow. */
 
-.rig{position:relative;perspective:2000px;perspective-origin:50% 26%;
-  margin:0 auto 64px;max-width:940px}
-.rig::after{content:"";position:absolute;left:10%;right:10%;bottom:-26px;height:70px;z-index:-1;
-  background:radial-gradient(ellipse at center,rgba(10,20,53,.5),transparent 72%);
-  filter:blur(26px);opacity:.75}
-.prod .rig::after{background:radial-gradient(ellipse at center,rgba(0,0,0,.75),transparent 72%)}
+.rig{position:relative;perspective:1500px;perspective-origin:50% 24%;
+  margin:0 auto 74px;max-width:900px}
+/* contact shadow on the ground */
+.rig::after{content:"";position:absolute;left:6%;right:6%;bottom:-34px;height:78px;z-index:-1;
+  background:radial-gradient(ellipse at 50% 40%,rgba(6,12,32,.62),transparent 70%);
+  filter:blur(30px)}
+.prod .rig::after{background:radial-gradient(ellipse at 50% 40%,rgba(0,0,0,.9),transparent 70%)}
 
 .laptop{position:relative;transform-style:preserve-3d;
-  transform:rotateX(var(--rx,9deg)) rotateY(var(--ry,-15deg)) rotateZ(var(--rz,-1deg));
-  transition:transform 1.1s var(--e);
-  animation:rigFloat 9s ease-in-out infinite alternate}
-@keyframes rigFloat{to{translate:0 -16px}}
-.rig:hover .laptop{--rx:2deg;--ry:-4deg;--rz:0deg}
+  transform:rotateX(var(--rx,17deg)) rotateY(var(--ry,-21deg)) rotateZ(var(--rz,1.5deg));
+  transition:transform 1.15s var(--e);
+  animation:rigFloat 10s ease-in-out infinite alternate}
+@keyframes rigFloat{to{translate:0 -18px}}
+.rig:hover .laptop{--rx:3deg;--ry:-5deg;--rz:0deg}
+/* the sales content stays legible: gentler default angle on products */
+.prod .laptop{--rx:11deg;--ry:-14deg}
 
-/* ---------- lid ---------- */
-.lid{position:relative;transform-style:preserve-3d;padding:12px 12px 15px;
-  background:linear-gradient(148deg,#5A6377 0%,#2B3247 34%,#161C2E 72%,#0D1220 100%);
-  border-radius:17px 17px 5px 5px;
-  box-shadow:inset 0 0 0 1.2px rgba(255,255,255,.17),
-             inset 0 1px 0 rgba(255,255,255,.3),
-             0 30px 60px -26px rgba(0,0,0,.7)}
-/* notch */
-.lid::before{content:"";position:absolute;left:50%;top:0;translate:-50% 0;z-index:6;
-  width:104px;height:16px;background:#0A0E1A;border-radius:0 0 10px 10px}
-/* camera in the notch */
-.lid::after{content:"";position:absolute;left:50%;top:4.5px;translate:-50% 0;z-index:7;
-  width:5px;height:5px;border-radius:50%;background:#141A2B;
-  box-shadow:0 0 0 1px rgba(255,255,255,.16),inset 0 0 2px rgba(120,180,255,.55)}
+/* ---------------- lid ---------------- */
+.lid{position:relative;transform-style:preserve-3d;
+  padding:9px 9px 21px;                     /* chin at the bottom, like the reference */
+  background:linear-gradient(152deg,#3C424E 0%,#23272F 26%,#15181E 62%,#0C0E13 100%);
+  border-radius:13px 13px 3px 3px;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.13),
+             inset 0 1px 0 rgba(255,255,255,.28),
+             -22px 26px 50px -20px rgba(6,12,32,.6)}
+/* camera pinhole centred in the top bezel */
+.lid::before{content:"";position:absolute;left:50%;top:3.6px;translate:-50% 0;z-index:8;
+  width:4px;height:4px;border-radius:50%;background:#05070C;
+  box-shadow:0 0 0 1px rgba(255,255,255,.2),inset 0 0 2px rgba(120,180,255,.6)}
+/* brand mark on the chin */
+.lid::after{content:"";position:absolute;left:50%;bottom:7px;translate:-50% 0;z-index:8;
+  width:44px;height:5px;border-radius:3px;background:rgba(255,255,255,.14)}
 
-.lid .app{max-width:100%;margin:0;border-radius:8px;border:0;
-  box-shadow:0 0 0 1px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.05)}
-.lid .app-body{min-height:376px}
+/* screen: edge to edge, no white margin */
+.lid > .app{max-width:100%;margin:0;border:0;border-radius:4px;overflow:hidden;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.06),inset 0 0 30px rgba(6,12,32,.16)}
+.lid .app-body{min-height:360px}
+/* slimmer, darker browser chrome so it reads as a screen, not a window */
+.lid .bar{padding:7px 11px;background:#EDF1F7;border-bottom:1px solid #DDE4EE}
+.lid .dot{width:7px;height:7px}
+.lid .omni{height:19px;font-size:.6rem;border-radius:5px}
 
-/* ---------- hinged deck ---------- */
-.deck{position:relative;height:224px;transform-origin:50% 0;transform:rotateX(78deg);
-  background:linear-gradient(180deg,#DDE2EB 0%,#B9C0CF 16%,#8F98AB 52%,#6B7488 88%,#4E566A 100%);
-  border-radius:0 0 15px 15px;
-  box-shadow:0 1px 0 rgba(255,255,255,.75) inset,0 34px 46px -22px rgba(0,0,0,.55)}
-/* hinge shadow where deck meets lid */
-.deck::before{content:"";position:absolute;left:6%;right:6%;top:0;height:12px;
-  background:linear-gradient(180deg,rgba(10,20,53,.5),transparent)}
+/* ---------------- deck ---------------- */
+.deck{position:relative;height:206px;transform-origin:50% 0;transform:rotateX(80deg);
+  background:linear-gradient(180deg,#8E96A6 0%,#767E8F 10%,#5E6675 46%,#464D5A 82%,#333944 100%);
+  border-radius:0 0 12px 12px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 40px 50px -26px rgba(6,12,32,.7)}
+/* hinge shadow */
+.deck::before{content:"";position:absolute;left:4%;right:4%;top:0;height:16px;
+  background:linear-gradient(180deg,rgba(6,12,32,.6),transparent)}
 /* front lip notch */
 .deck::after{content:"";position:absolute;left:50%;bottom:-1px;translate:-50% 0;
-  width:110px;height:8px;border-radius:9px 9px 0 0;background:rgba(10,20,53,.22)}
+  width:96px;height:7px;border-radius:8px 8px 0 0;background:rgba(6,12,32,.3)}
 
-/* keyboard well — keys drawn with repeating gradients, no extra DOM */
-.kb{position:absolute;left:10%;right:10%;top:20px;height:104px;border-radius:9px;
-  background-color:#171C2B;
+/* keyboard: dark well, real key caps picked out by gap lines */
+.kb{position:absolute;left:8.5%;right:8.5%;top:17px;height:100px;border-radius:7px;
+  background-color:#454C58;                                    /* key cap colour */
   background-image:
-    repeating-linear-gradient(90deg,rgba(255,255,255,.13) 0 20px,transparent 20px 23.5px),
-    repeating-linear-gradient(180deg,rgba(255,255,255,.13) 0 15px,transparent 15px 18.5px);
-  box-shadow:inset 0 2px 6px rgba(0,0,0,.6),0 1px 0 rgba(255,255,255,.5)}
+    repeating-linear-gradient(90deg,#0E1116 0 3.5px,transparent 3.5px 21px),
+    repeating-linear-gradient(180deg,#0E1116 0 3.5px,transparent 3.5px 17px);
+  box-shadow:inset 0 0 0 3.5px #0E1116,inset 0 3px 9px rgba(0,0,0,.75),
+             0 1px 0 rgba(255,255,255,.4)}
 /* spacebar */
-.kb::after{content:"";position:absolute;left:32%;right:32%;bottom:6px;height:11px;border-radius:3px;
-  background:rgba(255,255,255,.13)}
+.kb::after{content:"";position:absolute;left:31%;right:31%;bottom:4.5px;height:12.5px;border-radius:2px;
+  background:#454C58;box-shadow:0 0 0 3.5px #0E1116}
+/* speaker grilles either side */
+.kb::before{content:"";position:absolute;left:-11.5%;right:-11.5%;top:-2px;bottom:-2px;pointer-events:none;
+  background-image:radial-gradient(circle at 1px 1px,rgba(6,12,32,.42) 1px,transparent 0);
+  background-size:4.5px 4.5px;
+  -webkit-mask-image:linear-gradient(90deg,#000 0 8%,transparent 8% 92%,#000 92% 100%);
+  mask-image:linear-gradient(90deg,#000 0 8%,transparent 8% 92%,#000 92% 100%)}
 
 /* trackpad */
-.pad{position:absolute;left:50%;translate:-50% 0;bottom:26px;width:34%;height:60px;border-radius:10px;
-  background:linear-gradient(180deg,#C4CBD9,#A7AFC1);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.8),inset 0 -1px 3px rgba(10,20,53,.25),
-             0 1px 2px rgba(255,255,255,.5)}
+.pad{position:absolute;left:50%;translate:-50% 0;bottom:20px;width:31%;height:56px;border-radius:8px;
+  background:linear-gradient(180deg,#7D8595,#69707E);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.6),inset 0 0 0 1px rgba(6,12,32,.32),
+             inset 0 -2px 5px rgba(6,12,32,.3)}
 
-/* stage lift-in still applies, now to the rig */
+/* chassis thickness: a slab pushed back in Z under the deck */
+.laptop::after{content:"";position:absolute;left:1.5%;right:1.5%;top:100%;height:9px;
+  transform:translateZ(-9px);
+  background:linear-gradient(180deg,#5E6675,#333944 60%,#20242C);
+  border-radius:0 0 11px 11px;box-shadow:0 12px 22px -8px rgba(6,12,32,.75)}
+
 .stage .laptop{opacity:0;transition:transform 1.2s var(--e),opacity 1s var(--e)}
 .stage.up .laptop{opacity:1}
 .stage .app{transform:none!important;opacity:1!important}
 
-/* ================= PHONE, REBUILT ================= */
-.phone{width:236px;height:478px;border-radius:44px;padding:0;
-  background:linear-gradient(140deg,#D6DBE6 0%,#8A93A8 18%,#3A4258 42%,#8A93A8 68%,#5A6377 100%);
-  box-shadow:0 40px 70px -26px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.35);
-  transform:rotateY(var(--pry,13deg)) rotateX(var(--prx,5deg)) rotateZ(var(--prz,-2deg));
-  transform-style:preserve-3d;transition:transform 1.1s var(--e);
-  animation:phFloat 8s ease-in-out infinite alternate}
-@keyframes phFloat{to{translate:0 -20px}}
-.pv:hover .phone,.phone:hover{--pry:2deg;--prx:1deg;--prz:0deg}
-.phone::before{content:"";position:absolute;inset:3px;border-radius:41px;background:#05070E;z-index:0}
-/* side buttons */
-.phone::after{content:"";position:absolute;left:-2.5px;top:104px;width:3px;height:112px;border-radius:3px;
-  background:linear-gradient(180deg,#B9C0CF,#6B7488);
-  box-shadow:0 -34px 0 -1px #9AA3B6,0 -58px 0 -1px #9AA3B6}
-.scr{position:absolute;inset:8px;height:auto;border-radius:37px;z-index:1}
-.phone .isl{top:12px}
+/* glass glare across the panel */
+.lid > .app::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:9;
+  background:linear-gradient(114deg,transparent 33%,rgba(255,255,255,.46) 45%,rgba(255,255,255,.08) 53%,transparent 61%);
+  mix-blend-mode:screen;transform:translateX(-42%);animation:glare 13s var(--e) infinite}
+@keyframes glare{0%,60%{transform:translateX(-42%)}86%,100%{transform:translateX(42%)}}
+.prod .lid > .app::after{opacity:.4}
 
-.phone-glow{width:300px;height:180px;filter:blur(52px);opacity:.7}
+/* ================= PHONE v2 ================= */
+.phone{width:246px;height:502px;border-radius:48px;padding:0;
+  background:linear-gradient(146deg,#E4E8F0 0%,#98A0B2 14%,#454C5C 38%,#1D222D 58%,#7E8698 82%,#3A4152 100%);
+  box-shadow:-16px 30px 60px -22px rgba(6,12,32,.7),
+             inset 0 0 0 1px rgba(255,255,255,.4);
+  transform:rotateY(var(--pry,-15deg)) rotateX(var(--prx,10deg)) rotateZ(var(--prz,1deg));
+  transform-style:preserve-3d;transition:transform 1.15s var(--e);
+  animation:phFloat 9s ease-in-out infinite alternate}
+@keyframes phFloat{to{translate:0 -22px}}
+.pv:hover .phone,.phone:hover{--pry:-3deg;--prx:2deg;--prz:0deg}
+.phone::before{content:"";position:absolute;inset:2.5px;border-radius:45.5px;background:#04060B;z-index:0}
+/* volume pair + silent switch left, power right */
+.phone::after{content:"";position:absolute;left:-2px;top:112px;width:2.5px;height:56px;border-radius:2px;
+  background:linear-gradient(180deg,#C9D0DD,#6C7484);
+  box-shadow:0 72px 0 -1px #A8B0C0,0 -36px 0 -1px #A8B0C0,
+             246px -18px 0 -1px #A8B0C0,246px 8px 0 -1px #A8B0C0}
+.scr{position:absolute;inset:8.5px;height:auto;border-radius:39.5px;z-index:1;overflow:hidden}
+.scr::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:8;
+  background:linear-gradient(120deg,transparent 34%,rgba(255,255,255,.34) 46%,transparent 57%);
+  mix-blend-mode:screen;transform:translateX(-42%);animation:glare 13s var(--e) infinite 1.8s}
+.phone .isl{top:13px}
+.phone-glow{width:320px;height:190px;filter:blur(56px);opacity:.75}
 
 @media(min-width:1000px){
-  .pv.on{display:flex;align-items:center;gap:34px}
-  .pv .rig{flex:1 1 auto;min-width:0;max-width:660px;margin:0 0 46px}
-  .pv .phone{position:static;flex:0 0 auto;margin-bottom:26px}
-  .pv .phone-glow{right:10px;bottom:-30px}
+  .pv.on{display:flex;align-items:center;gap:44px}
+  .pv .rig{flex:1 1 auto;min-width:0;max-width:600px;margin:0 0 58px}
+  .pv .phone{position:static;flex:0 0 auto;margin-bottom:30px}
+  .pv .phone-glow{right:6px;bottom:-26px}
 }
 @media(max-width:999px){
-  .rig{margin-bottom:52px}
-  .phone{position:static;margin:36px auto 0;transform:none;animation:none}
+  .rig{margin-bottom:60px}
+  .phone{position:static;margin:44px auto 0;transform:none;animation:none}
   .phone-glow{display:none}
 }
 @media(max-width:760px){
-  .lid{padding:8px 8px 10px;border-radius:13px 13px 4px 4px}
-  .lid::before{width:74px;height:12px}
-  .deck{height:150px}
-  .kb{height:66px;top:13px;
-    background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.13) 0 13px,transparent 13px 15.5px),
-                     repeating-linear-gradient(180deg,rgba(255,255,255,.13) 0 10px,transparent 10px 12.5px)}
-  .pad{height:38px;bottom:16px}
-  .phone{width:210px;height:426px;border-radius:38px}
-  .scr{inset:7px;border-radius:32px}
+  .lid{padding:6px 6px 15px;border-radius:10px 10px 3px 3px}
+  .lid::after{width:30px;height:4px;bottom:5px}
+  .deck{height:136px}
+  .kb{height:62px;top:11px;border-radius:5px;
+    background-image:repeating-linear-gradient(90deg,#0E1116 0 2.5px,transparent 2.5px 13.5px),
+                     repeating-linear-gradient(180deg,#0E1116 0 2.5px,transparent 2.5px 11px);
+    box-shadow:inset 0 0 0 2.5px #0E1116,inset 0 2px 6px rgba(0,0,0,.75)}
+  .kb::after{height:8px;bottom:3px;box-shadow:0 0 0 2.5px #0E1116}
+  .pad{height:34px;bottom:13px}
+  .phone{width:214px;height:436px;border-radius:42px}
+  .phone::before{border-radius:39.5px}
+  .scr{inset:7.5px;border-radius:34.5px}
 }
 @media(prefers-reduced-motion:reduce){
-  .laptop{animation:none;--rx:2deg;--ry:-4deg;--rz:0deg}
-  .phone{animation:none;--pry:0deg;--prx:0deg;--prz:0deg}
+  .laptop,.phone{animation:none}
+  .laptop{--rx:4deg;--ry:-7deg;--rz:0deg}
+  .phone{--pry:-4deg;--prx:2deg;--prz:0deg}
+  .lid > .app::after,.scr::after{animation:none;opacity:.18}
 }
+/* ================= ECHELON COMPOSITION =================
+   A second device set back and up, matching the front one's angle,
+   softened by depth-of-field. Straight from the reference shot: the
+   pair reads as one product photographed, not two flat pictures. */
 
+.echo{position:absolute;top:-64px;right:-78px;width:80%;z-index:-1;pointer-events:none;
+  transform:rotateX(var(--rx,17deg)) rotateY(var(--ry,-21deg)) rotateZ(var(--rz,1.5deg)) scale(.9);
+  transform-style:preserve-3d;transition:transform 1.15s var(--e),opacity .8s;
+  opacity:.62;filter:blur(2.2px) saturate(.85);
+  animation:echoFloat 10s ease-in-out infinite alternate 1.4s}
+@keyframes echoFloat{to{translate:0 -11px}}
+.rig:hover .echo{--rx:3deg;--ry:-5deg;--rz:0deg;opacity:.4;filter:blur(3.6px) saturate(.75)}
+.prod .echo{--rx:11deg;--ry:-14deg}
 
-/* ---- realism pass, from the reference shots ---- */
-/* glass glare sweeping the lid */
-.lid > .app{position:relative}
-.lid > .app::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:9;border-radius:8px;
-  background:linear-gradient(112deg,transparent 34%,rgba(255,255,255,.4) 46%,rgba(255,255,255,.06) 54%,transparent 62%);
-  opacity:.55;mix-blend-mode:screen;
-  transform:translateX(-18%);animation:glare 12s var(--e) infinite}
-@keyframes glare{0%,62%{transform:translateX(-40%)}86%,100%{transform:translateX(40%)}}
-.prod .lid > .app::after{opacity:.32}
+.echo-lid{padding:7px 7px 15px;border-radius:11px 11px 3px 3px;
+  background:linear-gradient(152deg,#3C424E 0%,#23272F 26%,#15181E 62%,#0C0E13 100%);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.11),inset 0 1px 0 rgba(255,255,255,.22),
+             -18px 22px 44px -18px rgba(6,12,32,.55)}
+.echo-lid::after{content:"";position:absolute;left:50%;bottom:5px;translate:-50% 0;
+  width:32px;height:4px;border-radius:3px;background:rgba(255,255,255,.12)}
 
-/* speaker grilles either side of the keyboard */
-.deck .kb::before{content:"";position:absolute;left:-13%;right:-13%;top:0;bottom:0;pointer-events:none;
-  background-image:radial-gradient(circle at 1px 1px,rgba(10,20,53,.34) 1px,transparent 0);
-  background-size:5px 5px;
-  -webkit-mask-image:linear-gradient(90deg,#000 0 9%,transparent 9% 91%,#000 91% 100%);
-  mask-image:linear-gradient(90deg,#000 0 9%,transparent 9% 91%,#000 91% 100%)}
+/* abstract screen: reads as the same product without cloning the DOM */
+.echo-scr{position:relative;border-radius:3px;overflow:hidden;height:238px;background:#fff;
+  display:grid;grid-template-columns:64px 1fr;gap:0}
+.echo-scr::before{content:"";grid-row:1/-1;background:var(--bg-2);border-right:1px solid var(--line)}
+.echo-body{padding:11px;display:flex;flex-direction:column;gap:8px}
+.echo-body i{display:block;border-radius:4px;background:var(--bg-3)}
+.echo-body .h{height:11px;width:52%;background:linear-gradient(90deg,var(--acc,#1560E0),transparent 82%);opacity:.55}
+.echo-row{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.echo-row i{height:38px}
+.echo-body .big{flex:1;background:linear-gradient(160deg,
+  color-mix(in srgb,var(--acc,#1560E0) 16%,#fff),var(--bg-2))}
+.echo-body .r{height:13px}
+.echo-body .r:nth-of-type(odd){width:88%}
 
-/* screen inner vignette so the panel does not look pasted on */
-.lid > .app{box-shadow:0 0 0 1px rgba(0,0,0,.62),
-  inset 0 0 22px rgba(10,20,53,.13),inset 0 0 0 1px rgba(255,255,255,.05)}
+/* the pair drifts apart a little as you scroll — parallax depth */
+.rig{--sep:0px}
+.echo{margin-top:calc(var(--sep) * -1)}
 
-/* phone: glass glare + speaker slit */
-.scr::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:8;border-radius:37px;
-  background:linear-gradient(118deg,transparent 36%,rgba(255,255,255,.3) 47%,transparent 58%);
-  opacity:.5;mix-blend-mode:screen;animation:glare 12s var(--e) infinite 1.4s}
-@media(max-width:760px){ .scr::after{border-radius:32px} }
+@media(max-width:1200px){ .echo{right:-46px;top:-48px;width:74%} }
+@media(max-width:999px){ .echo{display:none} }
 @media(prefers-reduced-motion:reduce){
-  .lid > .app::after,.scr::after{animation:none;opacity:.2}
+  .echo{animation:none;--rx:4deg;--ry:-7deg;--rz:0deg}
 }
 
 </style>
@@ -1281,7 +1330,7 @@ h1{margin-bottom:20px;max-width:19ch}
         <div class="fc-card st-warn f3"><i>&#9888;</i><div><b>Permit renewal</b><s>TN 09 CD 4471</s></div><u>21 days</u></div>
         <div class="fc-card st-bad f4"><i>&#9679;</i><div><b>Insurance expiring</b><s>TN 69 EF 2210</s></div><u>6 days</u></div>
       </div>
-      <div class="rig"><div class="laptop"><div class="lid"><div class="app hair">
+      <div class="rig"><div class="echo" aria-hidden="true"><div class="echo-lid"><div class="echo-scr"><div class="echo-body"><i class="h"></i><div class="echo-row"><i></i><i></i><i></i></div><i class="big"></i><i class="r"></i><i class="r"></i></div></div></div></div><div class="laptop"><div class="lid"><div class="app hair">
         <div class="bar">
           <span class="dot"></span><span class="dot"></span><span class="dot"></span>
           <div class="omni">app.nexentra.in/erp/chennai/role-center</div>
@@ -1444,7 +1493,7 @@ h1{margin-bottom:20px;max-width:19ch}
 
         <!-- ---------- 0: LOGISTICS ERP ---------- -->
         <div class="pv on" data-p="0">
-          <div class="rig"><div class="laptop"><div class="lid"><div class="app hair">
+          <div class="rig"><div class="echo" aria-hidden="true"><div class="echo-lid"><div class="echo-scr"><div class="echo-body"><i class="h"></i><div class="echo-row"><i></i><i></i><i></i></div><i class="big"></i><i class="r"></i><i class="r"></i></div></div></div></div><div class="laptop"><div class="lid"><div class="app hair">
             <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
               <div class="omni">app.nexentra.in/erp/chennai/role-center</div></div>
             <div class="app-body">
@@ -1496,7 +1545,7 @@ h1{margin-bottom:20px;max-width:19ch}
 
         <!-- ---------- 1: KIRUKALS ---------- -->
         <div class="pv" data-p="1">
-          <div class="rig"><div class="laptop"><div class="lid"><div class="app hair">
+          <div class="rig"><div class="echo" aria-hidden="true"><div class="echo-lid"><div class="echo-scr"><div class="echo-body"><i class="h"></i><div class="echo-row"><i></i><i></i><i></i></div><i class="big"></i><i class="r"></i><i class="r"></i></div></div></div></div><div class="laptop"><div class="lid"><div class="app hair">
             <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
               <div class="omni">kirukals.app — INT. COFFEE SHOP · draft 3</div></div>
             <div class="app-body">
@@ -1533,7 +1582,7 @@ h1{margin-bottom:20px;max-width:19ch}
 
         <!-- ---------- 2: GOLD LOAN ERP ---------- -->
         <div class="pv" data-p="2">
-          <div class="rig"><div class="laptop"><div class="lid"><div class="app hair">
+          <div class="rig"><div class="echo" aria-hidden="true"><div class="echo-lid"><div class="echo-scr"><div class="echo-body"><i class="h"></i><div class="echo-row"><i></i><i></i><i></i></div><i class="big"></i><i class="r"></i><i class="r"></i></div></div></div></div><div class="laptop"><div class="lid"><div class="app hair">
             <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
               <div class="omni">app.nexentra.in/goldloan/branch-01/ledger</div></div>
             <div class="app-body">
@@ -2263,6 +2312,27 @@ if(!rm){
       n.classList.remove('cycling');
     }), 60);
   }));
+}
+
+
+/* ===== echelon parallax: the back device drifts as the rig crosses the viewport ===== */
+if(!rm){
+  const rigs=[...document.querySelectorAll('.rig')];
+  let queued=false;
+  const drift=()=>{
+    rigs.forEach(rig=>{
+      const r=rig.getBoundingClientRect();
+      if(r.bottom<-200||r.top>innerHeight+200) return;
+      // -1 above centre .. +1 below centre
+      const t=((r.top+r.height/2)-innerHeight/2)/(innerHeight/2);
+      rig.style.setProperty('--sep',(t*26).toFixed(1)+'px');
+      const echo=rig.querySelector('.echo');
+      if(echo) echo.style.translate='0 '+(t*-14).toFixed(1)+'px';
+    });
+    queued=false;
+  };
+  addEventListener('scroll',()=>{ if(!queued){ requestAnimationFrame(drift); queued=true; } },{passive:true});
+  drift();
 }
 
 </script>
