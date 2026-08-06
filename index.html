@@ -1080,9 +1080,10 @@ h1{margin-bottom:20px;max-width:19ch}
 .stage .app{transform:none!important;opacity:1!important}
 
 /* ================= PHONE v2 ================= */
-.phone{width:246px;height:502px;border-radius:48px;padding:0;
+.phone{width:232px;height:474px;border-radius:46px;padding:0;
   background:linear-gradient(146deg,#E4E8F0 0%,#98A0B2 14%,#454C5C 38%,#1D222D 58%,#7E8698 82%,#3A4152 100%);
-  box-shadow:-16px 30px 60px -22px rgba(6,12,32,.7),
+  box-shadow:-22px 40px 70px -20px rgba(6,12,32,.78),
+             0 14px 30px -10px rgba(6,12,32,.5),
              inset 0 0 0 1px rgba(255,255,255,.4);
   transform:rotateY(var(--pry,-15deg)) rotateX(var(--prx,10deg)) rotateZ(var(--prz,1deg));
   transform-style:preserve-3d;transition:transform 1.15s var(--e);
@@ -1135,13 +1136,19 @@ h1{margin-bottom:20px;max-width:19ch}
 }
 
 @media(min-width:1000px){
-  /* device family shot: both stand on the same ground line, no ad-hoc margins */
-  .pv.on{display:flex;align-items:flex-end;gap:48px;padding-bottom:34px}
-  .pv .rig{flex:1 1 auto;min-width:0;max-width:576px;margin:0}
-  /* the tablet is rotated, so its box hangs ~19px below its layout edge;
-     drop the phone by the same amount so both read as standing on one line */
-  .pv .phone{position:static;flex:0 0 auto;margin:0 0 -19px}
-  .pv .phone-glow{right:6px;bottom:-18px}
+  /* floating pair, per the reference: the phone hangs in front of the tablet's
+     right edge and sits lower, both tilted on matching axes */
+  .pv.on{display:block;position:relative;padding:14px 0 96px}
+  .pv .rig{max-width:600px;margin:0 auto 0 6%}
+  .pv .laptop{--rx:-4deg;--ry:16deg;--rz:-7deg}
+  .pv .rig:hover .laptop{--rx:-1deg;--ry:5deg;--rz:-2deg}
+  .pv .phone{position:absolute;right:12.5%;bottom:-10px;flex:none;margin:0;z-index:6;
+    --prx:-3deg;--pry:14deg;--prz:-6deg}
+  .pv:hover .phone{--prx:-1deg;--pry:5deg;--prz:-2deg}
+  .pv .phone-glow{right:10%;bottom:-30px;width:300px;height:150px}
+  /* each device casts its own soft pool, so the pair reads as airborne */
+  .pv .rig::after{left:14%;right:14%;bottom:-52px;height:64px;
+    background:radial-gradient(ellipse at 50% 40%,rgba(0,0,0,.85),transparent 70%);filter:blur(30px)}
 }
 @media(max-width:999px){
   .rig{margin-bottom:44px}
