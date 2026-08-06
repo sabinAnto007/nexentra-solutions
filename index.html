@@ -1158,6 +1158,67 @@ h1{margin-bottom:20px;max-width:19ch}
   .laptop{--rx:4deg;--ry:-7deg;--rz:0deg}
   .lid > .app::after,.scr::after{animation:none;opacity:.18}
 }
+
+/* ---- hero product indicator ---- */
+.hero-ind{display:flex;gap:9px;justify-content:center;flex-wrap:wrap;margin-top:-22px;position:relative;z-index:5}
+.hi{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;cursor:pointer;
+  font-family:inherit;font-size:.8rem;font-weight:570;color:var(--dim);background:#fff;
+  border:1px solid var(--line2);box-shadow:var(--sh-sm);transition:.35s var(--e)}
+.hi:hover{color:var(--ink);border-color:var(--blue);transform:translateY(-2px)}
+.hi span{width:7px;height:7px;border-radius:50%;background:var(--line2);transition:.35s var(--e)}
+.hi.on{color:#fff;border-color:transparent;background:linear-gradient(135deg,var(--hacc,#1560E0),var(--hacc2,#4A9BFF));
+  box-shadow:0 10px 26px -10px var(--hacc,#1560E0)}
+.hi.on span{background:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.35)}
+/* the hero takes the showcased product's colour */
+.stage{--hacc:#1560E0;--hacc2:#4A9BFF}
+.stage .ni.on{background:color-mix(in srgb,var(--hacc) 13%,#fff);
+  color:color-mix(in srgb,var(--hacc) 85%,#000);
+  box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--hacc) 28%,transparent)}
+.stage .ni.on .sq{background:linear-gradient(140deg,var(--hacc),var(--hacc2))}
+.stage .chip{background:color-mix(in srgb,var(--hacc) 11%,#fff);
+  color:color-mix(in srgb,var(--hacc) 82%,#000);
+  border-color:color-mix(in srgb,var(--hacc) 27%,transparent)}
+.stage .chart div{background:linear-gradient(180deg,var(--hacc2),var(--hacc))}
+.stage .row .av{background:linear-gradient(140deg,var(--hacc),var(--hacc2))}
+#heroBody{transition:opacity .32s var(--e)}
+#heroBody.swap{opacity:0}
+
+/* ---- phone emerges from behind the tablet with two hops ---- */
+.phone.enter{animation:phoneJump 1.25s cubic-bezier(.22,1,.36,1) both}
+@keyframes phoneJump{
+  0%   {opacity:0;transform:translate3d(-190px,30px,-120px) scale(.72) rotateY(-38deg) rotateX(12deg)}
+  22%  {opacity:1}
+  42%  {transform:translate3d(16px,-26px,0) scale(1.05) rotateY(-11deg) rotateX(8deg)}
+  58%  {transform:translate3d(-5px,8px,0)  scale(.982) rotateY(-17deg) rotateX(11deg)}
+  75%  {transform:translate3d(7px,-13px,0) scale(1.018) rotateY(-13deg) rotateX(9deg)}
+  89%  {transform:translate3d(-2px,4px,0)  scale(.997) rotateY(-15deg) rotateX(10deg)}
+  100% {opacity:1;transform:translate3d(0,0,0) scale(1) rotateY(-15deg) rotateX(10deg) rotateZ(1deg)}
+}
+.pv .rig{transition:transform .9s var(--e)}
+.pv.handing .rig{transform:translateX(-14px) scale(.985)}
+.phone{z-index:6}
+
+/* ---- contact section motion ---- */
+.ctc-side .chan{opacity:0;translate:0 16px;animation:chanIn .7s var(--e) forwards}
+.ctc-side .chan:nth-of-type(1){animation-delay:.05s}
+.ctc-side .chan:nth-of-type(2){animation-delay:.16s}
+.ctc-side .chan:nth-of-type(3){animation-delay:.27s}
+@keyframes chanIn{to{opacity:1;translate:0 0}}
+.hrow:nth-child(2) b::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;
+  background:#0E9F5B;margin-right:7px;vertical-align:1px;
+  box-shadow:0 0 0 0 rgba(14,159,91,.6);animation:livePing 2.2s ease-out infinite}
+@keyframes livePing{70%,100%{box-shadow:0 0 0 7px rgba(14,159,91,0)}}
+.ctc-form{animation:formDrift 11s ease-in-out infinite alternate}
+@keyframes formDrift{to{translate:0 -8px}}
+
+@media(max-width:760px){ .hero-ind{margin-top:-8px} .hi{font-size:.74rem;padding:7px 13px} }
+@media(prefers-reduced-motion:reduce){
+  .phone.enter{animation:none}
+  .ctc-side .chan{opacity:1;translate:0 0;animation:none}
+  .ctc-form{animation:none}
+  .hrow:nth-child(2) b::before{animation:none}
+}
+
 </style>
 </head>
 <body>
@@ -1263,51 +1324,28 @@ h1{margin-bottom:20px;max-width:19ch}
 
     <div class="stage" id="stage">
       <div class="fcards" aria-hidden="true">
-        <div class="fc-card st-ok f1"><i>&#10003;</i><div><b>POD received</b><s>LR-2026-04418</s></div><u>Delivered</u></div>
-        <div class="fc-card st-info f2"><i>&#9650;</i><div><b>Invoice raised</b><s>&#8377;1,84,200 &middot; GST filed</s></div></div>
-        <div class="fc-card st-warn f3"><i>&#9888;</i><div><b>Permit renewal</b><s>TN 09 CD 4471</s></div><u>21 days</u></div>
-        <div class="fc-card st-bad f4"><i>&#9679;</i><div><b>Insurance expiring</b><s>TN 69 EF 2210</s></div><u>6 days</u></div>
+        <div class="fc-card st-ok f1"><i>&#10003;</i><div><b>POD received</b><s>Logistics ERP &middot; LR-2026-04418</s></div><u>Delivered</u></div>
+        <div class="fc-card st-info f2"><i>&#9998;</i><div><b>Draft autosaved</b><s>Kirukals &middot; 1,284 words</s></div><u>Offline</u></div>
+        <div class="fc-card st-warn f3"><i>&#9888;</i><div><b>Pledge due</b><s>Gold Loan ERP &middot; GL-24120</s></div><u>4 days</u></div>
       </div>
       <div class="rig"><div class="laptop"><div class="lid"><div class="app hair">
         <div class="bar">
           <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-          <div class="omni">app.nexentra.in/erp/chennai/role-center</div>
+          <div class="omni" id="heroUrl">app.nexentra.in/erp/chennai/role-center</div>
         </div>
         <div class="app-body">
-          <aside class="side">
-            <h5>Operations</h5>
-            <div class="ni on"><span class="sq"></span>Role Center</div>
-            <div class="ni"><span class="sq"></span>Freight / Trips</div>
-            <div class="ni"><span class="sq"></span>Vehicles</div>
-            <div class="ni"><span class="sq"></span>Drivers</div>
-            <div class="ni"><span class="sq"></span>Parties</div>
-            <h5>Finance</h5>
-            <div class="ni"><span class="sq"></span>Invoices &amp; GST</div>
-            <div class="ni"><span class="sq"></span>Receivables</div>
-            <h5>Admin</h5>
-            <div class="ni"><span class="sq"></span>Branches</div>
-            <div class="ni"><span class="sq"></span>Reports</div>
-          </aside>
+          <aside class="side" id="heroSide"></aside>
           <div class="panel">
-            <div class="ptop"><h4>Role Center — Chennai Branch</h4><span class="chip">● All systems normal</span></div>
-            <div class="kpis">
-              <div class="kpi"><span>Trips in transit</span><b>34</b><i>+12%</i></div>
-              <div class="kpi"><span>Avg. invoice lag</span><b>1.2d</b><i>−68%</i></div>
-              <div class="kpi"><span>Receivables</span><b>₹18.4L</b><i>−22%</i></div>
-            </div>
-            <div class="chart">
-              <div style="--h:36%"></div><div style="--h:54%"></div><div style="--h:42%"></div>
-              <div style="--h:68%"></div><div style="--h:58%"></div><div style="--h:82%"></div>
-              <div style="--h:71%"></div><div style="--h:94%"></div><div style="--h:80%"></div>
-              <div style="--h:100%"></div><div style="--h:88%"></div><div style="--h:96%"></div>
-            </div>
-            <div class="rows">
-              <div class="row"><span class="av"></span>LR-2026-04417 · Chennai → Salem<span class="sp">in transit</span></div>
-              <div class="row"><span class="av"></span>LR-2026-04418 · POD received<span class="sp">ready to bill</span></div>
-            </div>
+            <div class="ptop"><h4 id="heroTitle">Role Center &mdash; Chennai Branch</h4><span class="chip" id="heroChip">&#9679; All systems normal</span></div>
+            <div id="heroBody"></div>
           </div>
         </div>
       </div><div class="ghost" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#0A1435" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"><path d="M5 2l14 9.5-6.2 1.2 3.4 6.6-2.9 1.5-3.4-6.6L5 18z"/></svg></div></div></div></div>
+      <div class="hero-ind" id="heroInd" role="tablist" aria-label="Product showcase">
+        <button class="hi on" data-h="0"><span></span>Logistics ERP</button>
+        <button class="hi" data-h="1"><span></span>Kirukals</button>
+        <button class="hi" data-h="2"><span></span>Gold Loan ERP</button>
+      </div>
     </div>
   </div>
 
@@ -2253,6 +2291,126 @@ if(!rm){
 }
 
 
+
+
+/* ===== hero showcase: all three products, equal billing ===== */
+(function(){
+  const HERO=[
+    { acc:'#1560E0', acc2:'#4A9BFF',
+      url:'app.nexentra.in/erp/chennai/role-center',
+      title:'Role Center — Chennai Branch', chip:'● All systems normal',
+      nav:[['Operations',['Role Center','Freight / Trips','Vehicles','Drivers']],
+           ['Finance',['Invoices & GST','Receivables']]],
+      body:'<div class="kpis">'
+         + '<div class="kpi"><span>Trips in transit</span><b>34</b><i>+12%</i></div>'
+         + '<div class="kpi"><span>Avg. invoice lag</span><b>1.2d</b><i>−68%</i></div>'
+         + '<div class="kpi"><span>Receivables</span><b>₹18.4L</b><i>−22%</i></div></div>'
+         + '<div class="chart">'
+         + [36,54,42,68,58,82,71,94,80,100,88,96].map(h=>'<div style="--h:'+h+'%"></div>').join('')
+         + '</div>'
+         + '<div class="rows">'
+         + '<div class="row"><span class="av"></span>LR-2026-04417 · Chennai → Salem<span class="sp">in transit</span></div>'
+         + '<div class="row"><span class="av"></span>LR-2026-04418 · POD received<span class="sp">ready to bill</span></div></div>' },
+
+    { acc:'#8B3FE0', acc2:'#C084FC',
+      url:'kirukals.app — INT. COFFEE SHOP · draft 3',
+      title:'Untitled Screenplay', chip:'● Autosaved · offline',
+      nav:[['Scenes',['1. INT. COFFEE SHOP','2. EXT. MARINA — NIGHT','3. INT. CAR — MOVING','4. INT. OFFICE — DAY']],
+           ['Draft',['Characters','Export PDF']]],
+      body:'<div class="kpis">'
+         + '<div class="kpi"><span>Pages</span><b>3</b><i>+1</i></div>'
+         + '<div class="kpi"><span>Words</span><b>1,284</b><i>+212</i></div>'
+         + '<div class="kpi"><span>Scenes</span><b>4</b><i>+1</i></div></div>'
+         + '<div class="page">'
+         + '<div class="sl">INT. COFFEE SHOP — MORNING</div>'
+         + '<div class="ac">Rain on the window. ARJUN, 30s, stares at a laptop that has not moved in an hour. The cursor blinks. So does he.</div>'
+         + '<div class="ch">ARJUN</div><div class="pr">(to no one)</div>'
+         + '<div class="dg">Formatting is not writing.</div>'
+         + '<div class="ac">He types. The page paginates itself. He does not notice, which is the point.</div>'
+         + '<div class="ch">MEERA</div>'
+         + '<div class="dg">Then stop fighting it and finish the scene.<span class="caret"></span></div></div>'
+         + '<div class="pmeta"><span>Page 1 of 3</span><span>Courier 12pt</span><span class="ok">● Saved locally</span></div>' },
+
+    { acc:'#C77700', acc2:'#F5A524',
+      url:'app.nexentra.in/goldloan/branch-01/ledger',
+      title:'Loan Ledger — Branch 01', chip:'● Rate ₹7,412 / g',
+      nav:[['Lending',['Loan Ledger','New Pledge','Releases','Auctions']],
+           ['Vault',['Packet Register','Audit Trail']]],
+      body:'<div class="kpis">'
+         + '<div class="kpi"><span>Active loans</span><b>842</b><i>+6%</i></div>'
+         + '<div class="kpi"><span>Principal out</span><b>₹6.4Cr</b><i>+11%</i></div>'
+         + '<div class="kpi"><span>Overdue</span><b>₹18.2L</b><i>−9%</i></div></div>'
+         + '<div class="ledger">'
+         + '<div class="lh"><span>Loan</span><span>Pledge</span><span>Net wt.</span><span>Amount</span><span>Status</span></div>'
+         + '<div class="lr"><span>GL-24118</span><span>Bangle ×2</span><span>38.20 g</span><span>₹2,10,000</span><span class="ok">Active</span></div>'
+         + '<div class="lr"><span>GL-24119</span><span>Chain</span><span>21.60 g</span><span>₹1,18,500</span><span class="ok">Active</span></div>'
+         + '<div class="lr"><span>GL-24120</span><span>Ring ×4</span><span>12.40 g</span><span>₹68,000</span><span class="warn">Due 4d</span></div>'
+         + '<div class="lr"><span>GL-24121</span><span>Necklace</span><span>54.80 g</span><span>₹3,02,000</span><span class="bad">Overdue</span></div></div>' }
+  ];
+
+  const stage=document.getElementById('stage');
+  const url=document.getElementById('heroUrl'), side=document.getElementById('heroSide'),
+        title=document.getElementById('heroTitle'), chip=document.getElementById('heroChip'),
+        body=document.getElementById('heroBody'), ind=document.getElementById('heroInd');
+  if(!stage||!body||!ind) return;
+
+  let at=0, timer=null;
+
+  function paintHero(i){
+    const h=HERO[i]; at=i;
+    stage.style.setProperty('--hacc',h.acc);
+    stage.style.setProperty('--hacc2',h.acc2);
+    url.textContent=h.url; title.textContent=h.title; chip.textContent=h.chip;
+    side.innerHTML=h.nav.map(([g,items],gi)=>
+      '<h5>'+g+'</h5>'+items.map((n,k)=>
+        '<div class="ni'+(gi===0&&k===0?' on':'')+'"><span class="sq"></span>'+n+'</div>').join('')
+    ).join('');
+    body.innerHTML=h.body;
+    ind.querySelectorAll('.hi').forEach(b=>b.classList.toggle('on',+b.dataset.h===i));
+    // let the chart bars grow in
+    requestAnimationFrame(()=>requestAnimationFrame(()=>stage.classList.add('up')));
+  }
+
+  function goTo(i){
+    if(i===at) return;
+    body.classList.add('swap');
+    setTimeout(()=>{ paintHero(i); body.classList.remove('swap'); },320);
+  }
+
+  paintHero(0);
+
+  const advance=()=>goTo((at+1)%HERO.length);
+  const start=()=>{ stop(); timer=setInterval(advance,6500); };
+  const stop =()=>{ if(timer){ clearInterval(timer); timer=null; } };
+
+  ind.querySelectorAll('.hi').forEach(b=>b.addEventListener('click',()=>{ goTo(+b.dataset.h); start(); }));
+  // pause while the visitor is reading the screen
+  stage.addEventListener('pointerenter',stop);
+  stage.addEventListener('pointerleave',start);
+  if(!rm) start();
+})();
+
+/* ===== phone flies out from behind the tablet on every product switch ===== */
+(function(){
+  const tabs=[...document.querySelectorAll('.ptab')];
+  if(!tabs.length) return;
+  function fly(){
+    const pv=document.querySelector('.pv.on');
+    if(!pv||rm) return;
+    const ph=pv.querySelector('.phone');
+    if(!ph) return;
+    pv.classList.add('handing');
+    ph.classList.remove('enter');
+    void ph.offsetWidth;
+    ph.classList.add('enter');
+    setTimeout(()=>{ ph.classList.remove('enter'); pv.classList.remove('handing'); },1300);
+  }
+  tabs.forEach(t=>t.addEventListener('click',()=>setTimeout(fly,240)));
+  const st=document.getElementById('pstage');
+  if(st) new IntersectionObserver((es,o)=>es.forEach(e=>{
+    if(e.isIntersecting){ fly(); o.unobserve(e.target); }
+  }),{threshold:.35}).observe(st);
+})();
 
 </script>
 </body>
