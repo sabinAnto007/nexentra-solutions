@@ -505,12 +505,6 @@ footer{border-top:1px solid var(--line);padding:62px 0 32px;margin-top:46px;back
 .hrow span{color:var(--faint)}
 .hrow b{font-weight:620;color:var(--ink);text-align:right}
 .hrow b em{font-style:normal;color:var(--faint);font-weight:400;font-size:.92em}
-.kirnote{border-radius:15px;padding:18px;border:1px solid rgba(139,63,224,.25);
-  background:linear-gradient(160deg,#F7F0FF,#fff)}
-.kirnote b{display:block;font-size:.9rem;font-weight:680;margin-bottom:5px;color:var(--ink)}
-.kirnote p{font-size:.81rem;color:var(--dim);line-height:1.5;margin-bottom:14px}
-.kirnote .btn.p{background:linear-gradient(135deg,#7B2FD0,#A855F7);box-shadow:0 10px 26px -10px rgba(139,63,224,.55)}
-
 /* ================= FLOATING ================= */
 .fab{position:fixed;right:22px;z-index:80;width:54px;height:54px;border-radius:50%;display:grid;place-items:center;
   border:1px solid var(--line2);cursor:pointer;transition:.35s var(--e);font-family:inherit}
@@ -627,9 +621,8 @@ footer{border-top:1px solid var(--line);padding:62px 0 32px;margin-top:46px;back
 @media(hover:none){.chan .copy{opacity:1;transform:translateY(-50%) scale(1)}}
 
 /* ---------- logo mark hover ---------- */
-.logo .nx-a{transition:transform .45s var(--snap),fill .3s}
-.logo:hover .nx-a{transform:translateX(5px)}
-.logo .nx-n,.logo .nx-e{transition:fill .3s}
+.logo svg{transition:transform .45s var(--snap)}
+.logo:hover svg{transform:translateX(2px) scale(1.04)}
 
 /* ---------- keyboard focus on product tabs ---------- */
 .ptab:focus-visible{outline:3px solid rgba(21,96,224,.5);outline-offset:2px}
@@ -644,6 +637,90 @@ footer{border-top:1px solid var(--line);padding:62px 0 32px;margin-top:46px;back
 @keyframes dotIn{to{transform:translateY(-50%) scale(1)}}
 
 @media(prefers-reduced-motion:reduce){
+}
+
+/* ================= SURFACE RHYTHM =================
+   A white page reads flat when every band looks identical.
+   White -> tinted -> DARK -> tinted -> white gives the page a spine. */
+
+/* --- tinted bands --- */
+section.tint{position:relative;background:linear-gradient(180deg,#F4F7FD,#FAFCFF);
+  border-block:1px solid var(--line)}
+
+/* --- the dark band: products --- */
+.prod{background:linear-gradient(175deg,#0A1435 0%,#0D1B45 55%,#0A1435 100%);
+  border-block:1px solid #16244F}
+.prod h2,.prod .pcopy h3{color:#F2F6FF}
+.prod .head p,.prod .pcopy p{color:#9BB0D8}
+.prod .eyebrow{color:#6FA6FF}
+.prod-glow{opacity:.5;filter:blur(120px)}
+.prod .ptab{background:rgba(255,255,255,.045);border-color:rgba(140,175,255,.16);color:#9BB0D8;
+  box-shadow:none}
+.prod .ptab:hover{background:rgba(255,255,255,.09);border-color:rgba(140,175,255,.3);color:#fff}
+.prod .ptab.on{color:#fff;
+  background:linear-gradient(150deg,color-mix(in srgb,var(--acc) 30%,transparent),rgba(255,255,255,.04));
+  border-color:color-mix(in srgb,var(--acc) 60%,transparent);
+  box-shadow:0 16px 40px -16px color-mix(in srgb,var(--acc) 85%,transparent)}
+.prod .pt-i{background:rgba(0,0,0,.3);border-color:rgba(140,175,255,.2);color:var(--acc2)}
+.prod .pt-t s{color:#6E82AC}
+.prod .ptab.on .pt-t s{color:var(--acc2)}
+.prod .ptags span{border-color:color-mix(in srgb,var(--acc) 45%,transparent);
+  background:color-mix(in srgb,var(--acc) 16%,transparent);color:var(--acc2)}
+.prod .swipe-hint{color:#6E82AC}
+/* the white app mockup now floats on dark — the whole point */
+.prod .app{box-shadow:0 40px 100px -30px rgba(0,0,0,.7),
+  0 0 0 1px rgba(255,255,255,.07),
+  0 -20px 70px -35px color-mix(in srgb,var(--acc) 80%,transparent)}
+
+/* --- dark footer anchors the page --- */
+footer{background:linear-gradient(180deg,#0A1435,#070F2A);border-top:1px solid #16244F}
+footer .logo-txt b{color:#fff}
+footer .logo-txt s{color:#6FA6FF}
+footer .fb p{color:#9BB0D8}
+footer .fc h4{color:#6E82AC}
+footer .fc a{color:#9BB0D8}
+footer .fc a:hover{color:#fff}
+footer .fbot{color:#6E82AC;border-top-color:#16244F}
+footer .soc a{background:rgba(255,255,255,.06);border-color:rgba(140,175,255,.18);color:#9BB0D8}
+footer .soc a:hover{background:rgba(255,255,255,.12);border-color:#6FA6FF;color:#fff}
+footer .logo{--logo-ink:#FFFFFF;--logo-acc:#4A9BFF}
+
+/* --- hero sits on a soft gradient panel --- */
+.hero::before{content:"";position:absolute;left:50%;top:-120px;width:1240px;height:760px;
+  transform:translateX(-50%);pointer-events:none;z-index:-1;border-radius:50%;
+  background:radial-gradient(ellipse at center,rgba(21,96,224,.13),rgba(126,80,220,.06) 45%,transparent 70%)}
+.hero{position:relative}
+
+/* --- cards get a gradient accent that grows on hover --- */
+.card,.ecard,.stat{position:relative;overflow:hidden}
+.card::after,.ecard::after,.stat::after{content:"";position:absolute;top:0;left:0;height:3px;width:0;
+  background:var(--grad);transition:width .55s var(--e);border-radius:0 3px 3px 0}
+.card:hover::after,.ecard:hover::after,.stat:hover::after{width:100%}
+.ecard.feat::after{width:100%}
+
+/* --- eyebrow gets a leading rule --- */
+.eyebrow{display:inline-flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:26px;height:2px;border-radius:2px;background:var(--grad);flex:none}
+.head.mid .eyebrow{justify-content:center}
+
+/* --- section headings get more presence --- */
+h2{font-weight:720}
+.head p{font-size:1.04rem;line-height:1.65}
+
+/* --- stat cards: bigger, with a tinted base --- */
+.stat{background:linear-gradient(180deg,#fff,#F7FAFF)}
+
+/* --- quote panel: stronger --- */
+.quote{background:linear-gradient(160deg,#EDF3FF,#F9FBFF 60%,#F5F1FF);border-color:#DCE6F7}
+
+/* --- contact form panel lifts off the page --- */
+.ctc-form{box-shadow:0 20px 50px -22px rgba(10,20,53,.18),0 4px 12px rgba(10,20,53,.05)}
+
+/* --- tech strip sits darker so it reads as a divider --- */
+.strip{background:linear-gradient(180deg,#F1F5FC,#F7FAFF)}
+
+@media(max-width:760px){
+  .hero::before{width:700px;height:520px}
 }
 
 </style>
@@ -675,12 +752,12 @@ footer{border-top:1px solid var(--line);padding:62px 0 32px;margin-top:46px;back
     <!-- Mark 10: flat geometric N + barred E -->
     <symbol id="nxMark" viewBox="0 0 88 64">
       <!-- N -->
-      <path class="nx-n" d="M2 60V4h12l20 31.5V4h12v56H34L14 28.5V60z" fill="#0A1435"/>
+      <path class="nx-n" d="M2 60V4h12l20 31.5V4h12v56H34L14 28.5V60z" fill="var(--logo-ink,#0A1435)"/>
       <!-- E bars -->
-      <path class="nx-e" d="M52 4h34v11H52z" fill="#0A1435"/>
-      <path class="nx-e" d="M52 26.5h18v11H52z" fill="#0A1435"/>
-      <path class="nx-a" d="M75 26.5h11v11H75z" fill="#1560E0"/>
-      <path class="nx-e" d="M52 49h34v11H52z" fill="#0A1435"/>
+      <path class="nx-e" d="M52 4h34v11H52z" fill="var(--logo-ink,#0A1435)"/>
+      <path class="nx-e" d="M52 26.5h18v11H52z" fill="var(--logo-ink,#0A1435)"/>
+      <path class="nx-a" d="M75 26.5h11v11H75z" fill="var(--logo-acc,#1560E0)"/>
+      <path class="nx-e" d="M52 49h34v11H52z" fill="var(--logo-ink,#0A1435)"/>
     </symbol>
   </defs>
 </svg>
@@ -853,7 +930,7 @@ footer{border-top:1px solid var(--line);padding:62px 0 32px;margin-top:46px;back
   </section>
 
   <!-- ============ APPROACH (tagline) ============ -->
-  <section id="approach" class="wrap">
+  <section id="approach" class="wrap tint">
     <div class="head mid rv">
       <div class="eyebrow">Our approach</div>
       <h2>Innovate. Integrate. Elevate.</h2>
@@ -1046,7 +1123,7 @@ footer{border-top:1px solid var(--line);padding:62px 0 32px;margin-top:46px;back
   </section>
 
   <!-- ============ ENGAGEMENT MODELS ============ -->
-  <section id="engage" class="wrap">
+  <section id="engage" class="wrap tint">
     <div class="head mid rv">
       <div class="eyebrow">How we engage</div>
       <h2>Three ways to work with us.</h2>
@@ -1198,11 +1275,6 @@ footer{border-top:1px solid var(--line);padding:62px 0 32px;margin-top:46px;back
           <div class="hrow"><span>Serving</span><b>Clients worldwide</b></div>
         </div>
 
-        <div class="kirnote">
-          <b>Looking for Kirukals?</b>
-          <p>No demo needed — it's free to start and works offline.</p>
-          <a class="btn p sm mag" id="kirCta" target="_blank" rel="noopener">Start writing free</a>
-        </div>
       </aside>
     </div>
   </section>
@@ -1413,7 +1485,6 @@ const wa = t => 'https://wa.me/'+NEXENTRA.whatsapp+(t?'?text='+encodeURIComponen
 
 // wire every outbound link from the config block
 document.querySelectorAll('.si-i').forEach(a=>a.href = NEXENTRA.apps[a.dataset.app] || '#');
-document.getElementById('kirCta').href  = NEXENTRA.apps.kirukals;
 document.getElementById('fabWa').href   = wa('Hi Nexentra, I would like to know more about your products.');
 document.getElementById('chanWa').href  = wa('Hi Nexentra, I would like to know more about your products.');
 document.getElementById('chanTel').href = 'tel:'+NEXENTRA.phone.replace(/\s/g,'');
