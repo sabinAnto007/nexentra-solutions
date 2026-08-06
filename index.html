@@ -593,20 +593,6 @@ footer{border-top:1px solid var(--line);padding:62px 0 32px;margin-top:46px;back
   .card:hover::before{opacity:0}
 }
 
-/* ---------- custom cursor (fine pointers only) ---------- */
-.cur,.cur-r{position:fixed;top:0;left:0;z-index:9999;pointer-events:none;border-radius:50%;
-  opacity:0;transition:opacity .3s,width .3s var(--snap),height .3s var(--snap),background .3s,border-color .3s}
-.cur{width:7px;height:7px;background:var(--blue);margin:-3.5px 0 0 -3.5px}
-.cur-r{width:34px;height:34px;border:1.5px solid rgba(21,96,224,.45);margin:-17px 0 0 -17px}
-body.cur-on .cur,body.cur-on .cur-r{opacity:1}
-body.cur-on.cur-hot .cur{width:0;height:0}
-body.cur-on.cur-hot .cur-r{width:54px;height:54px;background:rgba(21,96,224,.12);border-color:var(--blue)}
-body.cur-on.cur-txt .cur-r{width:3px;height:26px;border-radius:2px;background:var(--blue);border-color:transparent}
-@media(hover:hover) and (pointer:fine){
-  body.cur-on,body.cur-on a,body.cur-on button{cursor:none}
-  body.cur-on input,body.cur-on textarea,body.cur-on select{cursor:auto}
-}
-
 /* ---------- arrow slide on CTA ---------- */
 .btn svg:last-child:not(:first-child){transition:transform .35s var(--snap)}
 .btn:hover svg:last-child:not(:first-child){transform:translateX(4px)}
@@ -658,8 +644,6 @@ body.cur-on.cur-txt .cur-r{width:3px;height:26px;border-radius:2px;background:va
 @keyframes dotIn{to{transform:translateY(-50%) scale(1)}}
 
 @media(prefers-reduced-motion:reduce){
-  .cur,.cur-r{display:none}
-  body.cur-on,body.cur-on a,body.cur-on button{cursor:auto}
 }
 
 </style>
@@ -1621,31 +1605,6 @@ function toast(msg){
   t.querySelector('span').textContent=msg;
   toastBox.appendChild(t);
   setTimeout(()=>{ t.classList.add('out'); setTimeout(()=>t.remove(),400); },2600);
-}
-
-/* ---------- custom cursor ---------- */
-if(!rm && matchMedia('(hover:hover) and (pointer:fine)').matches){
-  const dot=document.createElement('div'); dot.className='cur';
-  const ring=document.createElement('div'); ring.className='cur-r';
-  document.body.append(dot,ring);
-  document.body.classList.add('cur-on');
-  let rx=0,ry=0,tx=0,ty=0;
-  addEventListener('pointermove',e=>{
-    tx=e.clientX; ty=e.clientY;
-    dot.style.transform='translate('+tx+'px,'+ty+'px)';
-    const el=e.target;
-    const hot=el.closest('a,button,.card,.ecard,.ptab,.chp,.chan,.stat,[role="tab"]');
-    const txt=el.closest('input,textarea,p,h1,h2,h3,blockquote');
-    document.body.classList.toggle('cur-hot',!!hot);
-    document.body.classList.toggle('cur-txt',!hot && !!txt);
-  },{passive:true});
-  (function loop(){
-    rx+=(tx-rx)*.16; ry+=(ty-ry)*.16;
-    ring.style.transform='translate('+rx+'px,'+ry+'px)';
-    requestAnimationFrame(loop);
-  })();
-  addEventListener('pointerleave',()=>document.body.classList.remove('cur-on'));
-  addEventListener('pointerenter',()=>document.body.classList.add('cur-on'));
 }
 
 /* ---------- product tabs: keyboard + swipe ---------- */
