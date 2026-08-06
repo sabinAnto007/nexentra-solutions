@@ -1292,6 +1292,13 @@ h1{margin-bottom:20px;max-width:19ch}
   .wapv-caret,.wapv-typing i{animation:none}
 }
 
+
+/* the self-playing sample is labelled, so nobody mistakes it for their own text */
+.wapv-bubble.sample::before{content:"Sample";position:absolute;top:-9px;left:9px;
+  font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  padding:2px 7px;border-radius:99px;background:var(--ink);color:#fff}
+.wapv-bubble{margin-top:9px}
+
 </style>
 </head>
 <body>
@@ -2532,7 +2539,7 @@ if(!rm){
   if(!bubble||!text) return;
 
   const PLACEHOLDER='Your message will appear here as you type…';
-  let typer=null, idleTimer=null, safety=null;
+  let typer=null, idleTimer=null, safety=null, live=false;
 
   function draft(){
     const L=[];
@@ -2575,6 +2582,7 @@ if(!rm){
     const d=draft();
     const empty=!F.name.value.trim() && !F.msg.value.trim() && !F.phone.value.trim();
     bubble.classList.toggle('empty', empty);
+    if(live) bubble.classList.remove('sample');
     if(rm){ text.textContent = empty ? PLACEHOLDER : d; }
     else   { type(empty ? PLACEHOLDER : d); }
 
@@ -2590,9 +2598,35 @@ if(!rm){
     if(fill) fill.style.width=(done/3*100)+'%';
   }
 
-  Object.values(F).forEach(el=>el&&el.addEventListener('input',update));
+  Object.values(F).forEach(el=>el&&el.addEventListener('input',()=>{ live=true; update(); }));
   document.querySelectorAll('.chp').forEach(c=>c.addEventListener('click',()=>setTimeout(update,10)));
   update();
+
+  /* --- it demonstrates itself, otherwise it is just an empty box --- */
+  const DEMO=['Name: Priya Raghavan',
+              'Company: Meridian Logistics',
+              'Phone: +91 98400 12345',
+              'Interested in: Logistics ERP',
+              '',
+              'We run 40 trucks across 2 branches. Billing takes a week and we keep missing permit renewals.'].join('\n');
+
+  function playDemo(){
+    if(live) return;                       // never fight a real visitor
+    status.textContent='typing…';
+    typing.classList.add('on');
+    bubble.classList.add('hide');
+    setTimeout(()=>{
+      if(live) return;
+      typing.classList.remove('on');
+      bubble.classList.remove('hide','empty');
+      type(DEMO);
+      setTimeout(()=>{ if(!live){ bubble.classList.add('sample'); } }, 1800);
+    }, 1100);
+  }
+
+  new IntersectionObserver((es,o)=>es.forEach(e=>{
+    if(e.isIntersecting){ setTimeout(playDemo,500); o.unobserve(e.target); }
+  }),{threshold:.4}).observe(document.getElementById('waPv'));
 })();
 
 </script>
