@@ -965,44 +965,6 @@ h1{margin-bottom:20px;max-width:19ch}
   .map .halo{animation:none}
 }
 
-/* ================= LAPTOP FRAME ================= */
-.laptop{position:relative;max-width:940px;margin:0 auto 30px;padding:13px 13px 14px;
-  background:linear-gradient(165deg,#39415A,#1A2032 42%,#0E1322);
-  border-radius:18px 18px 6px 6px;
-  box-shadow:0 2px 0 rgba(255,255,255,.16) inset,0 40px 80px -34px rgba(10,20,53,.55);
-  transform:translateY(var(--py,0px))}
-/* camera */
-.laptop::before{content:"";position:absolute;left:50%;top:5.5px;translate:-50% 0;width:5px;height:5px;
-  border-radius:50%;background:#0B0F1C;box-shadow:0 0 0 1px rgba(255,255,255,.12)}
-/* base / deck */
-.laptop::after{content:"";position:absolute;left:-4.6%;right:-4.6%;top:100%;height:14px;
-  background:linear-gradient(180deg,#D7DCE6 0%,#AEB6C6 38%,#79839A 78%,#5C6478 100%);
-  border-radius:0 0 14px 14px;
-  box-shadow:0 16px 30px -12px rgba(10,20,53,.45),0 1px 0 rgba(255,255,255,.6) inset}
-/* thumb notch on the deck */
-.lap-notch{position:absolute;left:50%;top:100%;translate:-50% 0;z-index:2;width:96px;height:7px;
-  border-radius:0 0 8px 8px;background:linear-gradient(180deg,#8B94A8,#AEB6C6)}
-
-.laptop .app{max-width:100%;margin:0;border-radius:8px;border-color:#0B0F1C;
-  box-shadow:0 0 0 1px rgba(0,0,0,.55)}
-.laptop .app-body{min-height:392px}
-
-/* the stage laptop keeps its lift-in */
-.stage .laptop{transform:rotateX(13deg) scale(.95);transform-origin:50% 0;opacity:0;
-  transition:transform 1.3s var(--e),opacity 1s var(--e)}
-.stage.up .laptop{transform:rotateX(0) scale(1);opacity:1}
-.stage .app{transform:none!important;opacity:1!important;box-shadow:0 0 0 1px rgba(0,0,0,.55)}
-.pv .app{box-shadow:0 0 0 1px rgba(0,0,0,.55)}
-
-/* the product laptops sit on the dark band, so give them a lift glow */
-.prod .laptop{box-shadow:0 2px 0 rgba(255,255,255,.18) inset,
-  0 46px 90px -34px rgba(0,0,0,.8),
-  0 -18px 60px -34px color-mix(in srgb,var(--acc) 75%,transparent)}
-
-/* ---- phone moves clear of the screen content ---- */
-.phone{right:-52px;bottom:-96px;z-index:6}
-.phone-glow{right:-24px;bottom:-104px}
-
 /* ================= SCREEN-RECORDING FEEL ================= */
 /* a pointer that tours the UI and clicks, so the mockup reads as a capture */
 .ghost{position:absolute;z-index:7;width:17px;height:17px;pointer-events:none;
@@ -1052,7 +1014,6 @@ h1{margin-bottom:20px;max-width:19ch}
 @media(max-width:900px){
   .laptop{padding:9px 9px 10px;border-radius:14px 14px 5px 5px;margin-bottom:24px}
   .laptop::after{height:10px;left:-3.5%;right:-3.5%}
-  .lap-notch{width:66px;height:5px}
   .phone{position:static;margin:34px auto 0}
   .phone-glow{display:none}
 }
@@ -1061,13 +1022,153 @@ h1{margin-bottom:20px;max-width:19ch}
 }
 
 
-/* ---- device pairing: laptop and phone sit side by side, never overlapping ---- */
+/* ================= 3D DEVICE RIG =================
+   Real perspective, hinged deck, keyboard and trackpad — built from the
+   reference shots. Devices float at an angle and straighten on hover so
+   the interface stays readable. */
+
+.rig{position:relative;perspective:2000px;perspective-origin:50% 26%;
+  margin:0 auto 64px;max-width:940px}
+.rig::after{content:"";position:absolute;left:10%;right:10%;bottom:-26px;height:70px;z-index:-1;
+  background:radial-gradient(ellipse at center,rgba(10,20,53,.5),transparent 72%);
+  filter:blur(26px);opacity:.75}
+.prod .rig::after{background:radial-gradient(ellipse at center,rgba(0,0,0,.75),transparent 72%)}
+
+.laptop{position:relative;transform-style:preserve-3d;
+  transform:rotateX(var(--rx,9deg)) rotateY(var(--ry,-15deg)) rotateZ(var(--rz,-1deg));
+  transition:transform 1.1s var(--e);
+  animation:rigFloat 9s ease-in-out infinite alternate}
+@keyframes rigFloat{to{translate:0 -16px}}
+.rig:hover .laptop{--rx:2deg;--ry:-4deg;--rz:0deg}
+
+/* ---------- lid ---------- */
+.lid{position:relative;transform-style:preserve-3d;padding:12px 12px 15px;
+  background:linear-gradient(148deg,#5A6377 0%,#2B3247 34%,#161C2E 72%,#0D1220 100%);
+  border-radius:17px 17px 5px 5px;
+  box-shadow:inset 0 0 0 1.2px rgba(255,255,255,.17),
+             inset 0 1px 0 rgba(255,255,255,.3),
+             0 30px 60px -26px rgba(0,0,0,.7)}
+/* notch */
+.lid::before{content:"";position:absolute;left:50%;top:0;translate:-50% 0;z-index:6;
+  width:104px;height:16px;background:#0A0E1A;border-radius:0 0 10px 10px}
+/* camera in the notch */
+.lid::after{content:"";position:absolute;left:50%;top:4.5px;translate:-50% 0;z-index:7;
+  width:5px;height:5px;border-radius:50%;background:#141A2B;
+  box-shadow:0 0 0 1px rgba(255,255,255,.16),inset 0 0 2px rgba(120,180,255,.55)}
+
+.lid .app{max-width:100%;margin:0;border-radius:8px;border:0;
+  box-shadow:0 0 0 1px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.05)}
+.lid .app-body{min-height:376px}
+
+/* ---------- hinged deck ---------- */
+.deck{position:relative;height:224px;transform-origin:50% 0;transform:rotateX(78deg);
+  background:linear-gradient(180deg,#DDE2EB 0%,#B9C0CF 16%,#8F98AB 52%,#6B7488 88%,#4E566A 100%);
+  border-radius:0 0 15px 15px;
+  box-shadow:0 1px 0 rgba(255,255,255,.75) inset,0 34px 46px -22px rgba(0,0,0,.55)}
+/* hinge shadow where deck meets lid */
+.deck::before{content:"";position:absolute;left:6%;right:6%;top:0;height:12px;
+  background:linear-gradient(180deg,rgba(10,20,53,.5),transparent)}
+/* front lip notch */
+.deck::after{content:"";position:absolute;left:50%;bottom:-1px;translate:-50% 0;
+  width:110px;height:8px;border-radius:9px 9px 0 0;background:rgba(10,20,53,.22)}
+
+/* keyboard well — keys drawn with repeating gradients, no extra DOM */
+.kb{position:absolute;left:10%;right:10%;top:20px;height:104px;border-radius:9px;
+  background-color:#171C2B;
+  background-image:
+    repeating-linear-gradient(90deg,rgba(255,255,255,.13) 0 20px,transparent 20px 23.5px),
+    repeating-linear-gradient(180deg,rgba(255,255,255,.13) 0 15px,transparent 15px 18.5px);
+  box-shadow:inset 0 2px 6px rgba(0,0,0,.6),0 1px 0 rgba(255,255,255,.5)}
+/* spacebar */
+.kb::after{content:"";position:absolute;left:32%;right:32%;bottom:6px;height:11px;border-radius:3px;
+  background:rgba(255,255,255,.13)}
+
+/* trackpad */
+.pad{position:absolute;left:50%;translate:-50% 0;bottom:26px;width:34%;height:60px;border-radius:10px;
+  background:linear-gradient(180deg,#C4CBD9,#A7AFC1);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.8),inset 0 -1px 3px rgba(10,20,53,.25),
+             0 1px 2px rgba(255,255,255,.5)}
+
+/* stage lift-in still applies, now to the rig */
+.stage .laptop{opacity:0;transition:transform 1.2s var(--e),opacity 1s var(--e)}
+.stage.up .laptop{opacity:1}
+.stage .app{transform:none!important;opacity:1!important}
+
+/* ================= PHONE, REBUILT ================= */
+.phone{width:236px;height:478px;border-radius:44px;padding:0;
+  background:linear-gradient(140deg,#D6DBE6 0%,#8A93A8 18%,#3A4258 42%,#8A93A8 68%,#5A6377 100%);
+  box-shadow:0 40px 70px -26px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.35);
+  transform:rotateY(var(--pry,13deg)) rotateX(var(--prx,5deg)) rotateZ(var(--prz,-2deg));
+  transform-style:preserve-3d;transition:transform 1.1s var(--e);
+  animation:phFloat 8s ease-in-out infinite alternate}
+@keyframes phFloat{to{translate:0 -20px}}
+.pv:hover .phone,.phone:hover{--pry:2deg;--prx:1deg;--prz:0deg}
+.phone::before{content:"";position:absolute;inset:3px;border-radius:41px;background:#05070E;z-index:0}
+/* side buttons */
+.phone::after{content:"";position:absolute;left:-2.5px;top:104px;width:3px;height:112px;border-radius:3px;
+  background:linear-gradient(180deg,#B9C0CF,#6B7488);
+  box-shadow:0 -34px 0 -1px #9AA3B6,0 -58px 0 -1px #9AA3B6}
+.scr{position:absolute;inset:8px;height:auto;border-radius:37px;z-index:1}
+.phone .isl{top:12px}
+
+.phone-glow{width:300px;height:180px;filter:blur(52px);opacity:.7}
+
 @media(min-width:1000px){
-  .pv.on{display:flex;align-items:center;gap:26px}
-  .pv .laptop{flex:1 1 auto;min-width:0;max-width:706px;margin:0 0 22px}
-  .pv .phone{position:static;flex:0 0 auto;margin-bottom:14px}
-  .pv .phone-glow{right:0;bottom:-40px;width:260px;height:150px}
-  .pv .app-body{min-height:376px}
+  .pv.on{display:flex;align-items:center;gap:34px}
+  .pv .rig{flex:1 1 auto;min-width:0;max-width:660px;margin:0 0 46px}
+  .pv .phone{position:static;flex:0 0 auto;margin-bottom:26px}
+  .pv .phone-glow{right:10px;bottom:-30px}
+}
+@media(max-width:999px){
+  .rig{margin-bottom:52px}
+  .phone{position:static;margin:36px auto 0;transform:none;animation:none}
+  .phone-glow{display:none}
+}
+@media(max-width:760px){
+  .lid{padding:8px 8px 10px;border-radius:13px 13px 4px 4px}
+  .lid::before{width:74px;height:12px}
+  .deck{height:150px}
+  .kb{height:66px;top:13px;
+    background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.13) 0 13px,transparent 13px 15.5px),
+                     repeating-linear-gradient(180deg,rgba(255,255,255,.13) 0 10px,transparent 10px 12.5px)}
+  .pad{height:38px;bottom:16px}
+  .phone{width:210px;height:426px;border-radius:38px}
+  .scr{inset:7px;border-radius:32px}
+}
+@media(prefers-reduced-motion:reduce){
+  .laptop{animation:none;--rx:2deg;--ry:-4deg;--rz:0deg}
+  .phone{animation:none;--pry:0deg;--prx:0deg;--prz:0deg}
+}
+
+
+/* ---- realism pass, from the reference shots ---- */
+/* glass glare sweeping the lid */
+.lid > .app{position:relative}
+.lid > .app::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:9;border-radius:8px;
+  background:linear-gradient(112deg,transparent 34%,rgba(255,255,255,.4) 46%,rgba(255,255,255,.06) 54%,transparent 62%);
+  opacity:.55;mix-blend-mode:screen;
+  transform:translateX(-18%);animation:glare 12s var(--e) infinite}
+@keyframes glare{0%,62%{transform:translateX(-40%)}86%,100%{transform:translateX(40%)}}
+.prod .lid > .app::after{opacity:.32}
+
+/* speaker grilles either side of the keyboard */
+.deck .kb::before{content:"";position:absolute;left:-13%;right:-13%;top:0;bottom:0;pointer-events:none;
+  background-image:radial-gradient(circle at 1px 1px,rgba(10,20,53,.34) 1px,transparent 0);
+  background-size:5px 5px;
+  -webkit-mask-image:linear-gradient(90deg,#000 0 9%,transparent 9% 91%,#000 91% 100%);
+  mask-image:linear-gradient(90deg,#000 0 9%,transparent 9% 91%,#000 91% 100%)}
+
+/* screen inner vignette so the panel does not look pasted on */
+.lid > .app{box-shadow:0 0 0 1px rgba(0,0,0,.62),
+  inset 0 0 22px rgba(10,20,53,.13),inset 0 0 0 1px rgba(255,255,255,.05)}
+
+/* phone: glass glare + speaker slit */
+.scr::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:8;border-radius:37px;
+  background:linear-gradient(118deg,transparent 36%,rgba(255,255,255,.3) 47%,transparent 58%);
+  opacity:.5;mix-blend-mode:screen;animation:glare 12s var(--e) infinite 1.4s}
+@media(max-width:760px){ .scr::after{border-radius:32px} }
+@media(prefers-reduced-motion:reduce){
+  .lid > .app::after,.scr::after{animation:none;opacity:.2}
 }
 
 </style>
@@ -1180,7 +1281,7 @@ h1{margin-bottom:20px;max-width:19ch}
         <div class="fc-card st-warn f3"><i>&#9888;</i><div><b>Permit renewal</b><s>TN 09 CD 4471</s></div><u>21 days</u></div>
         <div class="fc-card st-bad f4"><i>&#9679;</i><div><b>Insurance expiring</b><s>TN 69 EF 2210</s></div><u>6 days</u></div>
       </div>
-      <div class="laptop"><div class="app hair">
+      <div class="rig"><div class="laptop"><div class="lid"><div class="app hair">
         <div class="bar">
           <span class="dot"></span><span class="dot"></span><span class="dot"></span>
           <div class="omni">app.nexentra.in/erp/chennai/role-center</div>
@@ -1219,7 +1320,7 @@ h1{margin-bottom:20px;max-width:19ch}
             </div>
           </div>
         </div>
-      </div><div class="ghost" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#0A1435" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"><path d="M5 2l14 9.5-6.2 1.2 3.4 6.6-2.9 1.5-3.4-6.6L5 18z"/></svg></div><span class="lap-notch"></span></div>
+      </div><div class="ghost" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#0A1435" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"><path d="M5 2l14 9.5-6.2 1.2 3.4 6.6-2.9 1.5-3.4-6.6L5 18z"/></svg></div></div><div class="deck"><span class="kb"></span><span class="pad"></span></div></div></div>
     </div>
   </div>
 
@@ -1343,7 +1444,7 @@ h1{margin-bottom:20px;max-width:19ch}
 
         <!-- ---------- 0: LOGISTICS ERP ---------- -->
         <div class="pv on" data-p="0">
-          <div class="laptop"><div class="app hair">
+          <div class="rig"><div class="laptop"><div class="lid"><div class="app hair">
             <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
               <div class="omni">app.nexentra.in/erp/chennai/role-center</div></div>
             <div class="app-body">
@@ -1389,13 +1490,13 @@ h1{margin-bottom:20px;max-width:19ch}
                 </div>
               </div>
             </div>
-          </div><div class="ghost" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#0A1435" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"><path d="M5 2l14 9.5-6.2 1.2 3.4 6.6-2.9 1.5-3.4-6.6L5 18z"/></svg></div><span class="lap-notch"></span></div>
+          </div><div class="ghost" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#0A1435" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"><path d="M5 2l14 9.5-6.2 1.2 3.4 6.6-2.9 1.5-3.4-6.6L5 18z"/></svg></div></div><div class="deck"><span class="kb"></span><span class="pad"></span></div></div></div>
         <div class="phone-glow" aria-hidden="true"></div><div class="phone"><div class="scr"><div class="isl"><span class="isl-d"></span><span class="isl-t">Trip in progress · 42 min</span></div><div class="snote"><i>▲</i><div><b>New trip assigned</b><s>LR-2026-04419 · Chennai → Trichy</s></div></div><div class="sbar"><span>9:41</span><i><svg width="12" height="9" viewBox="0 0 12 9" fill="currentColor"><rect x="0" y="6" width="2" height="3" rx=".5"/><rect x="3.3" y="4" width="2" height="5" rx=".5"/><rect x="6.6" y="2" width="2" height="7" rx=".5"/><rect x="9.9" y="0" width="2" height="9" rx=".5"/></svg><b></b></i></div><div class="shead"><s>Driver App</s><h6>LR-2026-04417</h6></div><div class="sheet"><div class="route"><span>Chennai</span><span class="rline"><i></i><span class="rdot"></span></span><span>Salem</span></div><div class="spills"><div class="spill"><s>ETA</s><b>2:40</b></div><div class="spill"><s>DIST</s><b>148<span style="font-size:8px">km</span></b></div><div class="spill"><s>LOAD</s><b>12<span style="font-size:8px">t</span></b></div></div><div class="srow"><em></em>E-Way Bill<span>Valid</span></div><div class="srow"><em></em>Fuel logged<span>₹4,200</span></div><div class="sbtn">Capture POD</div></div></div></div>
         </div>
 
         <!-- ---------- 1: KIRUKALS ---------- -->
         <div class="pv" data-p="1">
-          <div class="laptop"><div class="app hair">
+          <div class="rig"><div class="laptop"><div class="lid"><div class="app hair">
             <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
               <div class="omni">kirukals.app — INT. COFFEE SHOP · draft 3</div></div>
             <div class="app-body">
@@ -1426,13 +1527,13 @@ h1{margin-bottom:20px;max-width:19ch}
                 </div>
               </div>
             </div>
-          </div><div class="ghost" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#0A1435" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"><path d="M5 2l14 9.5-6.2 1.2 3.4 6.6-2.9 1.5-3.4-6.6L5 18z"/></svg></div><span class="lap-notch"></span></div>
+          </div><div class="ghost" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#0A1435" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"><path d="M5 2l14 9.5-6.2 1.2 3.4 6.6-2.9 1.5-3.4-6.6L5 18z"/></svg></div></div><div class="deck"><span class="kb"></span><span class="pad"></span></div></div></div>
         <div class="phone-glow" aria-hidden="true"></div><div class="phone"><div class="scr"><div class="isl"><span class="isl-d"></span><span class="isl-t">Autosaved · offline</span></div><div class="snote"><i>✎</i><div><b>Draft saved locally</b><s>Scene 3 · 1,284 words</s></div></div><div class="sbar"><span>9:41</span><i><svg width="12" height="9" viewBox="0 0 12 9" fill="currentColor"><rect x="0" y="6" width="2" height="3" rx=".5"/><rect x="3.3" y="4" width="2" height="5" rx=".5"/><rect x="6.6" y="2" width="2" height="7" rx=".5"/><rect x="9.9" y="0" width="2" height="9" rx=".5"/></svg><b></b></i></div><div class="shead"><s>Kirukals</s><h6>Untitled Screenplay</h6></div><div class="sheet"><div class="spills"><div class="spill"><s>PAGES</s><b>3</b></div><div class="spill"><s>WORDS</s><b>1284</b></div><div class="spill"><s>SCENES</s><b>4</b></div></div><div class="spage"><div class="l1">INT. COFFEE SHOP — MORNING</div><div class="l2">Rain on the window. ARJUN stares at a laptop that has not moved in an hour.</div><div class="l3">ARJUN</div><div class="l4">Formatting is not writing.<span class="caret"></span></div></div><div class="stoolbar"><i></i><i></i><i></i><i></i></div><div class="sbtn">Export PDF</div></div></div></div>
         </div>
 
         <!-- ---------- 2: GOLD LOAN ERP ---------- -->
         <div class="pv" data-p="2">
-          <div class="laptop"><div class="app hair">
+          <div class="rig"><div class="laptop"><div class="lid"><div class="app hair">
             <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
               <div class="omni">app.nexentra.in/goldloan/branch-01/ledger</div></div>
             <div class="app-body">
@@ -1462,7 +1563,7 @@ h1{margin-bottom:20px;max-width:19ch}
                 </div>
               </div>
             </div>
-          </div><div class="ghost" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#0A1435" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"><path d="M5 2l14 9.5-6.2 1.2 3.4 6.6-2.9 1.5-3.4-6.6L5 18z"/></svg></div><span class="lap-notch"></span></div>
+          </div><div class="ghost" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#0A1435" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"><path d="M5 2l14 9.5-6.2 1.2 3.4 6.6-2.9 1.5-3.4-6.6L5 18z"/></svg></div></div><div class="deck"><span class="kb"></span><span class="pad"></span></div></div></div>
         <div class="phone-glow" aria-hidden="true"></div><div class="phone"><div class="scr"><div class="isl"><span class="isl-d"></span><span class="isl-t">Rate live · ₹7,412/g</span></div><div class="snote"><i>●</i><div><b>Rate updated</b><s>22K · ₹7,412 per gram</s></div></div><div class="sbar"><span>9:41</span><i><svg width="12" height="9" viewBox="0 0 12 9" fill="currentColor"><rect x="0" y="6" width="2" height="3" rx=".5"/><rect x="3.3" y="4" width="2" height="5" rx=".5"/><rect x="6.6" y="2" width="2" height="7" rx=".5"/><rect x="9.9" y="0" width="2" height="9" rx=".5"/></svg><b></b></i></div><div class="shead"><s>Gold Loan</s><h6>New Pledge</h6></div><div class="sheet"><div class="rate"><s>Live rate · 22K</s><b>₹7,412</b><u>per gram · +1.2% today</u></div><div class="route"><span>Weigh</span><span class="rline"><i></i><span class="rdot"></span></span><span>Sanction</span></div><div class="spills"><div class="spill"><s>NET WT</s><b>38.2<span style="font-size:8px">g</span></b></div><div class="spill"><s>PURITY</s><b>22K</b></div><div class="spill"><s>LTV</s><b>75%</b></div></div><div class="srow"><em></em>Eligible amount<span>₹2,12,300</span></div><div class="sbtn">Sanction Loan</div></div></div></div>
         </div>
 
