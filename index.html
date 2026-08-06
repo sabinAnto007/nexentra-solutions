@@ -1135,10 +1135,13 @@ h1{margin-bottom:20px;max-width:19ch}
 }
 
 @media(min-width:1000px){
-  .pv.on{display:flex;align-items:center;gap:44px}
-  .pv .rig{flex:1 1 auto;min-width:0;max-width:590px;margin:0 0 30px}
-  .pv .phone{position:static;flex:0 0 auto;margin-bottom:22px}
-  .pv .phone-glow{right:6px;bottom:-26px}
+  /* device family shot: both stand on the same ground line, no ad-hoc margins */
+  .pv.on{display:flex;align-items:flex-end;gap:48px;padding-bottom:34px}
+  .pv .rig{flex:1 1 auto;min-width:0;max-width:576px;margin:0}
+  /* the tablet is rotated, so its box hangs ~19px below its layout edge;
+     drop the phone by the same amount so both read as standing on one line */
+  .pv .phone{position:static;flex:0 0 auto;margin:0 0 -19px}
+  .pv .phone-glow{right:6px;bottom:-18px}
 }
 @media(max-width:999px){
   .rig{margin-bottom:44px}
@@ -1159,16 +1162,6 @@ h1{margin-bottom:20px;max-width:19ch}
   .lid > .app::after,.scr::after{animation:none;opacity:.18}
 }
 
-/* ---- hero product indicator ---- */
-.hero-ind{display:flex;gap:9px;justify-content:center;flex-wrap:wrap;margin-top:-22px;position:relative;z-index:5}
-.hi{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;cursor:pointer;
-  font-family:inherit;font-size:.8rem;font-weight:570;color:var(--dim);background:#fff;
-  border:1px solid var(--line2);box-shadow:var(--sh-sm);transition:.35s var(--e)}
-.hi:hover{color:var(--ink);border-color:var(--blue);transform:translateY(-2px)}
-.hi span{width:7px;height:7px;border-radius:50%;background:var(--line2);transition:.35s var(--e)}
-.hi.on{color:#fff;border-color:transparent;background:linear-gradient(135deg,var(--hacc,#1560E0),var(--hacc2,#4A9BFF));
-  box-shadow:0 10px 26px -10px var(--hacc,#1560E0)}
-.hi.on span{background:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.35)}
 /* the hero takes the showcased product's colour */
 .stage{--hacc:#1560E0;--hacc2:#4A9BFF}
 .stage .ni.on{background:color-mix(in srgb,var(--hacc) 13%,#fff);
@@ -1211,7 +1204,6 @@ h1{margin-bottom:20px;max-width:19ch}
 .ctc-form{animation:formDrift 11s ease-in-out infinite alternate}
 @keyframes formDrift{to{translate:0 -8px}}
 
-@media(max-width:760px){ .hero-ind{margin-top:-8px} .hi{font-size:.74rem;padding:7px 13px} }
 @media(prefers-reduced-motion:reduce){
   .phone.enter{animation:none}
   .ctc-side .chan{opacity:1;translate:0 0;animation:none}
@@ -1341,11 +1333,6 @@ h1{margin-bottom:20px;max-width:19ch}
           </div>
         </div>
       </div><div class="ghost" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#0A1435" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"><path d="M5 2l14 9.5-6.2 1.2 3.4 6.6-2.9 1.5-3.4-6.6L5 18z"/></svg></div></div></div></div>
-      <div class="hero-ind" id="heroInd" role="tablist" aria-label="Product showcase">
-        <button class="hi on" data-h="0"><span></span>Logistics ERP</button>
-        <button class="hi" data-h="1"><span></span>Kirukals</button>
-        <button class="hi" data-h="2"><span></span>Gold Loan ERP</button>
-      </div>
     </div>
   </div>
 
@@ -2352,7 +2339,7 @@ if(!rm){
   const url=document.getElementById('heroUrl'), side=document.getElementById('heroSide'),
         title=document.getElementById('heroTitle'), chip=document.getElementById('heroChip'),
         body=document.getElementById('heroBody'), ind=document.getElementById('heroInd');
-  if(!stage||!body||!ind) return;
+  if(!stage||!body) return;
 
   let at=0, timer=null;
 
@@ -2366,7 +2353,7 @@ if(!rm){
         '<div class="ni'+(gi===0&&k===0?' on':'')+'"><span class="sq"></span>'+n+'</div>').join('')
     ).join('');
     body.innerHTML=h.body;
-    ind.querySelectorAll('.hi').forEach(b=>b.classList.toggle('on',+b.dataset.h===i));
+    if(ind) ind.querySelectorAll('.hi').forEach(b=>b.classList.toggle('on',+b.dataset.h===i));
     // let the chart bars grow in
     requestAnimationFrame(()=>requestAnimationFrame(()=>stage.classList.add('up')));
   }
@@ -2379,15 +2366,6 @@ if(!rm){
 
   paintHero(0);
 
-  const advance=()=>goTo((at+1)%HERO.length);
-  const start=()=>{ stop(); timer=setInterval(advance,6500); };
-  const stop =()=>{ if(timer){ clearInterval(timer); timer=null; } };
-
-  ind.querySelectorAll('.hi').forEach(b=>b.addEventListener('click',()=>{ goTo(+b.dataset.h); start(); }));
-  // pause while the visitor is reading the screen
-  stage.addEventListener('pointerenter',stop);
-  stage.addEventListener('pointerleave',start);
-  if(!rm) start();
 })();
 
 /* ===== phone flies out from behind the tablet on every product switch ===== */
