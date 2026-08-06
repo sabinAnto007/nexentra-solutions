@@ -1401,6 +1401,62 @@ body,header::before,.card,.ecard,.stat,.ctc-form,.chan,.quote,.band,.strip,secti
 
 @media(prefers-reduced-motion:reduce){ .tmode svg{transition:none} }
 
+
+/* ---- five engagement models: three across, the last two centred ---- */
+.eng{display:flex;flex-wrap:wrap;justify-content:center;gap:16px;align-items:stretch}
+.ecard{flex:1 1 302px;max-width:372px;display:flex;flex-direction:column}
+.ecard ul{margin-top:auto}
+
+/* each card rises in turn as the row arrives */
+.eng .ecard{--d:0ms}
+.eng .ecard:nth-child(1){--d:0ms}
+.eng .ecard:nth-child(2){--d:90ms}
+.eng .ecard:nth-child(3){--d:180ms}
+.eng .ecard:nth-child(4){--d:270ms}
+.eng .ecard:nth-child(5){--d:360ms}
+.eng .ecard.rv{transition-delay:var(--d)!important}
+/* the number badge lands after its card */
+.ec-n{transform:scale(.4) rotate(-12deg);opacity:0;
+  transition:transform .55s var(--snap),opacity .4s}
+.eng .ecard.rv.in .ec-n{transform:none;opacity:1;transition-delay:calc(var(--d) + 220ms)}
+
+/* a light travels the featured card's border */
+@property --ang{syntax:'<angle>';inherits:false;initial-value:0deg}
+.ecard.feat::before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1.5px;
+  pointer-events:none;z-index:1;
+  background:conic-gradient(from var(--ang),transparent 0 62%,#4A9BFF 74%,#1560E0 84%,transparent 94%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  animation:travel 4.6s linear infinite}
+@keyframes travel{to{--ang:360deg}}
+.ecard.feat{position:relative;isolation:isolate}
+.ec-tag{animation:tagPulse 3.2s ease-in-out infinite}
+@keyframes tagPulse{0%,100%{box-shadow:0 0 0 0 rgba(21,96,224,.5)}55%{box-shadow:0 0 0 7px rgba(21,96,224,0)}}
+
+/* bullets draw in behind the card */
+.ecard li{opacity:0;transform:translateX(-8px);transition:opacity .45s var(--e),transform .45s var(--e)}
+.eng .ecard.rv.in li{opacity:1;transform:none}
+.eng .ecard.rv.in li:nth-child(1){transition-delay:calc(var(--d) + 300ms)}
+.eng .ecard.rv.in li:nth-child(2){transition-delay:calc(var(--d) + 380ms)}
+.eng .ecard.rv.in li:nth-child(3){transition-delay:calc(var(--d) + 460ms)}
+.ecard li::before{transition:transform .35s var(--snap)}
+.ecard:hover li::before{transform:scale(1.6)}
+
+/* the guarantee strip arrives item by item */
+.glob .gitem{opacity:0;transform:translateY(12px);transition:opacity .6s var(--e),transform .6s var(--e)}
+.glob.rv.in .gitem:nth-child(1){opacity:1;transform:none;transition-delay:.05s}
+.glob.rv.in .gitem:nth-child(2){opacity:1;transform:none;transition-delay:.16s}
+.glob.rv.in .gitem:nth-child(3){opacity:1;transform:none;transition-delay:.27s}
+.glob.rv.in .gitem:nth-child(4){opacity:1;transform:none;transition-delay:.38s}
+.gitem svg{transition:transform .4s var(--snap)}
+.gitem:hover svg{transform:scale(1.22) rotate(-8deg)}
+
+@media(max-width:1000px){ .ecard{flex:1 1 100%;max-width:none} }
+@media(prefers-reduced-motion:reduce){
+  .ecard.feat::before,.ec-tag{animation:none}
+  .ec-n,.ecard li,.glob .gitem{opacity:1;transform:none}
+}
+
 </style>
 </head>
 <body>
@@ -1846,12 +1902,21 @@ body,header::before,.card,.ecard,.stat,.ctc-form,.chan,.quote,.band,.strip,secti
   <section id="engage" class="wrap tint">
     <div class="head mid rv">
       <div class="eyebrow">How we engage</div>
-      <h2>Three ways to work with us.</h2>
+      <h2>Five ways to work with us.</h2>
       <p>Whichever you pick, you get the same senior engineers, the same code standards and the same weekly demo. No junior bench, no ghost teams.</p>
     </div>
     <div class="eng">
       <div class="ecard hair rv">
-        <div class="ec-h"><span class="ec-n">01</span><h3>Fixed Scope</h3></div>
+        <div class="ec-h"><span class="ec-n">01</span><h3>Discovery Sprint</h3></div>
+        <p>Two weeks, fixed fee. We map the process, prototype the risky part and hand you a costed plan.</p>
+        <ul>
+          <li>Fixed fee, two weeks</li>
+          <li>Costed delivery plan</li>
+          <li>Yours to keep either way</li>
+        </ul>
+      </div>
+      <div class="ecard hair rv">
+        <div class="ec-h"><span class="ec-n">02</span><h3>Fixed Scope</h3></div>
         <p>You know what you need. We scope it, quote it once, and deliver against a signed milestone plan.</p>
         <ul>
           <li>Defined deliverables &amp; timeline</li>
@@ -1859,9 +1924,9 @@ body,header::before,.card,.ecard,.stat,.ctc-form,.chan,.quote,.band,.strip,secti
           <li>Best for a first project together</li>
         </ul>
       </div>
-      <div class="ecard hair rv feat">
-        <div class="ec-h"><span class="ec-n">02</span><h3>Dedicated Team</h3><span class="ec-tag">Most chosen</span></div>
-        <p>An embedded squad working as an extension of yours — your board, your standups, your release cadence.</p>
+      <div class="ecard hair rv feat brk">
+        <div class="ec-h"><span class="ec-n">03</span><h3>Dedicated Team</h3><span class="ec-tag">Most chosen</span></div>
+        <p>An embedded squad working as an extension of yours &mdash; your board, your standups, your release cadence.</p>
         <ul>
           <li>Monthly rate, scale up or down</li>
           <li>Overlap hours with your timezone</li>
@@ -1869,12 +1934,21 @@ body,header::before,.card,.ecard,.stat,.ctc-form,.chan,.quote,.band,.strip,secti
         </ul>
       </div>
       <div class="ecard hair rv">
-        <div class="ec-h"><span class="ec-n">03</span><h3>Support &amp; SLA</h3></div>
+        <div class="ec-h"><span class="ec-n">04</span><h3>Support &amp; SLA</h3></div>
         <p>Live systems, watched. Monitoring, incident response, upgrades and enhancements on a retainer.</p>
         <ul>
           <li>Agreed response &amp; resolution times</li>
           <li>Monitoring, backups, patching</li>
           <li>Takeover of existing systems</li>
+        </ul>
+      </div>
+      <div class="ecard hair rv">
+        <div class="ec-h"><span class="ec-n">05</span><h3>Product Licence</h3></div>
+        <p>Take one of our platforms as it stands &mdash; Logistics ERP, Gold Loan ERP or Kirukals &mdash; on subscription.</p>
+        <ul>
+          <li>Per branch or per seat</li>
+          <li>Onboarding &amp; data migration included</li>
+          <li>A roadmap you can influence</li>
         </ul>
       </div>
     </div>
