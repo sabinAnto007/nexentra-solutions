@@ -1022,104 +1022,62 @@ h1{margin-bottom:20px;max-width:19ch}
 }
 
 
-/* ================= DEVICE RIG v2 =================
-   Rebuilt against the reference: dark unibody, edge-to-edge screen on a
-   thin bezel, real key caps, visible chassis thickness, deep shadow. */
+/* ================= TABLET RIG =================
+   Rebuilt from the reference: uniform thin bezel, deeply rounded corners,
+   edge-to-edge screen, a hint of side thickness, no keyboard furniture. */
 
-.rig{position:relative;perspective:1500px;perspective-origin:50% 24%;
-  margin:0 auto 74px;max-width:900px}
-/* contact shadow on the ground */
-.rig::after{content:"";position:absolute;left:6%;right:6%;bottom:-34px;height:78px;z-index:-1;
-  background:radial-gradient(ellipse at 50% 40%,rgba(6,12,32,.62),transparent 70%);
-  filter:blur(30px)}
-.prod .rig::after{background:radial-gradient(ellipse at 50% 40%,rgba(0,0,0,.9),transparent 70%)}
+.rig{position:relative;perspective:1600px;perspective-origin:50% 30%;
+  margin:0 auto 56px;max-width:880px}
+/* contact shadow */
+.rig::after{content:"";position:absolute;left:9%;right:9%;bottom:-30px;height:74px;z-index:-1;
+  background:radial-gradient(ellipse at 50% 40%,rgba(6,12,32,.55),transparent 70%);
+  filter:blur(28px)}
+.prod .rig::after{background:radial-gradient(ellipse at 50% 40%,rgba(0,0,0,.88),transparent 70%)}
 
 .laptop{position:relative;transform-style:preserve-3d;
-  transform:rotateX(var(--rx,17deg)) rotateY(var(--ry,-21deg)) rotateZ(var(--rz,1.5deg));
+  transform:rotateX(var(--rx,14deg)) rotateY(var(--ry,-19deg)) rotateZ(var(--rz,2deg));
   transition:transform 1.15s var(--e);
   animation:rigFloat 10s ease-in-out infinite alternate}
 @keyframes rigFloat{to{translate:0 -18px}}
 .rig:hover .laptop{--rx:3deg;--ry:-5deg;--rz:0deg}
-/* the sales content stays legible: gentler default angle on products */
-.prod .laptop{--rx:11deg;--ry:-14deg}
+.prod .laptop{--rx:9deg;--ry:-13deg}
 
-/* ---------------- lid ---------------- */
-.lid{position:relative;transform-style:preserve-3d;
-  padding:9px 9px 21px;                     /* chin at the bottom, like the reference */
-  background:linear-gradient(152deg,#3C424E 0%,#23272F 26%,#15181E 62%,#0C0E13 100%);
-  border-radius:13px 13px 3px 3px;
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.13),
-             inset 0 1px 0 rgba(255,255,255,.28),
-             -22px 26px 50px -20px rgba(6,12,32,.6)}
-/* camera pinhole centred in the top bezel */
-.lid::before{content:"";position:absolute;left:50%;top:3.6px;translate:-50% 0;z-index:8;
-  width:4px;height:4px;border-radius:50%;background:#05070C;
-  box-shadow:0 0 0 1px rgba(255,255,255,.2),inset 0 0 2px rgba(120,180,255,.6)}
-/* brand mark on the chin */
-.lid::after{content:"";position:absolute;left:50%;bottom:7px;translate:-50% 0;z-index:8;
-  width:44px;height:5px;border-radius:3px;background:rgba(255,255,255,.14)}
+/* ---------------- tablet body ---------------- */
+.lid{position:relative;transform-style:preserve-3d;padding:11px;
+  background:linear-gradient(150deg,#4A5160 0%,#2A2F3A 22%,#191D25 58%,#0E1116 100%);
+  border-radius:26px;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.16),
+             inset 0 1px 0 rgba(255,255,255,.3),
+             -24px 30px 56px -22px rgba(6,12,32,.62)}
+/* front camera, centred on the long edge */
+.lid::before{content:"";position:absolute;left:50%;top:4.5px;translate:-50% 0;z-index:8;
+  width:4.5px;height:4.5px;border-radius:50%;background:#05070C;
+  box-shadow:0 0 0 1px rgba(255,255,255,.22),inset 0 0 2px rgba(120,180,255,.6)}
+/* side thickness: a slab set back in Z, peeking out along the right and bottom */
+.lid::after{content:"";position:absolute;inset:0;border-radius:26px;z-index:-1;
+  transform:translateZ(-11px) translate(7px,7px);
+  background:linear-gradient(150deg,#9AA2B4,#5C6473 40%,#2A2F3A);
+  box-shadow:0 18px 30px -12px rgba(6,12,32,.6)}
 
-/* screen: edge to edge, no white margin */
-.lid > .app{max-width:100%;margin:0;border:0;border-radius:4px;overflow:hidden;
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.06),inset 0 0 30px rgba(6,12,32,.16)}
-.lid .app-body{min-height:360px}
-/* slimmer, darker browser chrome so it reads as a screen, not a window */
-.lid .bar{padding:7px 11px;background:#EDF1F7;border-bottom:1px solid #DDE4EE}
+/* screen: edge to edge inside the bezel */
+.lid > .app{max-width:100%;margin:0;border:0;border-radius:17px;overflow:hidden;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.07),inset 0 0 34px rgba(6,12,32,.15)}
+.lid .app-body{min-height:392px}
+/* slim chrome so it reads as a screen, not a browser window */
+.lid .bar{padding:7px 12px;background:#EDF1F7;border-bottom:1px solid #DDE4EE}
 .lid .dot{width:7px;height:7px}
 .lid .omni{height:19px;font-size:.6rem;border-radius:5px}
 
-/* ---------------- deck ---------------- */
-.deck{position:relative;height:206px;transform-origin:50% 0;transform:rotateX(80deg);
-  background:linear-gradient(180deg,#8E96A6 0%,#767E8F 10%,#5E6675 46%,#464D5A 82%,#333944 100%);
-  border-radius:0 0 12px 12px;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 40px 50px -26px rgba(6,12,32,.7)}
-/* hinge shadow */
-.deck::before{content:"";position:absolute;left:4%;right:4%;top:0;height:16px;
-  background:linear-gradient(180deg,rgba(6,12,32,.6),transparent)}
-/* front lip notch */
-.deck::after{content:"";position:absolute;left:50%;bottom:-1px;translate:-50% 0;
-  width:96px;height:7px;border-radius:8px 8px 0 0;background:rgba(6,12,32,.3)}
-
-/* keyboard: dark well, real key caps picked out by gap lines */
-.kb{position:absolute;left:8.5%;right:8.5%;top:17px;height:100px;border-radius:7px;
-  background-color:#454C58;                                    /* key cap colour */
-  background-image:
-    repeating-linear-gradient(90deg,#0E1116 0 3.5px,transparent 3.5px 21px),
-    repeating-linear-gradient(180deg,#0E1116 0 3.5px,transparent 3.5px 17px);
-  box-shadow:inset 0 0 0 3.5px #0E1116,inset 0 3px 9px rgba(0,0,0,.75),
-             0 1px 0 rgba(255,255,255,.4)}
-/* spacebar */
-.kb::after{content:"";position:absolute;left:31%;right:31%;bottom:4.5px;height:12.5px;border-radius:2px;
-  background:#454C58;box-shadow:0 0 0 3.5px #0E1116}
-/* speaker grilles either side */
-.kb::before{content:"";position:absolute;left:-11.5%;right:-11.5%;top:-2px;bottom:-2px;pointer-events:none;
-  background-image:radial-gradient(circle at 1px 1px,rgba(6,12,32,.42) 1px,transparent 0);
-  background-size:4.5px 4.5px;
-  -webkit-mask-image:linear-gradient(90deg,#000 0 8%,transparent 8% 92%,#000 92% 100%);
-  mask-image:linear-gradient(90deg,#000 0 8%,transparent 8% 92%,#000 92% 100%)}
-
-/* trackpad */
-.pad{position:absolute;left:50%;translate:-50% 0;bottom:20px;width:31%;height:56px;border-radius:8px;
-  background:linear-gradient(180deg,#7D8595,#69707E);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.6),inset 0 0 0 1px rgba(6,12,32,.32),
-             inset 0 -2px 5px rgba(6,12,32,.3)}
-
-/* chassis thickness: a slab pushed back in Z under the deck */
-.laptop::after{content:"";position:absolute;left:1.5%;right:1.5%;top:100%;height:9px;
-  transform:translateZ(-9px);
-  background:linear-gradient(180deg,#5E6675,#333944 60%,#20242C);
-  border-radius:0 0 11px 11px;box-shadow:0 12px 22px -8px rgba(6,12,32,.75)}
+/* glass glare */
+.lid > .app::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:9;
+  background:linear-gradient(114deg,transparent 33%,rgba(255,255,255,.44) 45%,rgba(255,255,255,.08) 53%,transparent 61%);
+  mix-blend-mode:screen;transform:translateX(-42%);animation:glare 13s var(--e) infinite}
+@keyframes glare{0%,60%{transform:translateX(-42%)}86%,100%{transform:translateX(42%)}}
+.prod .lid > .app::after{opacity:.4}
 
 .stage .laptop{opacity:0;transition:transform 1.2s var(--e),opacity 1s var(--e)}
 .stage.up .laptop{opacity:1}
 .stage .app{transform:none!important;opacity:1!important}
-
-/* glass glare across the panel */
-.lid > .app::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:9;
-  background:linear-gradient(114deg,transparent 33%,rgba(255,255,255,.46) 45%,rgba(255,255,255,.08) 53%,transparent 61%);
-  mix-blend-mode:screen;transform:translateX(-42%);animation:glare 13s var(--e) infinite}
-@keyframes glare{0%,60%{transform:translateX(-42%)}86%,100%{transform:translateX(42%)}}
-.prod .lid > .app::after{opacity:.4}
 
 /* ================= PHONE v2 ================= */
 .phone{width:246px;height:502px;border-radius:48px;padding:0;
@@ -1175,51 +1133,65 @@ h1{margin-bottom:20px;max-width:19ch}
   .phone{--pry:-4deg;--prx:2deg;--prz:0deg}
   .lid > .app::after,.scr::after{animation:none;opacity:.18}
 }
-/* ================= ECHELON COMPOSITION =================
-   A second device set back and up, matching the front one's angle,
-   softened by depth-of-field. Straight from the reference shot: the
-   pair reads as one product photographed, not two flat pictures. */
-
-.echo{position:absolute;top:-64px;right:-78px;width:80%;z-index:-1;pointer-events:none;
-  transform:rotateX(var(--rx,17deg)) rotateY(var(--ry,-21deg)) rotateZ(var(--rz,1.5deg)) scale(.9);
-  transform-style:preserve-3d;transition:transform 1.15s var(--e),opacity .8s;
-  opacity:.62;filter:blur(2.2px) saturate(.85);
+/* ================= ECHELON: the second tablet ================= */
+.echo{position:absolute;top:-58px;right:-72px;width:82%;z-index:-2;pointer-events:none;
+  transform:rotateX(var(--rx,14deg)) rotateY(var(--ry,-19deg)) rotateZ(var(--rz,2deg)) scale(.92);
+  transform-style:preserve-3d;transition:transform 1.15s var(--e),opacity .8s,filter .8s;
+  opacity:.66;filter:blur(2px) saturate(.88);
   animation:echoFloat 10s ease-in-out infinite alternate 1.4s}
 @keyframes echoFloat{to{translate:0 -11px}}
-.rig:hover .echo{--rx:3deg;--ry:-5deg;--rz:0deg;opacity:.4;filter:blur(3.6px) saturate(.75)}
-.prod .echo{--rx:11deg;--ry:-14deg}
+.rig:hover .echo{--rx:3deg;--ry:-5deg;--rz:0deg;opacity:.42;filter:blur(3.4px) saturate(.78)}
+.prod .echo{display:none}          /* products pair the tablet with the phone instead */
 
-.echo-lid{padding:7px 7px 15px;border-radius:11px 11px 3px 3px;
-  background:linear-gradient(152deg,#3C424E 0%,#23272F 26%,#15181E 62%,#0C0E13 100%);
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.11),inset 0 1px 0 rgba(255,255,255,.22),
-             -18px 22px 44px -18px rgba(6,12,32,.55)}
-.echo-lid::after{content:"";position:absolute;left:50%;bottom:5px;translate:-50% 0;
-  width:32px;height:4px;border-radius:3px;background:rgba(255,255,255,.12)}
+.echo-lid{position:relative;padding:9px;border-radius:23px;
+  background:linear-gradient(150deg,#4A5160 0%,#2A2F3A 22%,#191D25 58%,#0E1116 100%);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.13),inset 0 1px 0 rgba(255,255,255,.24),
+             -20px 26px 46px -20px rgba(6,12,32,.55)}
+.echo-lid::after{content:"";position:absolute;inset:0;border-radius:23px;z-index:-1;
+  transform:translate(6px,6px);
+  background:linear-gradient(150deg,#9AA2B4,#5C6473 40%,#2A2F3A)}
 
-/* abstract screen: reads as the same product without cloning the DOM */
-.echo-scr{position:relative;border-radius:3px;overflow:hidden;height:238px;background:#fff;
-  display:grid;grid-template-columns:64px 1fr;gap:0}
+.echo-scr{position:relative;border-radius:15px;overflow:hidden;height:250px;background:#fff;
+  display:grid;grid-template-columns:66px 1fr}
 .echo-scr::before{content:"";grid-row:1/-1;background:var(--bg-2);border-right:1px solid var(--line)}
-.echo-body{padding:11px;display:flex;flex-direction:column;gap:8px}
+.echo-body{padding:12px;display:flex;flex-direction:column;gap:8px}
 .echo-body i{display:block;border-radius:4px;background:var(--bg-3)}
-.echo-body .h{height:11px;width:52%;background:linear-gradient(90deg,var(--acc,#1560E0),transparent 82%);opacity:.55}
+.echo-body .h{height:11px;width:52%;background:linear-gradient(90deg,#1560E0,transparent 82%);opacity:.55}
 .echo-row{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
-.echo-row i{height:38px}
-.echo-body .big{flex:1;background:linear-gradient(160deg,
-  color-mix(in srgb,var(--acc,#1560E0) 16%,#fff),var(--bg-2))}
+.echo-row i{height:40px}
+.echo-body .big{flex:1;background:linear-gradient(160deg,#DCE9FF,var(--bg-2))}
 .echo-body .r{height:13px}
 .echo-body .r:nth-of-type(odd){width:88%}
 
-/* the pair drifts apart a little as you scroll — parallax depth */
 .rig{--sep:0px}
 .echo{margin-top:calc(var(--sep) * -1)}
 
-@media(max-width:1200px){ .echo{right:-46px;top:-48px;width:74%} }
-@media(max-width:999px){ .echo{display:none} }
-@media(prefers-reduced-motion:reduce){
-  .echo{animation:none;--rx:4deg;--ry:-7deg;--rz:0deg}
+@media(min-width:1000px){
+  .pv.on{display:flex;align-items:center;gap:44px}
+  .pv .rig{flex:1 1 auto;min-width:0;max-width:590px;margin:0 0 30px}
+  .pv .phone{position:static;flex:0 0 auto;margin-bottom:22px}
+  .pv .phone-glow{right:6px;bottom:-26px}
 }
-
+@media(max-width:1200px){ .echo{right:-44px;top:-44px;width:76%} }
+@media(max-width:999px){
+  .echo{display:none}
+  .rig{margin-bottom:44px}
+  .phone{position:static;margin:44px auto 0;transform:none;animation:none}
+  .phone-glow{display:none}
+}
+@media(max-width:760px){
+  .lid{padding:8px;border-radius:20px}
+  .lid > .app{border-radius:13px}
+  .lid::after{border-radius:20px;transform:translateZ(-8px) translate(5px,5px)}
+  .phone{width:214px;height:436px;border-radius:42px}
+  .phone::before{border-radius:39.5px}
+  .scr{inset:7.5px;border-radius:34.5px}
+}
+@media(prefers-reduced-motion:reduce){
+  .laptop,.echo,.phone{animation:none}
+  .laptop,.echo{--rx:4deg;--ry:-7deg;--rz:0deg}
+  .lid > .app::after,.scr::after{animation:none;opacity:.18}
+}
 </style>
 </head>
 <body>
@@ -1369,7 +1341,7 @@ h1{margin-bottom:20px;max-width:19ch}
             </div>
           </div>
         </div>
-      </div><div class="ghost" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#0A1435" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"><path d="M5 2l14 9.5-6.2 1.2 3.4 6.6-2.9 1.5-3.4-6.6L5 18z"/></svg></div></div><div class="deck"><span class="kb"></span><span class="pad"></span></div></div></div>
+      </div><div class="ghost" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#0A1435" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"><path d="M5 2l14 9.5-6.2 1.2 3.4 6.6-2.9 1.5-3.4-6.6L5 18z"/></svg></div></div></div></div>
     </div>
   </div>
 
@@ -1539,7 +1511,7 @@ h1{margin-bottom:20px;max-width:19ch}
                 </div>
               </div>
             </div>
-          </div><div class="ghost" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#0A1435" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"><path d="M5 2l14 9.5-6.2 1.2 3.4 6.6-2.9 1.5-3.4-6.6L5 18z"/></svg></div></div><div class="deck"><span class="kb"></span><span class="pad"></span></div></div></div>
+          </div><div class="ghost" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#0A1435" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"><path d="M5 2l14 9.5-6.2 1.2 3.4 6.6-2.9 1.5-3.4-6.6L5 18z"/></svg></div></div></div></div>
         <div class="phone-glow" aria-hidden="true"></div><div class="phone"><div class="scr"><div class="isl"><span class="isl-d"></span><span class="isl-t">Trip in progress · 42 min</span></div><div class="snote"><i>▲</i><div><b>New trip assigned</b><s>LR-2026-04419 · Chennai → Trichy</s></div></div><div class="sbar"><span>9:41</span><i><svg width="12" height="9" viewBox="0 0 12 9" fill="currentColor"><rect x="0" y="6" width="2" height="3" rx=".5"/><rect x="3.3" y="4" width="2" height="5" rx=".5"/><rect x="6.6" y="2" width="2" height="7" rx=".5"/><rect x="9.9" y="0" width="2" height="9" rx=".5"/></svg><b></b></i></div><div class="shead"><s>Driver App</s><h6>LR-2026-04417</h6></div><div class="sheet"><div class="route"><span>Chennai</span><span class="rline"><i></i><span class="rdot"></span></span><span>Salem</span></div><div class="spills"><div class="spill"><s>ETA</s><b>2:40</b></div><div class="spill"><s>DIST</s><b>148<span style="font-size:8px">km</span></b></div><div class="spill"><s>LOAD</s><b>12<span style="font-size:8px">t</span></b></div></div><div class="srow"><em></em>E-Way Bill<span>Valid</span></div><div class="srow"><em></em>Fuel logged<span>₹4,200</span></div><div class="sbtn">Capture POD</div></div></div></div>
         </div>
 
@@ -1576,7 +1548,7 @@ h1{margin-bottom:20px;max-width:19ch}
                 </div>
               </div>
             </div>
-          </div><div class="ghost" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#0A1435" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"><path d="M5 2l14 9.5-6.2 1.2 3.4 6.6-2.9 1.5-3.4-6.6L5 18z"/></svg></div></div><div class="deck"><span class="kb"></span><span class="pad"></span></div></div></div>
+          </div><div class="ghost" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#0A1435" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"><path d="M5 2l14 9.5-6.2 1.2 3.4 6.6-2.9 1.5-3.4-6.6L5 18z"/></svg></div></div></div></div>
         <div class="phone-glow" aria-hidden="true"></div><div class="phone"><div class="scr"><div class="isl"><span class="isl-d"></span><span class="isl-t">Autosaved · offline</span></div><div class="snote"><i>✎</i><div><b>Draft saved locally</b><s>Scene 3 · 1,284 words</s></div></div><div class="sbar"><span>9:41</span><i><svg width="12" height="9" viewBox="0 0 12 9" fill="currentColor"><rect x="0" y="6" width="2" height="3" rx=".5"/><rect x="3.3" y="4" width="2" height="5" rx=".5"/><rect x="6.6" y="2" width="2" height="7" rx=".5"/><rect x="9.9" y="0" width="2" height="9" rx=".5"/></svg><b></b></i></div><div class="shead"><s>Kirukals</s><h6>Untitled Screenplay</h6></div><div class="sheet"><div class="spills"><div class="spill"><s>PAGES</s><b>3</b></div><div class="spill"><s>WORDS</s><b>1284</b></div><div class="spill"><s>SCENES</s><b>4</b></div></div><div class="spage"><div class="l1">INT. COFFEE SHOP — MORNING</div><div class="l2">Rain on the window. ARJUN stares at a laptop that has not moved in an hour.</div><div class="l3">ARJUN</div><div class="l4">Formatting is not writing.<span class="caret"></span></div></div><div class="stoolbar"><i></i><i></i><i></i><i></i></div><div class="sbtn">Export PDF</div></div></div></div>
         </div>
 
@@ -1612,7 +1584,7 @@ h1{margin-bottom:20px;max-width:19ch}
                 </div>
               </div>
             </div>
-          </div><div class="ghost" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#0A1435" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"><path d="M5 2l14 9.5-6.2 1.2 3.4 6.6-2.9 1.5-3.4-6.6L5 18z"/></svg></div></div><div class="deck"><span class="kb"></span><span class="pad"></span></div></div></div>
+          </div><div class="ghost" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#0A1435" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"><path d="M5 2l14 9.5-6.2 1.2 3.4 6.6-2.9 1.5-3.4-6.6L5 18z"/></svg></div></div></div></div>
         <div class="phone-glow" aria-hidden="true"></div><div class="phone"><div class="scr"><div class="isl"><span class="isl-d"></span><span class="isl-t">Rate live · ₹7,412/g</span></div><div class="snote"><i>●</i><div><b>Rate updated</b><s>22K · ₹7,412 per gram</s></div></div><div class="sbar"><span>9:41</span><i><svg width="12" height="9" viewBox="0 0 12 9" fill="currentColor"><rect x="0" y="6" width="2" height="3" rx=".5"/><rect x="3.3" y="4" width="2" height="5" rx=".5"/><rect x="6.6" y="2" width="2" height="7" rx=".5"/><rect x="9.9" y="0" width="2" height="9" rx=".5"/></svg><b></b></i></div><div class="shead"><s>Gold Loan</s><h6>New Pledge</h6></div><div class="sheet"><div class="rate"><s>Live rate · 22K</s><b>₹7,412</b><u>per gram · +1.2% today</u></div><div class="route"><span>Weigh</span><span class="rline"><i></i><span class="rdot"></span></span><span>Sanction</span></div><div class="spills"><div class="spill"><s>NET WT</s><b>38.2<span style="font-size:8px">g</span></b></div><div class="spill"><s>PURITY</s><b>22K</b></div><div class="spill"><s>LTV</s><b>75%</b></div></div><div class="srow"><em></em>Eligible amount<span>₹2,12,300</span></div><div class="sbtn">Sanction Loan</div></div></div></div>
         </div>
 
