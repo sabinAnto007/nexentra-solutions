@@ -123,7 +123,7 @@ main,header,footer{position:relative;z-index:1}
   -webkit-mask-composite:xor;mask-composite:exclude}
 
 /* ================= LOGO ================= */
-.logo{display:flex;align-items:center;gap:11px}
+.logo{display:flex;align-items:center;gap:11px;color:var(--ink)}
 .logo svg{display:block;flex:none;transition:transform .5s var(--e)}
 .logo:hover svg{transform:rotate(-6deg) scale(1.06)}
 .logo-txt{display:flex;flex-direction:column;line-height:1}
@@ -692,7 +692,7 @@ footer .fc a:hover{color:#fff}
 footer .fbot{color:#6E82AC;border-top-color:#16244F}
 footer .soc a{background:rgba(255,255,255,.06);border-color:rgba(140,175,255,.18);color:#9BB0D8}
 footer .soc a:hover{background:rgba(255,255,255,.12);border-color:#6FA6FF;color:#fff}
-footer .logo{--logo-ink:#FFFFFF;--logo-acc:#4A9BFF}
+footer .logo{color:#FFFFFF}
 
 /* --- hero sits on a soft gradient panel --- */
 .hero::before{content:"";position:absolute;left:50%;top:-120px;width:1240px;height:760px;
@@ -1484,14 +1484,17 @@ body,header::before,.card,.ecard,.stat,.ctc-form,.chan,.quote,.band,.strip,secti
     </linearGradient>
 
     <!-- Mark 10: flat geometric N + barred E -->
+    <linearGradient id="nxAccent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4A9BFF"/><stop offset="1" stop-color="#1560E0"/>
+    </linearGradient>
+    <!-- currentColor everywhere, so the mark takes the colour of whatever
+         surrounds it: navy on light, near-white on dark, white in the footer -->
     <symbol id="nxMark" viewBox="0 0 88 64">
-      <!-- N -->
-      <path class="nx-n" d="M2 60V4h12l20 31.5V4h12v56H34L14 28.5V60z" fill="var(--logo-ink,#0A1435)"/>
-      <!-- E bars -->
-      <path class="nx-e" d="M52 4h34v11H52z" fill="var(--logo-ink,#0A1435)"/>
-      <path class="nx-e" d="M52 26.5h18v11H52z" fill="var(--logo-ink,#0A1435)"/>
-      <path class="nx-a" d="M75 26.5h11v11H75z" fill="var(--logo-acc,#1560E0)"/>
-      <path class="nx-e" d="M52 49h34v11H52z" fill="var(--logo-ink,#0A1435)"/>
+      <path class="nx-n" d="M2 60V4h12l20 31.5V4h12v56H34L14 28.5V60z" fill="currentColor"/>
+      <rect class="nx-e" x="52" y="4"    width="34" height="11" rx="2" fill="currentColor"/>
+      <rect class="nx-e" x="52" y="26.5" width="18" height="11" rx="2" fill="currentColor"/>
+      <rect class="nx-a" x="75" y="26.5" width="11" height="11" rx="2" fill="url(#nxAccent)"/>
+      <rect class="nx-e" x="52" y="49"   width="34" height="11" rx="2" fill="currentColor"/>
     </symbol>
   </defs>
 </svg>
