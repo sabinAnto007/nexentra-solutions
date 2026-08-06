@@ -1248,6 +1248,50 @@ h1{margin-bottom:20px;max-width:19ch}
 @media(max-width:999px){ .echo{display:none} }
 @media(prefers-reduced-motion:reduce){ .echo{animation:none} }
 
+
+/* ---- live WhatsApp preview: the message writes itself as the form fills ---- */
+.wapv{border-radius:15px;border:1px solid var(--line);overflow:hidden;background:#fff;
+  box-shadow:var(--sh-sm);margin-top:4px}
+.wapv-top{display:flex;align-items:center;gap:10px;padding:11px 13px;
+  background:linear-gradient(140deg,#0E7A44,#1FAF54);color:#fff}
+.wapv-av{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;flex:none;
+  background:rgba(255,255,255,.22);font-size:.78rem;font-weight:700}
+.wapv-who{display:flex;flex-direction:column;line-height:1.25;flex:1;min-width:0}
+.wapv-who b{font-size:.82rem;font-weight:640}
+.wapv-who s{text-decoration:none;font-size:.68rem;opacity:.85}
+.wapv-tag{font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  padding:3px 8px;border-radius:99px;background:rgba(255,255,255,.2)}
+.wapv-body{padding:14px 13px;min-height:96px;display:flex;flex-direction:column;justify-content:flex-end;
+  background:#ECE5DD;
+  background-image:radial-gradient(circle at 1px 1px,rgba(10,20,53,.05) 1px,transparent 0);
+  background-size:14px 14px}
+.wapv-bubble{position:relative;align-self:flex-end;max-width:94%;padding:9px 11px 17px;border-radius:12px 12px 3px 12px;
+  background:#DCF8C6;color:#0B2A14;font-size:.76rem;line-height:1.5;white-space:pre-wrap;word-break:break-word;
+  box-shadow:0 1px 2px rgba(10,20,53,.16);transition:opacity .25s var(--e)}
+.wapv-bubble.empty{opacity:.45;font-style:italic}
+.wapv-caret{display:inline-block;width:1.5px;height:.9em;background:#0B2A14;vertical-align:-1px;margin-left:1px;
+  animation:blink 1.1s step-end infinite}
+.wapv-meta{position:absolute;right:9px;bottom:4px;display:flex;align-items:center;gap:3px;
+  font-size:.58rem;color:#5C7A63}
+.wapv-meta svg{color:#34B7F1}
+.wapv-typing{display:none;align-self:flex-end;gap:4px;padding:10px 13px;border-radius:12px 12px 3px 12px;
+  background:#DCF8C6;box-shadow:0 1px 2px rgba(10,20,53,.16)}
+.wapv-typing.on{display:flex}
+.wapv-typing i{width:6px;height:6px;border-radius:50%;background:#7FA98A;animation:typeDot 1.2s ease-in-out infinite}
+.wapv-typing i:nth-child(2){animation-delay:.16s}
+.wapv-typing i:nth-child(3){animation-delay:.32s}
+@keyframes typeDot{0%,60%,100%{transform:translateY(0);opacity:.55}30%{transform:translateY(-4px);opacity:1}}
+.wapv-bubble.hide{display:none}
+
+/* ---- completion meter across the form ---- */
+.fmeter{height:3px;border-radius:3px;background:var(--bg-3);overflow:hidden;margin-bottom:22px}
+.fmeter i{display:block;height:100%;width:0;border-radius:3px;background:var(--grad);
+  transition:width .5s var(--e);box-shadow:0 0 10px rgba(21,96,224,.55)}
+
+@media(prefers-reduced-motion:reduce){
+  .wapv-caret,.wapv-typing i{animation:none}
+}
+
 </style>
 </head>
 <body>
@@ -1735,6 +1779,7 @@ h1{margin-bottom:20px;max-width:19ch}
       <!-- form -->
       <div class="ctc-form hair rv">
         <form id="leadForm" novalidate>
+          <div class="fmeter" aria-hidden="true"><i id="fmeterFill"></i></div>
           <div class="fld">
             <label for="fName">Your name <i>*</i></label>
             <input id="fName" name="name" type="text" autocomplete="name" placeholder="Sabin Anto" required />
@@ -1824,6 +1869,21 @@ h1{margin-bottom:20px;max-width:19ch}
           <span class="chan-t"><b>Email us</b><s id="mailLabel">hello@nexentra.in</s></span>
         </a>
 
+
+        <div class="wapv" id="waPv">
+          <div class="wapv-top">
+            <span class="wapv-av">N</span>
+            <div class="wapv-who"><b>Nexentra Solutions</b><s id="waStatus">online</s></div>
+            <span class="wapv-tag">Preview</span>
+          </div>
+          <div class="wapv-body">
+            <div class="wapv-typing" id="waTyping"><i></i><i></i><i></i></div>
+            <div class="wapv-bubble" id="waBubble">
+              <span id="waText"></span><span class="wapv-caret"></span>
+              <span class="wapv-meta">now <svg viewBox="0 0 20 12" width="15" height="9"><path d="M1 6.5L4.2 9.8 10.6 2.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M8.4 6.5L11.6 9.8 18 2.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </div>
+          </div>
+        </div>
         <div class="hours">
           <div class="hrow"><span>Mon — Sat</span><b>09:00 — 19:00 IST <em>(UTC+5:30)</em></b></div>
           <div class="hrow"><span>Your local time</span><b id="localTime">—</b></div>
@@ -2461,6 +2521,78 @@ if(!rm){
   if(st) new IntersectionObserver((es,o)=>es.forEach(e=>{
     if(e.isIntersecting){ fly(); o.unobserve(e.target); }
   }),{threshold:.35}).observe(st);
+})();
+
+
+/* ===== the WhatsApp preview writes itself as the visitor fills the form ===== */
+(function(){
+  const bubble=document.getElementById('waBubble'), text=document.getElementById('waText'),
+        typing=document.getElementById('waTyping'), status=document.getElementById('waStatus'),
+        fill=document.getElementById('fmeterFill');
+  if(!bubble||!text) return;
+
+  const PLACEHOLDER='Your message will appear here as you type…';
+  let typer=null, idleTimer=null, safety=null;
+
+  function draft(){
+    const L=[];
+    if(F.name.value.trim())    L.push('Name: '+F.name.value.trim());
+    if(F.company.value.trim()) L.push('Company: '+F.company.value.trim());
+    if(F.phone.value.trim())   L.push('Phone: '+F.code.value+' '+F.phone.value.trim());
+    if(F.email.value.trim())   L.push('Email: '+F.email.value.trim());
+    L.push('Interested in: '+interest);
+    if(F.msg.value.trim())     L.push('', F.msg.value.trim());
+    return L.join('\n');
+  }
+
+  function type(target){
+    cancelAnimationFrame(typer);
+    const from=text.textContent;
+    // keep the shared prefix so it reads as continuing to type, not restarting
+    let i=0; while(i<from.length && i<target.length && from[i]===target[i]) i++;
+    text.textContent=target.slice(0,i);
+    // time-based rather than per-tick, so a throttled frame rate still finishes
+    const t0=performance.now(), start=i, PER_CHAR=9;
+    const step=now=>{
+      const n=Math.min(target.length, start + Math.floor((now-t0)/PER_CHAR));
+      text.textContent=target.slice(0,n);
+      if(n<target.length) typer=requestAnimationFrame(step); else settle();
+    };
+    // rAF is paused while the tab is hidden, so guarantee the finish either way
+    clearTimeout(safety);
+    safety=setTimeout(()=>{ cancelAnimationFrame(typer); text.textContent=target; settle(); },
+                      (target.length-start)*PER_CHAR + 400);
+    typer=requestAnimationFrame(step);
+  }
+
+  function settle(){
+    status.textContent='online';
+    typing.classList.remove('on');
+    bubble.classList.remove('hide');
+  }
+
+  function update(){
+    const d=draft();
+    const empty=!F.name.value.trim() && !F.msg.value.trim() && !F.phone.value.trim();
+    bubble.classList.toggle('empty', empty);
+    if(rm){ text.textContent = empty ? PLACEHOLDER : d; }
+    else   { type(empty ? PLACEHOLDER : d); }
+
+    // "typing…" while they are actively editing
+    status.textContent='typing…';
+    clearTimeout(idleTimer);
+    idleTimer=setTimeout(()=>{ status.textContent='online'; }, 900);
+
+    // completion meter: the three required fields
+    const done=[F.name.value.trim(),
+                F.phone.value.replace(/\D/g,'').length>=6,
+                F.msg.value.trim().length>=10].filter(Boolean).length;
+    if(fill) fill.style.width=(done/3*100)+'%';
+  }
+
+  Object.values(F).forEach(el=>el&&el.addEventListener('input',update));
+  document.querySelectorAll('.chp').forEach(c=>c.addEventListener('click',()=>setTimeout(update,10)));
+  update();
 })();
 
 </script>
