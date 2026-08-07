@@ -1538,7 +1538,14 @@ body,header::before,.card,.ecard,.stat,.ctc-form,.chan,.quote,.band,.strip,secti
 /* ============================================================
    7 — CURSOR-REACTIVE ATMOSPHERE
    ============================================================ */
-.orb{will-change:transform}
+/* The orbs are moved with the `translate` property, not `transform`. Those are
+   separate properties in modern engines, so `will-change:transform` alone did
+   not promote them — every pointer move re-rasterised a 90px blur on the CPU.
+   Naming `translate` puts them on their own compositor layer, where moving a
+   blurred element is free because the blur is rasterised once. */
+.orb{will-change:transform,translate}
+/* same reasoning for the large decorative glows, which animate forever */
+.prod-glow,.phone-glow{will-change:opacity,transform}
 
 @media(prefers-reduced-motion:reduce){
   .links a,.right > *,.logo{opacity:1;translate:0 0;animation:none}
@@ -1766,7 +1773,7 @@ html{overflow-x:clip}
       <div class="card c4 rv">
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>
         <h3>ERP &amp; Business Platforms</h3>
-        <p>Multi-tenant, multi-branch systems with role-based access, audit trails and compliance built in. The kind of software that replaces six spreadsheets, three WhatsApp groups and one very stressed person who knows how everything works.</p>
+        <p>Multi-tenant, multi-branch systems with role-based access and audit trails built in. The kind of software that replaces six spreadsheets, three WhatsApp groups and one very stressed person who knows how everything works.</p>
       </div>
       <div class="card c2 rv">
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg></div>
@@ -1786,7 +1793,7 @@ html{overflow-x:clip}
       <div class="card c3 rv">
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9L7 7M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1"/></svg></div>
         <h3>Integrations &amp; APIs</h3>
-        <p>GST portals, E-Way Bill, payment gateways, GPS vendors, Tally exports. Every system we build is API-first, so the next integration is configuration — not a rewrite.</p>
+        <p>GST portals, E-Way Bill, payment gateways, GPS vendors, Tally exports. We build API-first, so the next integration is usually configuration rather than a rewrite.</p>
         <div class="code">
 <span class="c">// one contract, every client</span>
 <span class="k">GET</span> /api/v1/trips?branch=<span class="s">CHN</span>
@@ -1795,10 +1802,10 @@ html{overflow-x:clip}
       </div>
       <div class="card c3 rv">
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.4 8.5-8 10-4.6-1.5-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
-        <h3>Security &amp; Compliance</h3>
-        <p>JWT auth with rotating refresh tokens, hashed credentials, granular role permissions and full audit logging. Standard on every build — never a paid add-on.</p>
+        <h3>Security &amp; Access Control</h3>
+        <p>Token-based authentication, hashed credentials, role and branch-scoped permissions, and audit trails on the records that matter. Designed in from the start rather than bolted on at the end.</p>
         <div class="code">
-<span class="c">// access is scoped, always</span>
+<span class="c">// access is scoped to role and branch</span>
 <span class="k">role</span>: <span class="s">'Dispatcher'</span> <span class="k">→</span> branch: <span class="s">'CHN'</span>
 <span class="k">audit</span>.<span class="f">write</span>(actor, action, before, after)
         </div>
@@ -2932,19 +2939,30 @@ if(!rm){
   let px=0.5, py=0.4, cx=0.5, cy=0.4, queued=false;
 
   addEventListener('pointermove',e=>{
-    px=e.clientX/innerWidth; py=e.clientY/innerHeight;
+    px=e.clientX/innerWidth; py=e.clientY/innerHeight; kick();
   },{passive:true});
 
-  const frame=()=>{
-    // 7 — the atmosphere drifts toward the pointer
-    cx+=(px-cx)*0.035; cy+=(py-cy)*0.035;
+  // 7 — the atmosphere drifts toward the pointer.
+  // This used to be an unconditional rAF loop, which meant three elements were
+  // rewritten every frame for the life of the page — even with the pointer
+  // still and the hero scrolled away. Now it settles and stops, and any
+  // pointer move wakes it again.
+  let running=false, heroOn=true;
+  const step=()=>{
+    const dx=px-cx, dy=py-cy;
+    cx+=dx*0.035; cy+=dy*0.035;
     orbs.forEach((o,i)=>{
       const d=(i+1)*26;
       o.style.translate=((cx-0.5)*d).toFixed(1)+'px '+((cy-0.5)*d).toFixed(1)+'px';
     });
-    requestAnimationFrame(frame);
+    if(!heroOn || (Math.abs(dx)<0.0015 && Math.abs(dy)<0.0015)){ running=false; return; }
+    requestAnimationFrame(step);
   };
-  requestAnimationFrame(frame);
+  const kick=()=>{ if(!running && heroOn){ running=true; requestAnimationFrame(step); } };
+  if(stage) new IntersectionObserver(es=>{
+    heroOn=es[0].isIntersecting; if(heroOn) kick();
+  },{threshold:0}).observe(stage);
+  kick();
 
   // 2 — the hero device recedes as the products device takes over
   const handoff=()=>{
@@ -2959,6 +2977,62 @@ if(!rm){
   };
   addEventListener('scroll',()=>{ if(!queued){ requestAnimationFrame(handoff); queued=true; } },{passive:true});
   handoff();
+})();
+
+/* ============================================================
+   PERFORMANCE — only animate what is actually on screen
+
+   The page declares ~110 infinite CSS animations (marquee, glows, pulses,
+   the travelling border, the shimmer on every card). The browser was running
+   all of them at once, all the time, whether or not they were in the
+   viewport — which is what made scrolling feel heavy.
+
+   Nothing here changes how the page looks. An animation off screen cannot
+   be seen, so pausing it is free; it resumes exactly where it left off.
+   ============================================================ */
+(function(){
+  if(!('IntersectionObserver' in window) || !document.getAnimations) return;
+
+  const owners=new Map();                      // element -> its infinite animations
+
+  const collect=()=>{
+    owners.clear();
+    document.getAnimations().forEach(a=>{
+      const t=a.effect && a.effect.target;
+      if(!t || t.nodeType!==1) return;
+      let iters=Infinity;
+      try{ iters=a.effect.getComputedTiming().iterations; }catch(e){}
+      if(iters!==Infinity) return;             // leave one-shot reveals alone
+      if(!owners.has(t)) owners.set(t,[]);
+      owners.get(t).push(a);
+    });
+  };
+
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      const list=owners.get(e.target);
+      if(!list) return;
+      list.forEach(a=>{
+        try{ e.isIntersecting ? a.play() : a.pause(); }catch(err){}
+      });
+    });
+  },{rootMargin:'220px 0px'});                 // wake just before it scrolls in
+
+  // animations are created as elements render, so settle first
+  const wire=()=>{ collect(); owners.forEach((_,el)=>io.observe(el)); };
+  requestAnimationFrame(()=>requestAnimationFrame(wire));
+  setTimeout(wire, 1200);                      // safety net for late arrivals
+
+  // a background tab should cost nothing at all
+  document.addEventListener('visibilitychange',()=>{
+    const hidden=document.hidden;
+    owners.forEach((list,el)=>list.forEach(a=>{
+      try{
+        if(hidden) a.pause();
+        else if(el.getBoundingClientRect().top < innerHeight + 220) a.play();
+      }catch(err){}
+    }));
+  });
 })();
 
 </script>
