@@ -1457,6 +1457,96 @@ body,header::before,.card,.ecard,.stat,.ctc-form,.chan,.quote,.band,.strip,secti
   .ec-n,.ecard li,.glob .gitem{opacity:1;transform:none}
 }
 
+
+/* ============================================================
+   1 + 6 — THE CONNECTING RAIL
+   One spine down the left edge: it draws itself as you scroll and
+   carries the section numbering, so the page reads as a journey
+   rather than a stack.
+   ============================================================ */
+.rail{position:fixed;left:30px;top:50%;translate:0 -50%;z-index:55;display:flex;flex-direction:column;
+  align-items:flex-start;gap:0;pointer-events:none;opacity:0;transition:opacity .6s var(--e)}
+.rail.on{opacity:1}
+.rail-line{position:absolute;left:5px;top:6px;bottom:6px;width:2px;border-radius:2px;background:var(--line2)}
+.rail-line i{position:absolute;left:0;top:0;width:100%;height:0;border-radius:2px;
+  background:linear-gradient(180deg,var(--page-acc,#1560E0),var(--blue-400));
+  box-shadow:0 0 10px var(--page-acc,#1560E0);transition:height .25s linear}
+.rail a{position:relative;display:flex;align-items:center;gap:11px;padding:9px 0;pointer-events:auto;
+  text-decoration:none;cursor:pointer}
+.rail .dot{width:12px;height:12px;border-radius:50%;flex:none;background:var(--bg);
+  border:2px solid var(--line2);transition:.4s var(--snap);position:relative;z-index:1}
+.rail a:hover .dot{border-color:var(--page-acc,#1560E0);transform:scale(1.2)}
+.rail a.on .dot{border-color:transparent;background:var(--page-acc,#1560E0);transform:scale(1.32);
+  box-shadow:0 0 0 4px color-mix(in srgb,var(--page-acc,#1560E0) 22%,transparent)}
+.rail .lab{display:flex;align-items:baseline;gap:7px;white-space:nowrap;
+  font-size:.72rem;font-weight:620;color:var(--faint);
+  opacity:0;translate:-8px 0;transition:.4s var(--e)}
+.rail .lab b{font-family:var(--mono);font-size:.64rem;color:var(--page-acc,#1560E0)}
+.rail a:hover .lab,.rail a.on .lab{opacity:1;translate:0 0}
+.rail a.on .lab{color:var(--ink)}
+@media(max-width:1340px){ .rail{display:none} }
+
+/* ============================================================
+   3 — PRODUCT COLOUR BLEED
+   Choosing a product washes the whole page, not just its section.
+   ============================================================ */
+.bleed{position:fixed;inset:0;z-index:96;pointer-events:none;opacity:0;
+  background:radial-gradient(ellipse 90% 60% at 50% 45%,var(--page-acc,#1560E0),transparent 68%);
+  transition:opacity .8s var(--e)}
+.bleed.go{opacity:.16;transition-duration:.28s}
+.progress{background:linear-gradient(90deg,var(--page-acc,#1560E0),var(--blue-400),var(--page-acc,#1560E0))}
+.links a::after{background:linear-gradient(90deg,var(--page-acc,#1560E0),var(--blue-400))}
+.links a.act{color:var(--page-acc,#1560E0)}
+.links a.act::before{background:var(--page-acc,#1560E0)}
+
+/* ============================================================
+   4 — PAGE-LOAD SEQUENCE
+   The entrances were all firing independently; now they are one take.
+   ============================================================ */
+.links a{opacity:0;translate:0 -8px;animation:navIn .6s var(--e) forwards}
+.links a:nth-child(1){animation-delay:.30s}
+.links a:nth-child(2){animation-delay:.37s}
+.links a:nth-child(3){animation-delay:.44s}
+.links a:nth-child(4){animation-delay:.51s}
+.links a:nth-child(5){animation-delay:.58s}
+@keyframes navIn{to{opacity:1;translate:0 0}}
+.right > *{opacity:0;translate:0 -8px;animation:navIn .6s var(--e) forwards}
+.right > *:nth-child(1){animation-delay:.60s}
+.right > *:nth-child(2){animation-delay:.66s}
+.right > *:nth-child(3){animation-delay:.72s}
+.logo{opacity:0;animation:navIn .7s var(--e) forwards .12s}
+@media(max-width:760px){ .links a{opacity:1;translate:0 0;animation:none} }
+
+/* ============================================================
+   5 — ODOMETER COUNTERS
+   Digits roll into place like a mechanical counter.
+   ============================================================ */
+.odo{display:inline-flex;align-items:flex-start;line-height:1}
+.odo-col{display:inline-block;overflow:hidden;height:1em;vertical-align:top}
+.odo-col i{display:block;font-style:normal;transition:transform 1.5s cubic-bezier(.22,1,.36,1)}
+.odo-col i span{display:block;height:1em;line-height:1em}
+.odo-fixed{display:inline-block}
+
+/* ============================================================
+   2 — HERO → PRODUCTS HAND-OFF
+   Scroll-linked, so the two device shots feel like one moving object.
+   ============================================================ */
+.stage .rig{transform-origin:50% 40%;
+  transform:scale(var(--handoff-s,1)) translateY(var(--handoff-y,0px));
+  opacity:var(--handoff-o,1);will-change:transform,opacity}
+
+/* ============================================================
+   7 — CURSOR-REACTIVE ATMOSPHERE
+   ============================================================ */
+.orb{will-change:transform}
+
+@media(prefers-reduced-motion:reduce){
+  .links a,.right > *,.logo{opacity:1;translate:0 0;animation:none}
+  .odo-col i{transition:none}
+  .bleed{display:none}
+  .stage .rig{transform:none;opacity:1}
+}
+
 </style>
 </head>
 <body>
@@ -2190,18 +2280,6 @@ new IntersectionObserver((es,o)=>es.forEach(e=>{
   o.unobserve(e.target);
 }),{threshold:.4}).observe(steps);
 
-/* count-up */
-const cio=new IntersectionObserver(es=>es.forEach(e=>{
-  if(!e.isIntersecting)return;
-  const el=e.target,to=+el.dataset.to,sfx=el.dataset.suffix||'',t0=performance.now();
-  const tick=now=>{
-    const p=Math.min((now-t0)/1500,1);
-    el.textContent=Math.round(to*(1-Math.pow(1-p,3)))+sfx;
-    if(p<1)requestAnimationFrame(tick);
-  };
-  requestAnimationFrame(tick); cio.unobserve(el);
-}),{threshold:.6});
-document.querySelectorAll('[data-to]').forEach(el=>cio.observe(el));
 
 /* card spotlight */
 document.querySelectorAll('.card').forEach(c=>{
@@ -2713,6 +2791,149 @@ if(!rm){
     try{ if(localStorage.getItem('nx-theme')) return; }catch(err){}
     root.setAttribute('data-theme', e.matches?'dark':'light');
   });
+})();
+
+
+/* ============================================================
+   1 + 6 — connecting rail: draws with scroll, carries the numbering
+   ============================================================ */
+(function(){
+  const SECTIONS=[['top','Home'],['services','Services'],['approach','Approach'],
+                  ['product','Products'],['engage','Engage'],['contact','Contact']];
+  const rail=document.createElement('nav');
+  rail.className='rail'; rail.setAttribute('aria-label','Section navigation');
+  rail.innerHTML='<span class="rail-line"><i></i></span>' + SECTIONS.map(([id,label],i)=>
+    '<a href="#'+id+'" data-sec="'+id+'"><span class="dot"></span>'
+    + '<span class="lab"><b>'+String(i+1).padStart(2,'0')+'</b>'+label+'</span></a>').join('');
+  document.body.appendChild(rail);
+
+  const fill=rail.querySelector('.rail-line i');
+  const links=[...rail.querySelectorAll('a')];
+  const targets=SECTIONS.map(([id])=>document.getElementById(id)).filter(Boolean);
+
+  const onScroll=()=>{
+    const max=document.documentElement.scrollHeight-innerHeight;
+    fill.style.height=(max>0 ? Math.min(100,(scrollY/max)*100) : 0)+'%';
+    rail.classList.toggle('on', scrollY>240);
+    // whichever section owns the middle of the viewport
+    let active=targets[0];
+    for(const t of targets){ if(t.getBoundingClientRect().top<=innerHeight*0.4) active=t; }
+    links.forEach(a=>a.classList.toggle('on', a.dataset.sec===active.id));
+  };
+  addEventListener('scroll',onScroll,{passive:true}); onScroll();
+})();
+
+/* ============================================================
+   3 — product colour bleeds the whole page
+   ============================================================ */
+(function(){
+  const wash=document.createElement('div');
+  wash.className='bleed'; wash.setAttribute('aria-hidden','true');
+  document.body.appendChild(wash);
+  const root=document.documentElement;
+  const TINT={0:'#1560E0',1:'#8B3FE0',2:'#C77700'};
+
+  document.querySelectorAll('.ptab').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const acc=TINT[+btn.dataset.p] || '#1560E0';
+      root.style.setProperty('--page-acc',acc);
+      if(rm) return;
+      wash.classList.add('go');
+      setTimeout(()=>wash.classList.remove('go'),300);
+    });
+  });
+})();
+
+/* ============================================================
+   5 — odometer counters
+   ============================================================ */
+(function(){
+  const build=(el,value,suffix)=>{
+    const digits=String(value).split('');
+    el.textContent='';
+    const wrap=document.createElement('span');
+    wrap.className='odo';
+    const reels=[];
+    digits.forEach(d=>{
+      if(!/\d/.test(d)){                       // '.' and the like stay put
+        const fixed=document.createElement('span');
+        fixed.className='odo-fixed'; fixed.textContent=d;
+        wrap.appendChild(fixed); return;
+      }
+      const col=document.createElement('span');
+      col.className='odo-col';
+      const strip=document.createElement('i');
+      strip.innerHTML='<span>0</span><span>1</span><span>2</span><span>3</span><span>4</span>'
+                     +'<span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>';
+      col.appendChild(strip); wrap.appendChild(col);
+      reels.push([strip,+d]);
+    });
+    if(suffix){
+      const sfx=document.createElement('span');
+      sfx.className='odo-fixed'; sfx.textContent=suffix;
+      wrap.appendChild(sfx);
+    }
+    el.appendChild(wrap);
+    // let layout settle, then roll each column to its digit
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{
+      reels.forEach(([strip,d],i)=>{
+        strip.style.transitionDelay=(i*90)+'ms';
+        strip.style.transform='translateY(-'+(d*10)+'%)';
+      });
+    }));
+    // guarantee the value even if frames are starved
+    setTimeout(()=>reels.forEach(([strip,d])=>{
+      strip.style.transform='translateY(-'+(d*10)+'%)';
+    }), 400);
+  };
+
+  const io=new IntersectionObserver(es=>es.forEach(e=>{
+    if(!e.isIntersecting) return;
+    const el=e.target;
+    build(el, el.dataset.to, el.dataset.suffix||'');
+    io.unobserve(el);
+  }),{threshold:.6});
+  document.querySelectorAll('.stat [data-to]').forEach(el=>io.observe(el));
+})();
+
+/* ============================================================
+   2 — hero → products hand-off, and 7 — cursor-reactive atmosphere
+   ============================================================ */
+(function(){
+  if(rm) return;
+  const stage=document.getElementById('stage');
+  const heroRig=stage&&stage.querySelector('.rig');
+  const orbs=[...document.querySelectorAll('.orb')];
+  let px=0.5, py=0.4, cx=0.5, cy=0.4, queued=false;
+
+  addEventListener('pointermove',e=>{
+    px=e.clientX/innerWidth; py=e.clientY/innerHeight;
+  },{passive:true});
+
+  const frame=()=>{
+    // 7 — the atmosphere drifts toward the pointer
+    cx+=(px-cx)*0.035; cy+=(py-cy)*0.035;
+    orbs.forEach((o,i)=>{
+      const d=(i+1)*26;
+      o.style.translate=((cx-0.5)*d).toFixed(1)+'px '+((cy-0.5)*d).toFixed(1)+'px';
+    });
+    requestAnimationFrame(frame);
+  };
+  requestAnimationFrame(frame);
+
+  // 2 — the hero device recedes as the products device takes over
+  const handoff=()=>{
+    if(heroRig){
+      const r=stage.getBoundingClientRect();
+      const p=Math.min(1,Math.max(0,-r.top/(r.height*0.9)));   // 0 at rest, 1 fully gone
+      heroRig.style.setProperty('--handoff-s',(1-p*0.14).toFixed(3));
+      heroRig.style.setProperty('--handoff-y',(p*-46).toFixed(1)+'px');
+      heroRig.style.setProperty('--handoff-o',(1-p*0.55).toFixed(2));
+    }
+    queued=false;
+  };
+  addEventListener('scroll',()=>{ if(!queued){ requestAnimationFrame(handoff); queued=true; } },{passive:true});
+  handoff();
 })();
 
 </script>
