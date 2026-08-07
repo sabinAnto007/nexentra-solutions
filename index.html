@@ -1547,6 +1547,31 @@ body,header::before,.card,.ecard,.stat,.ctc-form,.chan,.quote,.band,.strip,secti
   .stage .rig{transform:none;opacity:1}
 }
 
+
+/* ---- odometer digits must not rely on the parent's gradient text ----
+   .stat .n paints with background-clip:text + color:transparent. An
+   .odo-col needs overflow:hidden to mask its reel, and that clip breaks
+   the text-clip context, so its digits rendered invisible while the
+   suffix - which has no overflow - still showed. Paint the number
+   solidly instead; reliability beats the flourish here. */
+.stat .n{background:none;background-clip:border-box;-webkit-background-clip:border-box;
+  color:var(--ink);-webkit-text-fill-color:currentColor}
+.stat .n .odo-fixed{color:var(--blue)}
+:root[data-theme="dark"] .stat .n{color:#FFFFFF}
+:root[data-theme="dark"] .stat .n .odo-fixed{color:var(--blue-400)}
+.odo-col{width:auto}
+.odo-col i span{text-align:center}
+
+
+/* ---- decoration must never create a scrollbar ----
+   .hero::before is a centred radial panel with a fixed pixel width, so on a
+   narrow viewport its right edge pushed past the document and the page
+   scrolled sideways. Cap it to the viewport, and clip the root as a guard.
+   overflow-x:clip rather than hidden, so position:sticky still works. */
+html{overflow-x:clip}
+.hero::before{width:min(1240px,100vw)}
+@media(max-width:760px){ .hero::before{width:min(700px,100vw)} }
+
 </style>
 </head>
 <body>
