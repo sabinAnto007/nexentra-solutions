@@ -443,25 +443,6 @@ footer{border-top:1px solid var(--line);padding:62px 0 32px;margin-top:46px;back
   transition:opacity .85s var(--e),transform .85s var(--e),filter .85s var(--e)}
 .rv.in{opacity:1;transform:none;filter:blur(0)}
 
-/* ================= SIGN IN ================= */
-.signin{position:relative}
-.si-btn .cv{transition:transform .3s var(--e)}
-.signin.open .si-btn .cv{transform:rotate(180deg)}
-.si-menu{position:absolute;top:calc(100% + 10px);right:0;width:278px;padding:8px;border-radius:15px;z-index:70;
-  background:#fff;border:1px solid var(--line2);box-shadow:var(--sh-lg);
-  opacity:0;visibility:hidden;transform:translateY(-8px) scale(.97);transform-origin:top right;
-  transition:opacity .25s var(--e),transform .25s var(--e),visibility .25s}
-.signin.open .si-menu{opacity:1;visibility:visible;transform:none}
-.si-h{font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);font-weight:680;padding:8px 12px 9px}
-.si-i{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:11px;transition:background .2s,transform .2s}
-.si-i:hover{background:var(--bg-3);transform:translateX(2px)}
-.si-i span:nth-child(2){display:flex;flex-direction:column;line-height:1.25;flex:1;min-width:0}
-.si-i b{font-size:.87rem;font-weight:640;color:var(--ink)}
-.si-i s{text-decoration:none;font-size:.72rem;color:var(--faint);margin-top:1px}
-.si-i > svg{width:14px;height:14px;color:var(--faint);flex:none}
-.si-i:hover > svg{color:var(--blue)}
-.si-d{width:9px;height:9px;border-radius:3px;flex:none}
-.si-d.erp{background:#1560E0}.si-d.gold{background:#E09000}.si-d.kir{background:#8B3FE0}
 
 /* ================= CONTACT ================= */
 .ctc{display:grid;grid-template-columns:1.55fr 1fr;gap:20px;align-items:start}
@@ -583,7 +564,7 @@ footer{border-top:1px solid var(--line);padding:62px 0 32px;margin-top:46px;back
 
 /* ---------- universal press feedback (mouse + touch) ---------- */
 .btn:active,.chp:active,.ptab:active,.chan:active,.soc a:active,
-.si-i:active,.fab:active,.pillar:active,.role:active{
+.fab:active,.pillar:active,.role:active{
   transform:scale(.965) translate(var(--tx,0),var(--ty,0px))!important;
   transition-duration:.08s!important}
 .card:active,.ecard:active,.stat:active{transform:scale(.99)!important;transition-duration:.1s!important}
@@ -1323,7 +1304,7 @@ h1{margin-bottom:20px;max-width:19ch}
 :root[data-theme="dark"] .t-sun{opacity:0;transform:rotate(60deg) scale(.5)}
 :root[data-theme="dark"] .t-moon{opacity:1;transform:none}
 body,header::before,.card,.ecard,.stat,.ctc-form,.chan,.quote,.band,.strip,section.tint,
-.ptab,.btn,.chp,.si-menu,.fab-top,.soc a,.hours,.fc-card,.tag,.pillar,.stp .n,.fld input,.fld textarea{
+.ptab,.btn,.chp,.fab-top,.soc a,.hours,.fc-card,.tag,.pillar,.stp .n,.fld input,.fld textarea{
   transition:background-color .45s var(--e),border-color .45s var(--e),color .45s var(--e)}
 
 /* ---------------- dark ---------------- */
@@ -1355,7 +1336,6 @@ body,header::before,.card,.ecard,.stat,.ctc-form,.chan,.quote,.band,.strip,secti
 :root[data-theme="dark"] .ctc-form,
 :root[data-theme="dark"] .chan,
 :root[data-theme="dark"] .ptab,
-:root[data-theme="dark"] .si-menu,
 :root[data-theme="dark"] .fab-top,
 :root[data-theme="dark"] .soc a,
 :root[data-theme="dark"] .tag,
@@ -1644,30 +1624,6 @@ html{overflow-x:clip}
             <path d="M20.5 14.6A8.6 8.6 0 019.4 3.5a8.6 8.6 0 1011.1 11.1z"/>
           </svg>
         </button>
-        <div class="signin" id="signin">
-          <button class="btn g sm si-btn" id="siBtn" aria-expanded="false" aria-haspopup="true">
-            Sign in
-            <svg class="cv" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-          </button>
-          <div class="si-menu" id="siMenu" role="menu">
-            <div class="si-h">Sign in to a product</div>
-            <a class="si-i" data-app="erp" role="menuitem" target="_blank" rel="noopener">
-              <span class="si-d erp"></span>
-              <span><b>Logistics ERP</b><s>Transport operations</s></span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
-            </a>
-            <a class="si-i" data-app="gold" role="menuitem" target="_blank" rel="noopener">
-              <span class="si-d gold"></span>
-              <span><b>Gold Loan ERP</b><s>Lending &amp; pledges</s></span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
-            </a>
-            <a class="si-i" data-app="kirukals" role="menuitem" target="_blank" rel="noopener">
-              <span class="si-d kir"></span>
-              <span><b>Kirukals</b><s>Screenplay editor</s></span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
-            </a>
-          </div>
-        </div>
         <a class="btn p sm mag" href="#contact">Talk to us</a>
         <button class="burger" id="burger" aria-label="Menu" aria-expanded="false">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
@@ -2242,12 +2198,7 @@ html{overflow-x:clip}
 const NEXENTRA = {
   whatsapp : '919943294997',              // country code + number, digits only, no + or spaces
   phone    : '+91 99432 94997',           // shown to visitors
-  email    : 'sudharsan@nexentrasolutions.com',
-  apps: {
-    erp      : 'https://erp.nexentrasolutions.com/login',
-    gold     : 'https://gold.nexentrasolutions.com/login',
-    kirukals : 'https://kirukals.app'
-  }
+  email    : 'sudharsan@nexentrasolutions.com'
 };
 /* ========================================================== */
 
@@ -2398,7 +2349,6 @@ if(!rm){
 const wa = t => 'https://wa.me/'+NEXENTRA.whatsapp+(t?'?text='+encodeURIComponent(t):'');
 
 // wire every outbound link from the config block
-document.querySelectorAll('.si-i').forEach(a=>a.href = NEXENTRA.apps[a.dataset.app] || '#');
 document.getElementById('fabWa').href   = wa('Hi Nexentra, I would like to know more about your products.');
 document.getElementById('chanWa').href  = wa('Hi Nexentra, I would like to know more about your products.');
 document.getElementById('chanTel').href = 'tel:'+NEXENTRA.phone.replace(/\s/g,'');
@@ -2407,16 +2357,7 @@ document.getElementById('waLabel').textContent   = NEXENTRA.phone;
 document.getElementById('telLabel').textContent  = NEXENTRA.phone;
 document.getElementById('mailLabel').textContent = NEXENTRA.email;
 
-/* --- sign in dropdown --- */
-const signin=document.getElementById('signin'), siBtn=document.getElementById('siBtn');
-const closeSignin=()=>{signin.classList.remove('open');siBtn.setAttribute('aria-expanded','false');};
-siBtn.addEventListener('click',e=>{
-  e.stopPropagation();
-  const open=signin.classList.toggle('open');
-  siBtn.setAttribute('aria-expanded',open);
-});
-document.addEventListener('click',e=>{ if(!signin.contains(e.target)) closeSignin(); });
-document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ closeSignin(); links.classList.remove('open'); } });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ links.classList.remove('open'); } });
 
 /* --- interest chips --- */
 let interest='Logistics ERP';

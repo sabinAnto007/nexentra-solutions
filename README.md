@@ -118,7 +118,7 @@ Each product also carries its own accent, which washes the whole page when you s
 
 ## Page sections
 
-1. **Nav** — logo, links, theme toggle, Sign-in dropdown, glass blur on scroll, mobile hamburger
+1. **Nav** — logo, links, theme toggle, glass blur on scroll, mobile hamburger
 2. **Hero** — word-by-word headline reveal, then a delivery-pipeline tablet tilts up into place
 3. **Tech stack marquee** — infinite scroll, pauses on hover
 4. **Services** — bento grid, 6 cards with cursor-following spotlight
@@ -141,12 +141,7 @@ Near the top of the `<script>` block in `index.html`:
 const NEXENTRA = {
   whatsapp : '919943294997',              // country code + number, digits only
   phone    : '+91 99432 94997',
-  email    : 'sudharsan@nexentrasolutions.com',
-  apps: {
-    erp      : 'https://erp.nexentrasolutions.com/login',
-    gold     : 'https://gold.nexentrasolutions.com/login',
-    kirukals : 'https://kirukals.app'
-  }
+  email    : 'sudharsan@nexentrasolutions.com'
 };
 ```
 
@@ -158,7 +153,7 @@ The contact form has no backend. It composes a WhatsApp message via a `wa.me` de
 
 Replace these before going live:
 
-- **The three `apps.*` sign-in URLs.** `erp.` and `gold.` subdomains are assumed, not confirmed live. If they do not resolve yet, remove the Sign-in dropdown rather than ship dead links.
+- **Product sign-in links.** The Sign-in dropdown was removed: the `erp.` and `gold.` subdomains do not exist yet. Add it back when the products are actually hosted.
 - Social links in the footer (`href="#"`)
 - **The dashboard mockups are fabricated.** All numbers, vehicle numbers and party names are invented for illustration. Swap in real screenshots before showing this to customers.
 
