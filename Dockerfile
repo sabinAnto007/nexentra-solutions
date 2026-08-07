@@ -14,8 +14,9 @@ LABEL org.opencontainers.image.title="nexentra-site" \
 RUN rm -f /etc/nginx/conf.d/default.conf
 COPY nginx.conf /etc/nginx/conf.d/site.conf
 
-COPY index.html  /usr/share/nginx/html/index.html
-COPY favicon.svg /usr/share/nginx/html/favicon.svg
+COPY index.html   /usr/share/nginx/html/index.html
+COPY favicon.svg  /usr/share/nginx/html/favicon.svg
+COPY og-image.png /usr/share/nginx/html/og-image.png
 
 # port 8080 so the container can run as a non-root user; binding 80 would
 # need root, and the stock nginx image already ships an unprivileged `nginx`

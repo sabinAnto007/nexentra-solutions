@@ -77,6 +77,7 @@ Serves on **http://localhost:4322**.
 nexentra-site/
 ├── index.html          The entire website — HTML, CSS and JS in one file
 ├── favicon.svg         Browser tab icon (the Nexentra mark)
+├── og-image.png        1200x630 social share card
 ├── Dockerfile          nginx image
 ├── nginx.conf          gzip, caching, security headers, /healthz
 ├── docker-compose.yml  Production service + a dev profile with live mounts
@@ -138,12 +139,12 @@ Near the top of the `<script>` block in `index.html`:
 
 ```javascript
 const NEXENTRA = {
-  whatsapp : '919840000000',              // country code + number, digits only
-  phone    : '+91 98400 00000',
-  email    : 'hello@nexentra.in',
+  whatsapp : '919943294997',              // country code + number, digits only
+  phone    : '+91 99432 94997',
+  email    : 'sudharsan@nexentrasolutions.com',
   apps: {
-    erp      : 'https://erp.nexentra.in/login',
-    gold     : 'https://gold.nexentra.in/login',
+    erp      : 'https://erp.nexentrasolutions.com/login',
+    gold     : 'https://gold.nexentrasolutions.com/login',
     kirukals : 'https://kirukals.app'
   }
 };
@@ -157,11 +158,8 @@ The contact form has no backend. It composes a WhatsApp message via a `wa.me` de
 
 Replace these before going live:
 
-- `hello@nexentra.in` — real email address
-- `+91 98400 00000` and `919840000000` — real phone and WhatsApp numbers
-- The three `apps.*` sign-in URLs
+- **The three `apps.*` sign-in URLs.** `erp.` and `gold.` subdomains are assumed, not confirmed live. If they do not resolve yet, remove the Sign-in dropdown rather than ship dead links.
 - Social links in the footer (`href="#"`)
-- **`og-image.png` does not exist.** The meta tags reference `https://nexentra.in/og-image.png`, so link previews on WhatsApp and LinkedIn will come up blank until it is created.
 - **The dashboard mockups are fabricated.** All numbers, vehicle numbers and party names are invented for illustration. Swap in real screenshots before showing this to customers.
 
 ---
