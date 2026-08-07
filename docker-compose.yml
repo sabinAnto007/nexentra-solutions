@@ -1,0 +1,29 @@
+services:
+  site:
+    build: .
+    image: nexentra-site:latest
+    container_name: nexentra-site
+    # host 4321 keeps the same address the local dev server used
+    ports:
+      - "4321:8080"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:8080/healthz"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+
+  # editing index.html shows up on refresh, no rebuild.
+  #   docker compose --profile dev up site-dev
+  site-dev:
+    profiles: ["dev"]
+    build: .
+    image: nexentra-site:latest
+    container_name: nexentra-site-dev
+    ports:
+      - "4322:8080"
+    volumes:
+      - ./index.html:/usr/share/nginx/html/index.html:ro
+      - ./favicon.svg:/usr/share/nginx/html/favicon.svg:ro
+      - ./nginx.conf:/etc/nginx/conf.d/site.conf:ro

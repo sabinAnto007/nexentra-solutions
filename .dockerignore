@@ -1,0 +1,14 @@
+# only index.html, favicon.svg and nginx.conf ever need to reach the daemon
+.git
+.gitignore
+.claude
+README.md
+Dockerfile
+.dockerignore
+docker-compose.yml
+node_modules
+*.log
+.env
+.env.local
+.DS_Store
+Thumbs.db
