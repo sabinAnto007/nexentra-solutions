@@ -104,27 +104,66 @@ h1{font-size:clamp(2.3rem,6vw,4.2rem);line-height:1.06;letter-spacing:-.05em;fon
 .lede{font-size:clamp(1rem,1.7vw,1.12rem);color:var(--dim);max-width:62ch;margin:0 auto 30px;line-height:1.68}
 .acts{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 
+/* ---- hero animated route: a lorry driving Chennai -> Salem, on loop ---- */
+.hroute{position:relative;max-width:900px;height:150px;margin:44px auto 0}
+.hroute svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.hr-road{fill:none;stroke:var(--line2);stroke-width:3;stroke-linecap:round}
+.hr-dash{fill:none;stroke:var(--blue-400);stroke-width:3;stroke-linecap:round;
+  stroke-dasharray:2 14;animation:hrFlow 1.1s linear infinite}
+@keyframes hrFlow{to{stroke-dashoffset:-16}}
+.hr-truck{position:absolute;top:74%;left:0;width:50px;height:32px;margin:-16px 0 0 -25px;
+  filter:drop-shadow(0 6px 10px rgba(21,96,224,.35));animation:hrDrive 7s ease-in-out infinite}
+.hr-truck svg{width:100%;height:100%}
+/* percentages approximate the drawn road's curve (viewBox 0 0 1200 160) so
+   the truck rides the same hills regardless of the container's actual width -
+   offset-path can't be used here since its coordinates don't rescale with a
+   fluid-width box, and this route sits inside one */
+@keyframes hrDrive{
+  0%  {left:0%;   top:74%}
+  22% {left:24%;  top:42%}
+  40% {left:42%;  top:96%}
+  58% {left:60%;  top:52%}
+  80% {left:82%;  top:22%}
+  100%{left:100%; top:60%}
+}
+.hr-pin{position:absolute;bottom:2px;font-size:.72rem;font-weight:640;color:var(--dim)}
+.hr-pin-a{left:0}
+.hr-pin-b{right:0}
+@media(max-width:760px){ .hroute{height:110px} }
+@media(prefers-reduced-motion:reduce){ .hr-truck,.hr-dash{animation:none;left:40%;top:60%} }
+
 /* ---- flow timeline ---- */
 .flow{padding:50px 0}
 .flow h2,.feat h2,.roles h2,.shots h2{font-size:clamp(1.6rem,3.4vw,2.3rem);letter-spacing:-.03em;text-align:center;margin-bottom:12px}
 .flow p.sub,.feat p.sub,.shots p.sub{text-align:center;color:var(--dim);max-width:56ch;margin:0 auto 44px}
+.fsteps-wrap{position:relative}
+.fline{position:absolute;top:-22px;left:13px;right:13px;height:24px;pointer-events:none}
+.fline svg{position:absolute;inset:0;width:100%;height:4px;top:10px;overflow:visible}
+.fline svg line{stroke:var(--line2);stroke-width:4;stroke-linecap:round}
+.fline-truck{position:absolute;top:-4px;left:0;width:34px;height:21px;
+  animation:flineDrive 6s linear infinite;filter:drop-shadow(0 3px 6px rgba(21,96,224,.3))}
+.fline-truck svg{width:100%;height:100%}
+@keyframes flineDrive{0%{left:0}100%{left:calc(100% - 34px)}}
+@media(prefers-reduced-motion:reduce){ .fline-truck{animation:none;left:40%} }
+@media(max-width:900px){ .fline{display:none} }
 .fsteps{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
 .fstep{background:var(--bg);border:1px solid var(--line2);border-radius:var(--r);padding:20px 16px;box-shadow:var(--sh-sm);
-  position:relative}
+  position:relative;transition:transform .3s var(--e),box-shadow .3s var(--e)}
+.fstep:hover{transform:translateY(-5px);box-shadow:var(--sh-md)}
 .fstep b.n{display:inline-flex;width:26px;height:26px;border-radius:50%;background:var(--grad);color:#fff;
   align-items:center;justify-content:center;font-size:.72rem;margin-bottom:12px}
 .fstep h4{font-size:.92rem;margin-bottom:6px}
 .fstep p{font-size:.78rem;color:var(--dim);line-height:1.55}
-.fstep:not(:last-child)::after{content:"";position:absolute;top:32px;right:-7px;width:14px;height:14px;border-top:2px solid var(--line2);
-  border-right:2px solid var(--line2);transform:rotate(45deg)}
-@media(max-width:900px){ .fsteps{grid-template-columns:1fr 1fr} .fstep:not(:last-child)::after{display:none} }
+@media(max-width:900px){ .fsteps{grid-template-columns:1fr 1fr} }
 @media(max-width:560px){ .fsteps{grid-template-columns:1fr} }
 
 /* ---- screenshots (illustrated app-window mockups) ---- */
 .shots{padding:30px 0 60px}
 .shotgrid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
 @media(max-width:860px){ .shotgrid{grid-template-columns:1fr} }
-.shotcard{background:var(--bg);border-radius:var(--rl);overflow:hidden;border:1px solid var(--line2);box-shadow:var(--sh-md)}
+.shotcard{background:var(--bg);border-radius:var(--rl);overflow:hidden;border:1px solid var(--line2);box-shadow:var(--sh-md);
+  transition:transform .35s var(--e),box-shadow .35s var(--e)}
+.shotcard:hover{transform:translateY(-6px);box-shadow:var(--sh-lg)}
 .sbar{display:flex;align-items:center;gap:8px;padding:11px 14px;border-bottom:1px solid var(--line);background:var(--bg-2)}
 .sdot{width:9px;height:9px;border-radius:50%}
 .sdot:nth-child(1){background:#FF5F57}.sdot:nth-child(2){background:#FEBC2E}.sdot:nth-child(3){background:#28C840}
@@ -140,7 +179,13 @@ h1{font-size:clamp(2.3rem,6vw,4.2rem);line-height:1.06;letter-spacing:-.05em;fon
 .kpi s{display:block;font-size:.66rem;color:var(--faint);text-decoration:none;margin-bottom:5px}
 .kpi b{font-size:1.15rem;color:var(--ink)}
 .barchart{display:flex;align-items:flex-end;gap:6px;height:70px;padding:0 4px}
-.barchart i{flex:1;background:linear-gradient(180deg,var(--blue-400),var(--blue));border-radius:4px 4px 0 0}
+.barchart i{flex:1;background:linear-gradient(180deg,var(--blue-400),var(--blue));border-radius:4px 4px 0 0;
+  transform:scaleY(0);transform-origin:bottom;transition:transform .6s var(--snap)}
+.rv.in .barchart i{transform:scaleY(1)}
+.barchart i:nth-child(1){transition-delay:.05s}.barchart i:nth-child(2){transition-delay:.11s}
+.barchart i:nth-child(3){transition-delay:.17s}.barchart i:nth-child(4){transition-delay:.23s}
+.barchart i:nth-child(5){transition-delay:.29s}.barchart i:nth-child(6){transition-delay:.35s}
+.barchart i:nth-child(7){transition-delay:.41s}.barchart i:nth-child(8){transition-delay:.47s}
 
 /* list illustration */
 .tbl{width:100%;border-collapse:collapse;font-size:.78rem}
@@ -247,6 +292,25 @@ footer{padding:28px 0;border-top:1px solid var(--line);text-align:center;font-si
         <a class="btn p" href="index.html#contact">Talk to us about this</a>
         <a class="btn g" href="index.html#product">See the other two products</a>
       </div>
+
+      <div class="hroute rv" aria-hidden="true">
+        <svg viewBox="0 0 1200 160" preserveAspectRatio="none">
+          <path class="hr-road" d="M0 120 C 200 60, 400 160, 600 90 S 1000 40, 1200 100"/>
+          <path class="hr-dash" d="M0 120 C 200 60, 400 160, 600 90 S 1000 40, 1200 100"/>
+        </svg>
+        <div class="hr-truck" id="hrTruck">
+          <svg viewBox="0 0 64 40" fill="none">
+            <rect x="1" y="14" width="34" height="18" rx="2.5" fill="#0A1435"/>
+            <rect x="5" y="18" width="26" height="10" rx="1.5" fill="#4A9BFF"/>
+            <path d="M35 20h14l10 8v6H35z" fill="#1560E0"/>
+            <rect x="41" y="23" width="10" height="7" rx="1" fill="#BFDCFF"/>
+            <circle cx="14" cy="34" r="5" fill="#0A1435"/><circle cx="14" cy="34" r="2.2" fill="#C9D6EE"/>
+            <circle cx="49" cy="34" r="5" fill="#0A1435"/><circle cx="49" cy="34" r="2.2" fill="#C9D6EE"/>
+          </svg>
+        </div>
+        <div class="hr-pin hr-pin-a">Chennai</div>
+        <div class="hr-pin hr-pin-b">Salem</div>
+      </div>
     </div>
   </section>
 
@@ -254,12 +318,26 @@ footer{padding:28px 0;border-top:1px solid var(--line);text-align:center;font-si
     <div class="wrap">
       <h2 class="rv">One record, from booking to settlement</h2>
       <p class="sub rv">A freight/trip carries its status through a strict lifecycle — nothing skips a stage, and every stage is visible to whoever needs it.</p>
-      <div class="fsteps">
-        <div class="fstep rv"><b class="n">1</b><h4>Booked</h4><p>Party, route, cargo and financials entered. Freight cost, GST and party advance captured up front.</p></div>
-        <div class="fstep rv"><b class="n">2</b><h4>Dispatch</h4><p>Driver and vehicle assigned — auto-resolved from the driver's current vehicle, with an audit flag if a dispatcher overrides it.</p></div>
-        <div class="fstep rv"><b class="n">3</b><h4>In Transit</h4><p>Trip expenses logged against 7 categories — diesel, FastTag, driver advance, tolls, loading, maintenance, misc.</p></div>
-        <div class="fstep rv"><b class="n">4</b><h4>Delivered</h4><p>Trip marked delivered against the expected delivery date, closing the operational side of the record.</p></div>
-        <div class="fstep rv"><b class="n">5</b><h4>Completed</h4><p>Driver settlement status tracked through to Paid — Pending, Partially Paid, Paid. The record is now financially closed.</p></div>
+      <div class="fsteps-wrap">
+        <div class="fline" aria-hidden="true">
+          <svg viewBox="0 0 1000 4" preserveAspectRatio="none"><line id="flineFill" x1="0" y1="2" x2="1000" y2="2"/></svg>
+          <div class="fline-truck" id="flineTruck">
+            <svg viewBox="0 0 64 40" fill="none">
+              <rect x="1" y="14" width="34" height="18" rx="2.5" fill="#1560E0"/>
+              <rect x="5" y="18" width="26" height="10" rx="1.5" fill="#BFDCFF"/>
+              <path d="M35 20h14l10 8v6H35z" fill="#0A1435"/>
+              <rect x="41" y="23" width="10" height="7" rx="1" fill="#BFDCFF"/>
+              <circle cx="14" cy="34" r="5" fill="#0A1435"/><circle cx="49" cy="34" r="5" fill="#0A1435"/>
+            </svg>
+          </div>
+        </div>
+        <div class="fsteps">
+          <div class="fstep rv"><b class="n">1</b><h4>Booked</h4><p>Party, route, cargo and financials entered. Freight cost, GST and party advance captured up front.</p></div>
+          <div class="fstep rv"><b class="n">2</b><h4>Dispatch</h4><p>Driver and vehicle assigned — auto-resolved from the driver's current vehicle, with an audit flag if a dispatcher overrides it.</p></div>
+          <div class="fstep rv"><b class="n">3</b><h4>In Transit</h4><p>Trip expenses logged against 7 categories — diesel, FastTag, driver advance, tolls, loading, maintenance, misc.</p></div>
+          <div class="fstep rv"><b class="n">4</b><h4>Delivered</h4><p>Trip marked delivered against the expected delivery date, closing the operational side of the record.</p></div>
+          <div class="fstep rv"><b class="n">5</b><h4>Completed</h4><p>Driver settlement status tracked through to Paid — Pending, Partially Paid, Paid. The record is now financially closed.</p></div>
+        </div>
       </div>
     </div>
   </section>
