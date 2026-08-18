@@ -213,6 +213,7 @@ h1{font-size:clamp(2.3rem,6vw,4.2rem);line-height:1.06;letter-spacing:-.05em;fon
 .fcard:hover .ic{transform:scale(1.12) rotate(-6deg)}
 .fcard .ic svg{width:19px;height:19px}
 .fcard h3{font-size:1rem;margin-bottom:8px}
+.fcard .fdesc{font-size:.82rem;color:var(--dim);line-height:1.55;margin-bottom:12px}
 .fcard ul{list-style:none;display:flex;flex-direction:column;gap:6px}
 .fcard li{font-size:.8rem;color:var(--dim);padding-left:16px;position:relative;line-height:1.5}
 .fcard li::before{content:"";position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:50%;background:var(--blue-400)}
@@ -224,7 +225,15 @@ h1{font-size:clamp(2.3rem,6vw,4.2rem);line-height:1.06;letter-spacing:-.05em;fon
 .rtbl th{background:var(--bg-2);text-align:left;padding:12px 16px;font-size:.72rem;letter-spacing:.05em;
   text-transform:uppercase;color:var(--faint)}
 .rtbl td{padding:14px 16px;border-top:1px solid var(--line);font-size:.85rem;color:var(--dim)}
-.rtbl td:first-child{color:var(--ink);font-weight:640}
+.rtbl td:first-child{font-weight:640;position:relative;padding-left:32px}
+.rtbl td:first-child::before{content:"";position:absolute;left:14px;top:50%;translate:0 -50%;
+  width:8px;height:8px;border-radius:50%}
+.rtbl tr:nth-child(2) td:first-child{color:#1560E0}
+.rtbl tr:nth-child(2) td:first-child::before{background:#1560E0}
+.rtbl tr:nth-child(3) td:first-child{color:#7C3AED}
+.rtbl tr:nth-child(3) td:first-child::before{background:#7C3AED}
+.rtbl tr:nth-child(4) td:first-child{color:#0F9D58}
+.rtbl tr:nth-child(4) td:first-child::before{background:#0F9D58}
 
 /* ---- cta ---- */
 .cta{padding:50px 0 90px;text-align:center}
@@ -399,6 +408,7 @@ footer{padding:28px 0;border-top:1px solid var(--line);text-align:center;font-si
         <div class="fcard rv">
           <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
           <h3>Fleet Master</h3>
+          <p class="fdesc">Every vehicle's full record in one place, so a compliance lapse gets caught before it becomes a fine or a stopped truck.</p>
           <ul>
             <li>Full vehicle record — type, capacity, odometer, service schedule</li>
             <li>Versioned compliance documents (FC, insurance, permit, PUC)</li>
@@ -409,6 +419,7 @@ footer{padding:28px 0;border-top:1px solid var(--line);text-align:center;font-si
         <div class="fcard rv">
           <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></div>
           <h3>Driver Master</h3>
+          <p class="fdesc">Who drove which vehicle, and when, is never lost — every assignment is kept on record, not overwritten.</p>
           <ul>
             <li>Licence, Aadhaar and photo, versioned the same way as vehicles</li>
             <li>Full vehicle assignment history — never a hard delete</li>
@@ -419,6 +430,7 @@ footer{padding:28px 0;border-top:1px solid var(--line);text-align:center;font-si
         <div class="fcard rv">
           <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg></div>
           <h3>Freight / Trips</h3>
+          <p class="fdesc">The core operational record — one trip, one status lifecycle, nothing skips a stage or goes unaccounted for.</p>
           <ul>
             <li>Draft → Booked → In Transit → Delivered → Completed</li>
             <li>7-category trip expense ledger, driver settlement tracking</li>
@@ -429,6 +441,7 @@ footer{padding:28px 0;border-top:1px solid var(--line);text-align:center;font-si
         <div class="fcard rv">
           <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M4 9h16M9 4v16"/></svg></div>
           <h3>Reports &amp; Exports</h3>
+          <p class="fdesc">A report on the right desk before anyone has to ask for it — set it once, it keeps arriving on its own.</p>
           <ul>
             <li>Dedicated report screens for Vehicle, Driver, Party, Freight</li>
             <li>Excel &amp; CSV export on every report</li>
@@ -439,6 +452,7 @@ footer{padding:28px 0;border-top:1px solid var(--line);text-align:center;font-si
         <div class="fcard rv">
           <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v6l4 2"/><circle cx="12" cy="12" r="9"/></svg></div>
           <h3>Reminders &amp; Alerts</h3>
+          <p class="fdesc">A document doesn't expire quietly — the system watches every deadline and says so, well before it's urgent.</p>
           <ul>
             <li>Configurable thresholds — 30/15/7/1/0 days before expiry</li>
             <li>In-app notification centre with unread state</li>
@@ -449,6 +463,7 @@ footer{padding:28px 0;border-top:1px solid var(--line);text-align:center;font-si
         <div class="fcard rv">
           <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V3M3 3h18M8 17V9M13 17v-5M18 17v-9"/></svg></div>
           <h3>Multi-Branch &amp; Roles</h3>
+          <p class="fdesc">One organisation, many branches, and everyone sees exactly the slice of it their role is meant to see.</p>
           <ul>
             <li>Every record scoped to a branch, org-wide reporting on top</li>
             <li>Three-tier roles — Owner, Branch Manager, Staff</li>
