@@ -108,17 +108,17 @@ h1{font-size:clamp(2.3rem,6vw,4.2rem);line-height:1.06;letter-spacing:-.05em;fon
 .acts{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 
 /* ---- hero animated route: a lorry driving Chennai -> Salem, on loop ---- */
-.hroute{position:relative;max-width:900px;height:150px;margin:44px auto 0}
+.hroute{position:relative;max-width:980px;height:220px;margin:52px auto 0}
 .hroute svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-.hr-road{fill:none;stroke:var(--line2);stroke-width:3;stroke-linecap:round}
-.hr-dash{fill:none;stroke:var(--blue-400);stroke-width:3;stroke-linecap:round;
-  stroke-dasharray:2 14;animation:hrFlow 1.1s linear infinite}
-@keyframes hrFlow{to{stroke-dashoffset:-16}}
-.hr-truck-g{filter:drop-shadow(0 4px 7px rgba(21,96,224,.4))}
-.hr-pin{position:absolute;bottom:2px;font-size:.72rem;font-weight:640;color:var(--dim)}
+.hr-road{fill:none;stroke:var(--line2);stroke-width:11;stroke-linecap:round}
+.hr-dash{fill:none;stroke:var(--blue-400);stroke-width:11;stroke-linecap:round;
+  stroke-dasharray:5 24;animation:hrFlow 1s linear infinite}
+@keyframes hrFlow{to{stroke-dashoffset:-29}}
+.hr-truck-g{filter:drop-shadow(0 8px 14px rgba(21,96,224,.5));transform:scale(2.1);transform-box:fill-box;transform-origin:center}
+.hr-pin{position:absolute;bottom:2px;font-size:.92rem;font-weight:700;color:var(--ink)}
 .hr-pin-a{left:0}
 .hr-pin-b{right:0}
-@media(max-width:760px){ .hroute{height:110px} }
+@media(max-width:760px){ .hroute{height:160px} .hr-truck-g{transform:scale(1.6)} }
 @media(prefers-reduced-motion:reduce){ .hr-dash{animation:none} .hr-truck-g animateMotion{display:none} }
 
 /* ---- flow timeline ---- */
