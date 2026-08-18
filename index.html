@@ -1559,6 +1559,12 @@ html{overflow-x:clip}
 .hero::before{width:min(1240px,100vw)}
 @media(max-width:760px){ .hero::before{width:min(700px,100vw)} }
 
+/* keyboard-only: off-screen until tabbed onto, so it doesn't sit as
+   stray visible text for everyone else */
+.skip{position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:200}
+.skip:focus{left:16px;top:16px;width:auto;height:auto;padding:12px 18px;border-radius:10px;
+  background:var(--blue);color:#fff;font-weight:640;text-decoration:none;box-shadow:var(--sh-lg)}
+
 </style>
 </head>
 <body>
