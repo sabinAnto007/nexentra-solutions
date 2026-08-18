@@ -1553,9 +1553,12 @@ body,header::before,.card,.ecard,.stat,.ctc-form,.chan,.quote,.band,.strip,secti
 /* ---- decoration must never create a scrollbar ----
    .hero::before is a centred radial panel with a fixed pixel width, so on a
    narrow viewport its right edge pushed past the document and the page
-   scrolled sideways. Cap it to the viewport, and clip the root as a guard.
-   overflow-x:clip rather than hidden, so position:sticky still works. */
-html{overflow-x:clip}
+   scrolled sideways. Cap it to the viewport - that alone is the real fix.
+   (html{overflow-x:clip} used to sit here as a second guard, but setting
+   overflow on only one axis of <html> forces the other axis to 'auto',
+   which turns <html> into a scroll container and breaks position:sticky
+   for everything inside it - the header would scroll away instead of
+   staying pinned. Removed; the width clamp below is sufficient on its own.) */
 .hero::before{width:min(1240px,100vw)}
 @media(max-width:760px){ .hero::before{width:min(700px,100vw)} }
 
