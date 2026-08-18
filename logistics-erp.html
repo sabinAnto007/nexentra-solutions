@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Logistics ERP — Nexentra Solutions</title>
+<meta name="description" content="A full breakdown of Logistics ERP: the trip lifecycle, fleet &amp; driver compliance, reports and everything that ships today." />
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<script>
+(function(){
+  try{
+    var saved=localStorage.getItem('nx-theme');
+    var sysDark=matchMedia('(prefers-color-scheme: dark)').matches;
+    document.documentElement.setAttribute('data-theme', saved || (sysDark?'dark':'light'));
+  }catch(e){}
+})();
+</script>
+<style>
+:root{
+  --bg:#FFFFFF; --bg-2:#F6F8FC; --bg-3:#EEF3FB;
+  --ink:#0A1435; --fg:#0A1435; --dim:#5A6478; --faint:#8792A6;
+  --line:#E5EAF2; --line2:#D3DCEA;
+  --blue:#1560E0; --blue-700:#0B44A8; --blue-400:#4A9BFF; --blue-100:#E7F0FF;
+  --grad:linear-gradient(135deg,#1560E0,#4A9BFF);
+  --grad-txt:linear-gradient(100deg,#0A1435,#1560E0 45%,#4A9BFF);
+  --sh-sm:0 1px 2px rgba(10,20,53,.05),0 2px 8px rgba(10,20,53,.04);
+  --sh-md:0 4px 12px rgba(10,20,53,.06),0 12px 32px rgba(10,20,53,.07);
+  --sh-lg:0 12px 28px rgba(10,20,53,.08),0 30px 70px rgba(10,20,53,.10);
+  --sh-blue:0 10px 30px -10px rgba(21,96,224,.45);
+  --r:16px; --rl:24px; --max:1180px;
+  --e:cubic-bezier(.22,1,.36,1); --snap:cubic-bezier(.34,1.56,.64,1);
+  --font:ui-sans-serif,system-ui,-apple-system,'Segoe UI',Inter,Roboto,sans-serif;
+  --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#070B16; --bg-2:#0C1224; --bg-3:#141D36;
+  --ink:#EDF2FB; --fg:#EDF2FB; --dim:#9AAAC7; --faint:#6A7A99;
+  --line:rgba(150,180,255,.13); --line2:rgba(150,180,255,.24);
+  --grad-txt:linear-gradient(100deg,#FFFFFF,#7FB0FF 45%,#4A9BFF);
+  --sh-sm:0 1px 2px rgba(0,0,0,.5),0 2px 8px rgba(0,0,0,.35);
+  --sh-md:0 4px 12px rgba(0,0,0,.45),0 12px 32px rgba(0,0,0,.4);
+  --sh-lg:0 12px 28px rgba(0,0,0,.5),0 30px 70px rgba(0,0,0,.55);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{background:var(--bg);color:var(--fg);font-family:var(--font);line-height:1.6;letter-spacing:-.011em;
+  -webkit-font-smoothing:antialiased;transition:background-color .4s var(--e),color .4s var(--e)}
+a{color:inherit;text-decoration:none}
+.wrap{width:100%;max-width:var(--max);margin-inline:auto;padding-inline:24px}
+::selection{background:#CFE0FF;color:#07102A}
+
+.atmos{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.orb{position:absolute;border-radius:50%;filter:blur(90px)}
+.orb.a{width:640px;height:640px;background:radial-gradient(circle,#BBD3FF,transparent 68%);top:-260px;left:-160px;opacity:.7}
+.orb.b{width:520px;height:520px;background:radial-gradient(circle,#D9E8FF,transparent 68%);top:20%;right:-200px;opacity:.5}
+:root[data-theme="dark"] .orb.a{background:radial-gradient(circle,#1E3FA8,transparent 66%);opacity:.5}
+:root[data-theme="dark"] .orb.b{background:radial-gradient(circle,#123A66,transparent 68%);opacity:.4}
+main,header,footer{position:relative;z-index:1}
+
+/* ---- nav ---- */
+header{position:sticky;top:0;z-index:60}
+header::before{content:"";position:absolute;inset:0;backdrop-filter:blur(18px) saturate(180%);
+  background:rgba(255,255,255,.85);border-bottom:1px solid var(--line)}
+:root[data-theme="dark"] header::before{background:rgba(7,11,22,.82)}
+nav{position:relative;display:flex;align-items:center;justify-content:space-between;height:74px}
+.logo{display:flex;align-items:center;gap:11px;color:var(--ink)}
+.logo-txt{display:flex;flex-direction:column;line-height:1}
+.logo-txt b{font-size:1.02rem;font-weight:700;letter-spacing:-.045em;color:var(--ink)}
+.logo-txt s{font-size:.53rem;font-weight:660;letter-spacing:.34em;text-transform:uppercase;color:var(--blue);margin-top:4px}
+.back{display:inline-flex;align-items:center;gap:7px;font-size:.85rem;font-weight:560;color:var(--dim)}
+.back:hover{color:var(--blue)}
+.back svg{width:15px;height:15px}
+.right{display:flex;align-items:center;gap:10px}
+.tmode{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;cursor:pointer;
+  border:1px solid var(--line2);background:var(--bg);color:var(--ink);box-shadow:var(--sh-sm);transition:.35s var(--e)}
+.tmode:hover{border-color:var(--blue);color:var(--blue)}
+.tmode svg{width:18px;height:18px;position:absolute;transition:.45s var(--e)}
+.t-moon{opacity:0;transform:rotate(-60deg) scale(.5)}
+:root[data-theme="dark"] .t-sun{opacity:0;transform:rotate(60deg) scale(.5)}
+:root[data-theme="dark"] .t-moon{opacity:1;transform:none}
+
+/* ---- buttons ---- */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:999px;font-size:.885rem;
+  font-weight:590;border:1px solid var(--line2);cursor:pointer;color:var(--ink);background:var(--bg);
+  transition:box-shadow .3s var(--e),border-color .3s,transform .18s ease-out,color .3s}
+.btn:hover{transform:translateY(-2px)}
+.btn.p{background:var(--grad);border-color:transparent;color:#fff;box-shadow:var(--sh-blue)}
+.btn.p:hover{box-shadow:0 18px 42px -12px rgba(21,96,224,.6)}
+.btn.g:hover{border-color:var(--blue);color:var(--blue)}
+
+/* ---- reveal on scroll ---- */
+.rv{opacity:0;transform:translateY(30px);filter:blur(4px);transition:opacity .8s var(--e),transform .8s var(--e),filter .8s var(--e)}
+.rv.in{opacity:1;transform:none;filter:blur(0)}
+
+/* ---- hero ---- */
+.hero{padding:70px 0 40px;text-align:center}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:999px;background:var(--bg);
+  border:1px solid var(--line2);font-size:.76rem;font-weight:640;letter-spacing:.06em;color:var(--blue);
+  box-shadow:var(--sh-sm);margin-bottom:22px}
+h1{font-size:clamp(2.3rem,6vw,4.2rem);line-height:1.06;letter-spacing:-.05em;font-weight:700;max-width:20ch;margin:0 auto 20px}
+.gr{background:var(--grad-txt);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lede{font-size:clamp(1rem,1.7vw,1.12rem);color:var(--dim);max-width:62ch;margin:0 auto 30px;line-height:1.68}
+.acts{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+/* ---- flow timeline ---- */
+.flow{padding:50px 0}
+.flow h2,.feat h2,.roles h2,.shots h2{font-size:clamp(1.6rem,3.4vw,2.3rem);letter-spacing:-.03em;text-align:center;margin-bottom:12px}
+.flow p.sub,.feat p.sub,.shots p.sub{text-align:center;color:var(--dim);max-width:56ch;margin:0 auto 44px}
+.fsteps{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.fstep{background:var(--bg);border:1px solid var(--line2);border-radius:var(--r);padding:20px 16px;box-shadow:var(--sh-sm);
+  position:relative}
+.fstep b.n{display:inline-flex;width:26px;height:26px;border-radius:50%;background:var(--grad);color:#fff;
+  align-items:center;justify-content:center;font-size:.72rem;margin-bottom:12px}
+.fstep h4{font-size:.92rem;margin-bottom:6px}
+.fstep p{font-size:.78rem;color:var(--dim);line-height:1.55}
+.fstep:not(:last-child)::after{content:"";position:absolute;top:32px;right:-7px;width:14px;height:14px;border-top:2px solid var(--line2);
+  border-right:2px solid var(--line2);transform:rotate(45deg)}
+@media(max-width:900px){ .fsteps{grid-template-columns:1fr 1fr} .fstep:not(:last-child)::after{display:none} }
+@media(max-width:560px){ .fsteps{grid-template-columns:1fr} }
+
+/* ---- screenshots (illustrated app-window mockups) ---- */
+.shots{padding:30px 0 60px}
+.shotgrid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+@media(max-width:860px){ .shotgrid{grid-template-columns:1fr} }
+.shotcard{background:var(--bg);border-radius:var(--rl);overflow:hidden;border:1px solid var(--line2);box-shadow:var(--sh-md)}
+.sbar{display:flex;align-items:center;gap:8px;padding:11px 14px;border-bottom:1px solid var(--line);background:var(--bg-2)}
+.sdot{width:9px;height:9px;border-radius:50%}
+.sdot:nth-child(1){background:#FF5F57}.sdot:nth-child(2){background:#FEBC2E}.sdot:nth-child(3){background:#28C840}
+.somni{flex:1;margin-left:8px;height:22px;border-radius:6px;background:var(--bg);border:1px solid var(--line);
+  font-size:.65rem;color:var(--faint);display:flex;align-items:center;padding:0 9px;font-family:var(--mono)}
+.sbody{padding:18px;min-height:220px}
+.scap{padding:14px 18px;border-top:1px solid var(--line);font-size:.82rem;color:var(--dim)}
+.scap b{color:var(--ink)}
+
+/* dashboard illustration */
+.kpirow{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.kpi{background:var(--bg-2);border:1px solid var(--line);border-radius:11px;padding:12px}
+.kpi s{display:block;font-size:.66rem;color:var(--faint);text-decoration:none;margin-bottom:5px}
+.kpi b{font-size:1.15rem;color:var(--ink)}
+.barchart{display:flex;align-items:flex-end;gap:6px;height:70px;padding:0 4px}
+.barchart i{flex:1;background:linear-gradient(180deg,var(--blue-400),var(--blue));border-radius:4px 4px 0 0}
+
+/* list illustration */
+.tbl{width:100%;border-collapse:collapse;font-size:.78rem}
+.tbl th{text-align:left;color:var(--faint);font-weight:600;font-size:.66rem;letter-spacing:.05em;text-transform:uppercase;
+  padding:0 8px 8px}
+.tbl td{padding:9px 8px;border-top:1px solid var(--line);color:var(--dim)}
+.tbl td:first-child{color:var(--ink);font-weight:560}
+.pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:.68rem;font-weight:600}
+.pill.ok{background:#DCFCE7;color:#166534}
+.pill.warn{background:#FEF3C7;color:#92400E}
+.pill.bad{background:#FEE2E2;color:#991B1B}
+:root[data-theme="dark"] .pill.ok{background:#0F3A24;color:#4ADE80}
+:root[data-theme="dark"] .pill.warn{background:#3A2F0F;color:#FBBF24}
+:root[data-theme="dark"] .pill.bad{background:#3A1414;color:#F87171}
+
+/* freight card illustration */
+.route{display:flex;align-items:center;gap:8px;font-size:.8rem;font-weight:600;margin-bottom:14px}
+.route .ln{flex:1;height:2px;background:var(--line2);position:relative}
+.route .ln i{position:absolute;left:38%;top:-4px;width:9px;height:9px;border-radius:50%;background:var(--blue)}
+.mini{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.mini div{background:var(--bg-2);border:1px solid var(--line);border-radius:9px;padding:9px;text-align:center}
+.mini s{display:block;font-size:.6rem;color:var(--faint);text-decoration:none}
+.mini b{font-size:.9rem}
+.exp{display:flex;justify-content:space-between;font-size:.76rem;color:var(--dim);padding:7px 0;border-top:1px solid var(--line)}
+
+/* reminders illustration */
+.rlist div{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-top:1px solid var(--line);font-size:.78rem}
+.rlist div:first-child{border-top:none}
+
+/* ---- features ---- */
+.feat{padding:20px 0 60px}
+.fgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:960px){ .fgrid{grid-template-columns:1fr 1fr} }
+@media(max-width:640px){ .fgrid{grid-template-columns:1fr} }
+.fcard{background:var(--bg);border:1px solid var(--line2);border-radius:var(--r);padding:22px;box-shadow:var(--sh-sm);
+  transition:transform .3s var(--e),box-shadow .3s var(--e)}
+.fcard:hover{transform:translateY(-4px);box-shadow:var(--sh-md)}
+.fcard .ic{width:38px;height:38px;border-radius:11px;background:var(--blue-100);color:var(--blue);display:grid;
+  place-items:center;margin-bottom:14px}
+.fcard .ic svg{width:19px;height:19px}
+.fcard h3{font-size:1rem;margin-bottom:8px}
+.fcard ul{list-style:none;display:flex;flex-direction:column;gap:6px}
+.fcard li{font-size:.8rem;color:var(--dim);padding-left:16px;position:relative;line-height:1.5}
+.fcard li::before{content:"";position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:50%;background:var(--blue-400)}
+
+/* ---- roles ---- */
+.roles{padding:20px 0 60px}
+.rtbl{width:100%;border-collapse:collapse;background:var(--bg);border:1px solid var(--line2);border-radius:var(--r);
+  overflow:hidden;box-shadow:var(--sh-sm)}
+.rtbl th{background:var(--bg-2);text-align:left;padding:12px 16px;font-size:.72rem;letter-spacing:.05em;
+  text-transform:uppercase;color:var(--faint)}
+.rtbl td{padding:14px 16px;border-top:1px solid var(--line);font-size:.85rem;color:var(--dim)}
+.rtbl td:first-child{color:var(--ink);font-weight:640}
+
+/* ---- cta ---- */
+.cta{padding:50px 0 90px;text-align:center}
+.cta h2{font-size:clamp(1.5rem,3vw,2rem);margin-bottom:10px}
+.cta p{color:var(--dim);margin-bottom:24px}
+
+footer{padding:28px 0;border-top:1px solid var(--line);text-align:center;font-size:.8rem;color:var(--faint)}
+
+@media(prefers-reduced-motion:reduce){ .rv{opacity:1;transform:none;filter:none;transition:none} }
+</style>
+</head>
+<body>
+
+<div class="atmos" aria-hidden="true"><div class="orb a"></div><div class="orb b"></div></div>
+
+<header>
+  <nav class="wrap">
+    <a class="logo" href="index.html">
+      <svg width="34" height="26" viewBox="0 0 88 64" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="nxAccent" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#4A9BFF"/><stop offset="1" stop-color="#1560E0"/>
+        </linearGradient></defs>
+        <path d="M2 60V4h12l20 31.5V4h12v56H34L14 28.5V60z" fill="currentColor"/>
+        <rect x="52" y="4" width="34" height="11" rx="2" fill="currentColor"/>
+        <rect x="52" y="26.5" width="18" height="11" rx="2" fill="currentColor"/>
+        <rect x="75" y="26.5" width="11" height="11" rx="2" fill="url(#nxAccent)"/>
+        <rect x="52" y="49" width="34" height="11" rx="2" fill="currentColor"/>
+      </svg>
+      <span class="logo-txt"><b>Nexentra</b><s>Solutions</s></span>
+    </a>
+    <a class="back" href="index.html#product">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Back to all products
+    </a>
+    <div class="right">
+      <button class="tmode" id="tmode" aria-label="Switch theme">
+        <svg class="t-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+        <svg class="t-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <section class="hero" id="overview">
+    <div class="wrap">
+      <div class="eyebrow rv">Product deep dive</div>
+      <h1 class="rv">Built for how transport <span class="gr">actually runs.</span></h1>
+      <p class="lede rv">Every trip from booking to settlement, every vehicle and driver document tracked to its expiry, and a report on your desk before you ask for it. Here's exactly what's inside.</p>
+      <div class="acts rv">
+        <a class="btn p" href="index.html#contact">Talk to us about this</a>
+        <a class="btn g" href="index.html#product">See the other two products</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="flow" id="workflow">
+    <div class="wrap">
+      <h2 class="rv">One record, from booking to settlement</h2>
+      <p class="sub rv">A freight/trip carries its status through a strict lifecycle — nothing skips a stage, and every stage is visible to whoever needs it.</p>
+      <div class="fsteps">
+        <div class="fstep rv"><b class="n">1</b><h4>Booked</h4><p>Party, route, cargo and financials entered. Freight cost, GST and party advance captured up front.</p></div>
+        <div class="fstep rv"><b class="n">2</b><h4>Dispatch</h4><p>Driver and vehicle assigned — auto-resolved from the driver's current vehicle, with an audit flag if a dispatcher overrides it.</p></div>
+        <div class="fstep rv"><b class="n">3</b><h4>In Transit</h4><p>Trip expenses logged against 7 categories — diesel, FastTag, driver advance, tolls, loading, maintenance, misc.</p></div>
+        <div class="fstep rv"><b class="n">4</b><h4>Delivered</h4><p>Trip marked delivered against the expected delivery date, closing the operational side of the record.</p></div>
+        <div class="fstep rv"><b class="n">5</b><h4>Completed</h4><p>Driver settlement status tracked through to Paid — Pending, Partially Paid, Paid. The record is now financially closed.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="shots" id="screenshots">
+    <div class="wrap">
+      <h2 class="rv">What the screens actually look like</h2>
+      <p class="sub rv">Illustrated to match the real layout and data model — branch-scoped, role-based, and built around the KPIs an owner actually checks first.</p>
+      <div class="shotgrid">
+
+        <div class="shotcard rv">
+          <div class="sbar"><span class="sdot"></span><span class="sdot"></span><span class="sdot"></span>
+            <div class="somni">app.nexentrasolutions.com/erp/dashboard</div></div>
+          <div class="sbody">
+            <div class="kpirow">
+              <div class="kpi"><s>Trips this month</s><b>34</b></div>
+              <div class="kpi"><s>Active vehicles</s><b>12</b></div>
+              <div class="kpi"><s>Compliance alerts</s><b>5</b></div>
+            </div>
+            <div class="barchart">
+              <i style="height:35%"></i><i style="height:55%"></i><i style="height:40%"></i><i style="height:70%"></i>
+              <i style="height:50%"></i><i style="height:85%"></i><i style="height:60%"></i><i style="height:95%"></i>
+            </div>
+          </div>
+          <div class="scap"><b>Dashboard.</b> Fleet, driver, freight and financial widgets, branch switcher, compliance alerts, all in one command centre.</div>
+        </div>
+
+        <div class="shotcard rv">
+          <div class="sbar"><span class="sdot"></span><span class="sdot"></span><span class="sdot"></span>
+            <div class="somni">app.nexentrasolutions.com/erp/fleet/vehicles</div></div>
+          <div class="sbody">
+            <table class="tbl">
+              <tr><th>Vehicle</th><th>Type</th><th>Status</th><th>Docs</th></tr>
+              <tr><td>TN01AB4521</td><td>Truck</td><td><span class="pill ok">Available</span></td><td><span class="pill ok">Valid</span></td></tr>
+              <tr><td>TN01AC7734</td><td>Container</td><td><span class="pill ok">On Trip</span></td><td><span class="pill warn">Expiring</span></td></tr>
+              <tr><td>TN69D9012</td><td>LCV</td><td><span class="pill warn">Service Due</span></td><td><span class="pill bad">Expired</span></td></tr>
+            </table>
+          </div>
+          <div class="scap"><b>Vehicle master.</b> Compliance-gated: a vehicle can't go Active without every mandatory document valid.</div>
+        </div>
+
+        <div class="shotcard rv">
+          <div class="sbar"><span class="sdot"></span><span class="sdot"></span><span class="sdot"></span>
+            <div class="somni">app.nexentrasolutions.com/erp/fleet/freights/4417</div></div>
+          <div class="sbody">
+            <div class="route"><span>Chennai</span><span class="ln"><i></i></span><span>Salem</span></div>
+            <div class="mini">
+              <div><s>Weight</s><b>12t</b></div>
+              <div><s>Distance</s><b>148km</b></div>
+              <div><s>Status</s><b>In Transit</b></div>
+            </div>
+            <div class="exp"><span>Diesel</span><span>₹4,200</span></div>
+            <div class="exp"><span>FastTag</span><span>₹680</span></div>
+            <div class="exp"><span>Driver Advance</span><span>₹2,000</span></div>
+          </div>
+          <div class="scap"><b>Freight detail.</b> Route, cargo, financials and the full trip-expense ledger on one record.</div>
+        </div>
+
+        <div class="shotcard rv">
+          <div class="sbar"><span class="sdot"></span><span class="sdot"></span><span class="sdot"></span>
+            <div class="somni">app.nexentrasolutions.com/erp/reports/upcoming-reminders</div></div>
+          <div class="sbody">
+            <div class="rlist">
+              <div><span>VEH-00001 · Permit</span><span class="pill warn">5 days</span></div>
+              <div><span>VEH-00002 · Insurance</span><span class="pill bad">Expired</span></div>
+              <div><span>Murugan S · Licence</span><span class="pill bad">Expired</span></div>
+              <div><span>VEH-00003 · Fitness Cert.</span><span class="pill ok">24 days</span></div>
+            </div>
+          </div>
+          <div class="scap"><b>Compliance reminders.</b> A daily sweep flags document and service expiries before they become a fine.</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="feat" id="features">
+    <div class="wrap">
+      <h2 class="rv">Everything that ships today</h2>
+      <p class="sub rv">Grouped the way the product is actually organised — no roadmap items, no "coming soon."</p>
+      <div class="fgrid">
+
+        <div class="fcard rv">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+          <h3>Fleet Master</h3>
+          <ul>
+            <li>Full vehicle record — type, capacity, odometer, service schedule</li>
+            <li>Versioned compliance documents (FC, insurance, permit, PUC)</li>
+            <li>Status &amp; availability tracked separately (Active vs. On Trip)</li>
+          </ul>
+        </div>
+
+        <div class="fcard rv">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></div>
+          <h3>Driver Master</h3>
+          <ul>
+            <li>Licence, Aadhaar and photo, versioned the same way as vehicles</li>
+            <li>Full vehicle assignment history — never a hard delete</li>
+            <li>Employment type, salary, emergency contact on record</li>
+          </ul>
+        </div>
+
+        <div class="fcard rv">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg></div>
+          <h3>Freight / Trips</h3>
+          <ul>
+            <li>Draft → Booked → In Transit → Delivered → Completed</li>
+            <li>7-category trip expense ledger, driver settlement tracking</li>
+            <li>Auto-resolved driver/vehicle pairing, with an override audit flag</li>
+          </ul>
+        </div>
+
+        <div class="fcard rv">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M4 9h16M9 4v16"/></svg></div>
+          <h3>Reports &amp; Exports</h3>
+          <ul>
+            <li>Dedicated report screens for Vehicle, Driver, Party, Freight</li>
+            <li>Excel &amp; CSV export on every report</li>
+            <li>Scheduled recurring email delivery — daily, weekly, monthly</li>
+          </ul>
+        </div>
+
+        <div class="fcard rv">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v6l4 2"/><circle cx="12" cy="12" r="9"/></svg></div>
+          <h3>Reminders &amp; Alerts</h3>
+          <ul>
+            <li>Configurable thresholds — 30/15/7/1/0 days before expiry</li>
+            <li>In-app notification centre with unread state</li>
+            <li>Daily background sweep, de-duplicated alerts</li>
+          </ul>
+        </div>
+
+        <div class="fcard rv">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V3M3 3h18M8 17V9M13 17v-5M18 17v-9"/></svg></div>
+          <h3>Multi-Branch &amp; Roles</h3>
+          <ul>
+            <li>Every record scoped to a branch, org-wide reporting on top</li>
+            <li>Three-tier roles — Owner, Branch Manager, Staff</li>
+            <li>Configurable auto-numbering per entity, org-wide</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="roles" id="roles">
+    <div class="wrap">
+      <h2 class="rv">Who sees what</h2>
+      <p class="sub rv">Enforced on both the screen and the server — not just a hidden button.</p>
+      <table class="rtbl rv">
+        <tr><th>Role</th><th>Scope</th><th>Can do</th></tr>
+        <tr><td>Owner</td><td>Whole organization</td><td>Everything, including No. Series, email settings, scheduled reports</td></tr>
+        <tr><td>Branch Manager</td><td>Their own branch</td><td>Manage staff, branch/user admin, all report screens</td></tr>
+        <tr><td>Staff (Dispatcher)</td><td>Day-to-day operations</td><td>Vehicles, drivers, parties, freight — no admin or reports access</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <h2 class="rv">Want this running for your business?</h2>
+      <p class="rv">We'll set it up for your branches, your fleet, your team.</p>
+      <a class="btn p rv" href="index.html#contact">Talk to us</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">© <span id="yr"></span> Nexentra Solutions · <a href="index.html">Back to home</a></div>
+</footer>
+
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+const tmode = document.getElementById('tmode');
+tmode.addEventListener('click', () => {
+  const cur = document.documentElement.getAttribute('data-theme');
+  const next = cur === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  try { localStorage.setItem('nx-theme', next); } catch (e) {}
+});
+
+const io = new IntersectionObserver((entries, obs) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const els = e.target.matches('.rv') ? [e.target] : [...e.target.querySelectorAll('.rv')];
+      els.forEach((el, i) => setTimeout(() => el.classList.add('in'), i * 70));
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+document.querySelectorAll('section').forEach(s => io.observe(s));
+</script>
+
+</body>
+</html>

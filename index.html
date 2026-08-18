@@ -1565,6 +1565,22 @@ html{overflow-x:clip}
 .skip:focus{left:16px;top:16px;width:auto;height:auto;padding:12px 18px;border-radius:10px;
   background:var(--blue);color:#fff;font-weight:640;text-decoration:none;box-shadow:var(--sh-lg)}
 
+/* ---- "explore full details" dropdown under the product copy ---- */
+.pdrop{position:relative;margin-top:18px;display:inline-block}
+.pmore{display:inline-flex;align-items:center;gap:9px}
+.pmore .cv{width:13px;height:13px;transition:transform .3s var(--e)}
+.pdrop.open .pmore .cv{transform:rotate(180deg)}
+.pd-menu{position:absolute;top:calc(100% + 10px);left:0;width:300px;padding:8px;border-radius:15px;z-index:70;
+  background:var(--bg);border:1px solid var(--line2);box-shadow:var(--sh-lg);
+  opacity:0;visibility:hidden;transform:translateY(-8px) scale(.97);transform-origin:top left;
+  transition:opacity .25s var(--e),transform .25s var(--e),visibility .25s}
+.pdrop.open .pd-menu{opacity:1;visibility:visible;transform:none}
+.pd-menu a{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border-radius:11px;
+  transition:background .2s,transform .2s}
+.pd-menu a:hover{background:var(--bg-3);transform:translateX(2px)}
+.pd-menu a b{font-size:.87rem;font-weight:640;color:var(--ink)}
+.pd-menu a s{text-decoration:none;font-size:.72rem;color:var(--faint);margin-top:1px}
+
 </style>
 </head>
 <body>
@@ -1830,6 +1846,19 @@ html{overflow-x:clip}
         <h3 id="pcTitle">Logistics ERP</h3>
         <p id="pcDesc">A complete operating system for transport businesses — bookings, dispatch, POD, GST invoicing and fleet compliance across every branch. Multi-tenant, role-based, and built so a dispatcher, an accountant and an owner each open the screen made for their job.</p>
         <div class="ptags" id="pcTags"></div>
+        <div class="pdrop" id="pdrop">
+          <button class="btn g sm pmore" id="pdropBtn" type="button" aria-haspopup="true" aria-expanded="false">
+            <span>Explore full details</span>
+            <svg class="cv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="pd-menu" id="pdMenu" role="menu">
+            <a role="menuitem" href="logistics-erp.html#overview"><b>Overview</b><s>What it is, in one line</s></a>
+            <a role="menuitem" href="logistics-erp.html#workflow"><b>How it works</b><s>Booking to settlement, step by step</s></a>
+            <a role="menuitem" href="logistics-erp.html#screenshots"><b>Screenshots</b><s>The actual screens, illustrated</s></a>
+            <a role="menuitem" href="logistics-erp.html#features"><b>Full feature list</b><s>Everything that ships today</s></a>
+            <a role="menuitem" href="logistics-erp.html#roles"><b>Roles &amp; permissions</b><s>Who can see and do what</s></a>
+          </div>
+        </div>
       </div>
 
       <div class="pstage rv" id="pstage">
@@ -2483,23 +2512,28 @@ const spy=new IntersectionObserver(es=>{
 const PRODUCTS=[
   { acc:'#1B6BF0', acc2:'#4A9BFF',
     title:'Logistics ERP',
-    desc:'A complete operating system for transport businesses — bookings, dispatch, POD, GST invoicing and fleet compliance across every branch. Multi-tenant and role-based, so a dispatcher, an accountant and an owner each open the screen built for their job.',
-    tags:['Multi-branch','GST &amp; E-Way Bill','Role Centers','Driver mobile app','English &amp; தமிழ்'] },
+    desc:'A complete operating system for transport businesses — trip booking, dispatch, fleet &amp; driver compliance and financial tracking across every branch. Multi-tenant and role-based, so a dispatcher, a branch manager and an owner each open the screen built for their job.',
+    tags:['Multi-branch','Fleet &amp; driver compliance','Scheduled reports','Reminder engine','English &amp; தமிழ்'],
+    detailPage:'logistics-erp.html' },
   { acc:'#A855F7', acc2:'#D8B4FE',
     title:'Kirukals',
     desc:'A screenplay editor that gets out of the way. Type continuously and it handles industry formatting, page geometry and export — installs as a desktop app and keeps working with the network switched off entirely.',
-    tags:['Offline-first PWA','Auto-formatting','Live pagination','PDF export','Installs as an app'] },
+    tags:['Offline-first PWA','Auto-formatting','Live pagination','PDF export','Installs as an app'],
+    detailPage:null },
   { acc:'#F5A524', acc2:'#FFCF70',
     title:'Gold Loan ERP',
     desc:'End-to-end pledge lending — valuation at the live gold rate, packet and vault tracking, interest accrual, renewals, releases and auctions. Every movement of every gram is on an audit trail.',
-    tags:['Live rate valuation','Vault register','Interest accrual','Auction workflow','Full audit trail'] }
+    tags:['Live rate valuation','Vault register','Interest accrual','Auction workflow','Full audit trail'],
+    detailPage:null }
 ];
 
 const prodSec=document.getElementById('product'),
       pcopy=document.getElementById('pcopy'),
       pcTitle=document.getElementById('pcTitle'),
       pcDesc=document.getElementById('pcDesc'),
-      pcTags=document.getElementById('pcTags');
+      pcTags=document.getElementById('pcTags'),
+      pdrop=document.getElementById('pdrop'),
+      pdMenu=document.getElementById('pdMenu');
 
 function showProduct(i){
   const p=PRODUCTS[i];
@@ -2509,6 +2543,13 @@ function showProduct(i){
   pcTitle.textContent=p.title;
   pcDesc.textContent=p.desc;
   pcTags.innerHTML=p.tags.map(t=>'<span>'+t+'</span>').join('');
+  if(p.detailPage){
+    pdrop.style.display='';
+    pdMenu.querySelectorAll('a').forEach(a=>{
+      const hash=a.getAttribute('href').split('#')[1];
+      a.href=p.detailPage+'#'+hash;
+    });
+  } else{ pdrop.style.display='none'; }
   document.querySelectorAll('.pv').forEach(v=>v.classList.toggle('on', +v.dataset.p===i));
   document.querySelectorAll('.ptab').forEach(b=>{
     const on = +b.dataset.p===i;
@@ -2524,6 +2565,17 @@ document.querySelectorAll('.ptab').forEach(btn=>{
     setTimeout(()=>{ showProduct(+btn.dataset.p); pcopy.classList.remove('fade'); },200);
   });
 });
+
+/* ---- "Explore full details" dropdown on the product card ---- */
+const pdropBtn=document.getElementById('pdropBtn');
+const closePdrop=()=>{ pdrop.classList.remove('open'); pdropBtn.setAttribute('aria-expanded','false'); };
+pdropBtn.addEventListener('click',e=>{
+  e.stopPropagation();
+  const open=pdrop.classList.toggle('open');
+  pdropBtn.setAttribute('aria-expanded',open);
+});
+document.addEventListener('click',e=>{ if(!pdrop.contains(e.target)) closePdrop(); });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closePdrop(); });
 /* ===== Interaction system: cursor, toasts, swipe, keyboard, copy ===== */
 
 /* ---------- toast ---------- */
